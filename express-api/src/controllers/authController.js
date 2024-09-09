@@ -69,7 +69,7 @@ const authSignIn = async (req, res) => {
             email: session_email
         },
             secret_key,
-            { expiresIn: '10m' });
+            { expiresIn: '1h' });
 
         return res.status(200).json({
             ctx_content: 'Inicio sesión correctamente.',
