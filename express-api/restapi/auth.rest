@@ -1,0 +1,29 @@
+@baseUrl=http://localhost:3099
+@baseApi=/api/v1/auth
+
+### 
+# @name register
+# Registrar un nuevo usuario
+POST {{baseUrl}}{{baseApi}}/register
+Content-Type: application/json
+Accept: application/json
+Origin: {{baseUrl}}
+
+{
+    "name": "User Demo",
+    "email": "user.demo@example.com",
+    "password": "user.demo@example.com"
+}
+
+### 
+# @name sign_in
+# Registrar un nuevo usuario
+POST {{baseUrl}}{{baseApi}}/sign_in
+Content-Type: application/json
+Accept: application/json
+Origin: {{baseUrl}}
+
+{
+    "email": "user.demo@example.com",
+    "password": "user.demo@example.com"
+}

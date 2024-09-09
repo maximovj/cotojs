@@ -9,7 +9,11 @@ const user = conn.model('user', {
         type: String,
         required: true,
         unique: true,
-    }
+    },
+    password: {
+        type: String,
+        required: true,
+    },
 });
 
 export default user;

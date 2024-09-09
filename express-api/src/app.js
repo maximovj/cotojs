@@ -22,7 +22,7 @@ app.use(configCors);
 
 // Definir EndPoints
 app.use('/api/v1', mainRoute);
-app.use('/api/v1', authRoute);
+app.use('/api/v1/auth', authRoute);
 app.use('/api/v1', configJwt, userRoute);
 
 export default app;
