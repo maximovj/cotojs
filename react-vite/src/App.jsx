@@ -4,6 +4,10 @@ import { Error404 } from "./pages/error/Error404";
 import { Register } from "./pages/register/Register";
 import { SignIn } from "./pages/sign_in/SignIn";
 
+// Modulo de notificaciones 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 function App() {
 
   return (
@@ -26,6 +30,7 @@ function App() {
           <Route path="*" element={<Error404 />} ></Route>
         </Routes>
       </div>
+      <ToastContainer />
     </BrowserRouter>
   )
 }
