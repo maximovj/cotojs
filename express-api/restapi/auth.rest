@@ -1,13 +1,13 @@
-@baseUrl=http://localhost:3099
-@baseApi=/api/v1/auth
+@originHeaders=http://localhost:3099
+@baseUrl=/api/v1/auth
 
 ### 
 # @name register
 # Registrar un nuevo usuario
-POST {{baseUrl}}{{baseApi}}/register
+POST {{originHeaders}}{{baseUrl}}/register
 Content-Type: application/json
 Accept: application/json
-Origin: {{baseUrl}}
+Origin: {{originHeaders}}
 
 {
     "name": "User Demo",
@@ -18,10 +18,10 @@ Origin: {{baseUrl}}
 ### 
 # @name sign_in
 # Iniciar sesión al sistema
-POST {{baseUrl}}{{baseApi}}/sign_in
+POST {{originHeaders}}{{baseUrl}}/sign_in
 Content-Type: application/json
 Accept: application/json
-Origin: {{baseUrl}}
+Origin: {{originHeaders}}
 
 {
     "email": "user.demo@example.com",

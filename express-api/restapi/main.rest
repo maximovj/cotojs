@@ -1,14 +1,14 @@
-@baseUrl=http://localhost:3099
-@baseApi=/api/v1/main
+@originHeaders=http://localhost:3099
+@baseUrl=/api/v1/main
 @token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZGY1NThiZmEwMGExZTc1Y2FhYmRhMCIsImVtYWlsIjoidXNlci5kZW1vQGV4YW1wbGUuY29tIiwiaWF0IjoxNzI1OTE2MTA4LCJleHAiOjE3MjU5MTY3MDh9.UGlokVAd1oRZAI4PHZBu5rlIrKHx1TNl1SjwTbRjjUU
 
 ### 
 # @name mainPublico
 # Probar ruta público
-GET {{baseUrl}}{{baseApi}}/publico
+GET {{originHeaders}}{{baseUrl}}/publico
 Content-Type: application/json
 Accept: application/json
-Origin: {{baseUrl}}
+Origin: {{originHeaders}}
 
 {
     "name": "User Demo",
@@ -19,10 +19,10 @@ Origin: {{baseUrl}}
 ### 
 # @name mainPrivado
 # Probar ruta privado
-GET {{baseUrl}}{{baseApi}}/privado
+GET {{originHeaders}}{{baseUrl}}/privado
 Content-Type: application/json
 Accept: application/json
-Origin: {{baseUrl}}
+Origin: {{originHeaders}}
 Authorization: Bearer {{token}}
 
 {
