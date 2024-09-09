@@ -21,8 +21,8 @@ app.use(morgan('dev'));
 app.use(configCors);
 
 // Definir EndPoints
-app.use('/api/v1', mainRoute);
+app.use('/api/v1/main', mainRoute);
 app.use('/api/v1/auth', authRoute);
-app.use('/api/v1', configJwt, userRoute);
+app.use('/api/v1/user', configJwt, userRoute);
 
 export default app;
