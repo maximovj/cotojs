@@ -4,8 +4,78 @@ import morgan from 'morgan';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
+import mongoose from 'mongoose';
 dotenv.config();
 const app = express();
+
+// Configurar la base de datos
+const conn = mongoose.createConnection('mongodb://127.0.0.1:27017/db-cotojs', {});
+
+
+conn.on('connected', () => {
+    console.log('Base de datos conectado exitosamente.');
+});
+
+conn.on('disconnected', () => {
+    console.log('Base de datos desconectado exitosamente.');
+});
+
+conn.on('error', () => {
+    console.log('Error en la conexión de mongodb');
+});
+
+const User = conn.model('users', {
+    name: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+    }
+});
+
+const createUser = async () => {
+    try {
+        const user = new User({
+            name: 'Nick Example',
+            email: 'nick@example.com'
+        });
+
+        const saveUser = await user.save();
+        console.log(saveUser);
+    } catch (error) { }
+}
+
+const deleteUser = async () => {
+    try {
+        const user = await User.findById('66df385024987c84ab1f459b');
+        if (user) {
+            await user.deleteOne({ ...user._doc });
+        }
+    } catch (error) { }
+}
+
+deleteUser();
+
+const updateUser = async () => {
+    try {
+        const user = await User.findById('66df385024987c84ab1f459b');
+        if (user) {
+            await user.updateOne({
+                ...user._doc,
+                name: 'Nick Name (updated v2.0)'
+            });
+        }
+    } catch (err) { }
+};
+
+const findUser = async () => {
+    try {
+        const user = await User.findById('66df37511c66da108dcdceb1');
+        console.log({ ...user._doc });
+    } catch (err) { }
+};
 
 // Establecer variables de entorno
 app.set('port', process.env.PORT || process.env.APP_PORT || 3000);
