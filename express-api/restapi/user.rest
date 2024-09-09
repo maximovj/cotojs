@@ -1,0 +1,49 @@
+@originHeaders=http://localhost:3099
+@baseUrl=/api/v1/user
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZGY2ZDNlMWFkMWVlZThmZDkzNTUxZCIsImVtYWlsIjoidXNlci5kZW1vLjEwMEBleGFtcGxlLmNvbSIsImlhdCI6MTcyNTkxODg0MiwiZXhwIjoxNzI1OTIyNDQyfQ.p0B2boQMRku4IkLFQSrCoUYCofrMKdrN6pMAz2NuZq0
+
+### 
+# @name createUser
+# Ruta para crear un nuevo usuario
+POST {{originHeaders}}{{baseUrl}}/
+Content-Type: application/json
+Accept: application/json
+Origin: {{originHeaders}}
+Authorization: Bearer {{token}}
+
+{
+    "name": "User Demo 100",
+    "email": "user.demo.100@example.com",
+    "password": "user.demo.100@example.com"
+}
+
+###
+# @name deleteUser
+# Ruta para eliminar un usuario mediante token
+DELETE {{originHeaders}}{{baseUrl}}/
+Content-Type: application/json
+Accept: application/json
+Origin: {{originHeaders}}
+Authorization: Bearer {{token}}
+
+### 
+# @name updateUser
+# Ruta para modificar un nuevo usuario mediante token
+PUT {{originHeaders}}{{baseUrl}}/
+Content-Type: application/json
+Accept: application/json
+Origin: {{originHeaders}}
+Authorization: Bearer {{token}}
+
+{
+    "name": "User Demo Cien"
+}
+
+### 
+# @name findUser
+# Ruta para buscar un usuario mediante token
+GET {{originHeaders}}{{baseUrl}}/
+Content-Type: application/json
+Accept: application/json
+Origin: {{originHeaders}}
+Authorization: Bearer {{token}}
