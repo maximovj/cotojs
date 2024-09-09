@@ -17,7 +17,7 @@ Origin: {{baseUrl}}
 
 ### 
 # @name sign_in
-# Registrar un nuevo usuario
+# Iniciar sesión al sistema
 POST {{baseUrl}}{{baseApi}}/sign_in
 Content-Type: application/json
 Accept: application/json
