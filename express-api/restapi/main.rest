@@ -1,0 +1,30 @@
+@baseUrl=http://localhost:3099
+@baseApi=/api/v1/main
+
+### 
+# @name mainPublico
+# Probar ruta público
+GET {{baseUrl}}{{baseApi}}/publico
+Content-Type: application/json
+Accept: application/json
+Origin: {{baseUrl}}
+
+{
+    "name": "User Demo",
+    "email": "user.demo@example.com",
+    "password": "user.demo@example.com"
+}
+
+### 
+# @name mainPrivado
+# Probar ruta privado
+GET {{baseUrl}}{{baseApi}}/privado
+Content-Type: application/json
+Accept: application/json
+Origin: {{baseUrl}}
+
+{
+    "name": "User Demo",
+    "email": "user.demo@example.com",
+    "password": "user.demo@example.com"
+}
