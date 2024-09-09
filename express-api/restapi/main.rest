@@ -1,5 +1,6 @@
 @baseUrl=http://localhost:3099
 @baseApi=/api/v1/main
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZGY1NThiZmEwMGExZTc1Y2FhYmRhMCIsImVtYWlsIjoidXNlci5kZW1vQGV4YW1wbGUuY29tIiwiaWF0IjoxNzI1OTE1NDg4LCJleHAiOjE3MjU5MTYwODh9.L_BA60PqjhUPferBWKszYPS_t34yEwKq_G3NQ5vhXpI
 
 ### 
 # @name mainPublico
@@ -22,6 +23,7 @@ GET {{baseUrl}}{{baseApi}}/privado
 Content-Type: application/json
 Accept: application/json
 Origin: {{baseUrl}}
+Authorization: Bearer {{token}}
 
 {
     "name": "User Demo",

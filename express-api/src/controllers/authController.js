@@ -72,7 +72,7 @@ const authSignIn = async (req, res) => {
             { expiresIn: '10m' });
 
         return res.status(200).json({
-            ctx_content: 'EndPoint funciona correctamente.',
+            ctx_content: 'Inicio sesión correctamente.',
             success: true,
             _src: token,
         });
