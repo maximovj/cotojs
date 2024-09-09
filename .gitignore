@@ -1,0 +1,21 @@
+# Ignorar para NodeJS + Express
+/express-api/node_modules
+/express-api/.env
+/express-api/*-lock.json
+/express-api/*-lock.yaml
+.workspace
+
+# Ignorar para ReactJS
+/react-vite/node_modules
+/react-vite/.env
+/react-vite/*-lock.json
+/react-vite/*-lock.yaml
+.workspace
+
+# Ignorar archivos y carpetas en general
+*lock*
+/**/*-lock.json
+/**/*-lock.yaml
+/**/.env
+.vscode
+.workspace
