@@ -1,4 +1,4 @@
-// src/hooks/useToast.js
+// src/hooks/useToast
 import { useCallback } from 'react';
 import { toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';

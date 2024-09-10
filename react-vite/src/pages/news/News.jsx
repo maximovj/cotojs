@@ -1,23 +1,10 @@
-import { useToast } from '../../hooks/useToast.js';
-import { authServiceLogOut } from '../../services/authService.js';
+import { useAuth } from '../../hooks/useAuth';
 
 export function News() {
-    const showToast = useToast();
+    const { logout } = useAuth();
 
     const handleOnClick = () => {
-        authServiceLogOut()
-            .then((response) => {
-                console.log(response);
-                if (response.data?.success) {
-                    showToast(response.data.ctx_content, 'success');
-                }
-            })
-            .catch(err => {
-                if (err.response?.data.ctx_content) {
-                    const { ctx_content } = err.response.data;
-                    showToast(ctx_content, 'error');
-                }
-            });
+        logout();
     }
 
     return (<div>
