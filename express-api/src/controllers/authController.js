@@ -101,4 +101,13 @@ const authCheckAuth = (req, res) => {
     });
 };
 
-export { authRegister, authSignIn, authCheckAuth }
+const authLogOut = (req, res) => {
+    res.clearCookie('auth_token');
+    res.status(200).json({
+        ctx_content: 'Cerro sesión correctamente.',
+        success: true,
+        _src: null,
+    });
+};
+
+export { authRegister, authSignIn, authCheckAuth, authLogOut }
