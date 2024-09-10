@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth'; // Ajusta la ruta según corresponda
+import { useAuth } from '../hooks/useAuth';
 
 export default function NavBar() {
     const { isAuthenticated } = useAuth();
