@@ -1,9 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import NavBar from './components/NavBar';
 import { Error404 } from "./pages/error/Error404";
 import { Register } from "./pages/register/Register";
 import { SignIn } from "./pages/sign_in/SignIn";
 import { News } from "./pages/news/News";
+import Home from "./pages/Home";
+
 
 // Modulo de notificaciones 
 import { ToastContainer } from 'react-toastify';
@@ -13,16 +15,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <nav className="bg-blue-500 p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <a href="/" className="text-white font-bold text-xl">CotoJS</a>
-          <div className="space-x-4">
-            <a href="/news" className="text-white hover:text-gray-300">Novedades</a>
-            <a href="/register" className="text-white hover:text-gray-300">Registrarme</a>
-            <a href="/sign-in" className="text-white hover:text-gray-300">Acceder</a>
-          </div>
-        </div>
-      </nav>
+      <NavBar />
       <div className="container mx-auto my-8">
         <Routes>
           <Route path="/" element={<Home />} ></Route>

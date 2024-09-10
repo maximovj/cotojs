@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useToast } from '../../hooks/useToast.js';
 import { authServiceSignIn } from '../../services/authService.js';
+import { useNavigate, Link } from 'react-router-dom';
 
 export function SignIn() {
     const showToast = useToast();
+    const navigate = useNavigate();
     const [signIn, setSignIn] = useState({
         email: '',
         password: ''
@@ -26,12 +28,12 @@ export function SignIn() {
         authServiceSignIn(signIn)
             .then(res => {
                 if (res.data?.success) {
-                    //console.log(res.data);
                     showToast(res.data.ctx_content, 'success');
                     setSignIn({
                         email: '',
                         password: ''
                     });
+                    navigate('/news');
                 }
             })
             .catch(err => {
@@ -40,8 +42,6 @@ export function SignIn() {
                     showToast(ctx_content, 'error');
                 }
             });
-
-
     }
 
     return (
@@ -104,7 +104,7 @@ export function SignIn() {
                 </form>
 
                 <p className="mt-6 text-center text-gray-600">
-                    No tienes cuenta? <a href="/register" className="text-blue-600 hover:underline">Registrarme</a>
+                    No tienes cuenta? <Link to="/register" className="text-blue-600 hover:underline">Registrarme</Link>
                 </p>
             </div>
         </div>
