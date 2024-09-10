@@ -71,10 +71,18 @@ const authSignIn = async (req, res) => {
             secret_key,
             { expiresIn: '1h' });
 
+        res.cookie('auth_token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // Solo en producción
+            sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax', // Dependiendo del entorno
+            maxAge: 3600000, // 1 hora en milisegundos
+            path: '/',
+        });
+
         return res.status(200).json({
             ctx_content: 'Inicio sesión correctamente.',
             success: true,
-            _src: token,
+            _src: null,
         });
     } else {
         return res.status(500).json({

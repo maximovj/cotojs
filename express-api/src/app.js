@@ -6,6 +6,7 @@ import configCors from './config/configCors.js';
 import userRoute from './routes/userRoute.js';
 import authRoute from './routes/authRoute.js';
 import mainRoute from './routes/mainRoute.js';
+import cookieParser from 'cookie-parser';
 dotenv.config();
 const app = express();
 
@@ -17,6 +18,7 @@ app.set('env', process.env.APP_ENV || 'local');
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(configCors);
 
