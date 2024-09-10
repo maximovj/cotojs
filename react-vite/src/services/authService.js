@@ -12,3 +12,7 @@ const authService = axios.create({
 export function authServiceRegister(data) {
     return authService.post('/register', data);
 }
+
+export function authServiceSignIn(data) {
+    return authService.post('/sign-in', data);
+}
