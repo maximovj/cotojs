@@ -1,11 +1,11 @@
 import { useToast } from '../../hooks/useToast.js';
-import { authServiceCheckAuth } from '../../services/authService.js';
+import { authServiceLogOut } from '../../services/authService.js';
 
 export function News() {
     const showToast = useToast();
 
     const handleOnClick = () => {
-        authServiceCheckAuth()
+        authServiceLogOut()
             .then((response) => {
                 console.log(response);
                 if (response.data?.success) {
@@ -21,6 +21,8 @@ export function News() {
     }
 
     return (<div>
-        <button onClick={handleOnClick} className='bg-red-600 p-2 rounded-lg text-white'>Probar</button>
+        <button onClick={handleOnClick} className='bg-red-600 p-2 rounded-lg text-white'>
+            Cerrar sesión
+        </button>
     </div>);
 }

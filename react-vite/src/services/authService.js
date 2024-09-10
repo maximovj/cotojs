@@ -24,3 +24,9 @@ export function authServiceCheckAuth() {
         withCredentials: true,
     });
 }
+
+export function authServiceLogOut() {
+    return authService.post('/logout', {}, {
+        withCredentials: true,
+    });
+}
