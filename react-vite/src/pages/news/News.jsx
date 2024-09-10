@@ -1,11 +1,11 @@
 import { useToast } from '../../hooks/useToast.js';
-import { mainServicePrivado } from '../../services/mainService.js';
+import { authServiceCheckAuth } from '../../services/authService.js';
 
 export function News() {
     const showToast = useToast();
 
     const handleOnClick = () => {
-        mainServicePrivado()
+        authServiceCheckAuth()
             .then((response) => {
                 console.log(response);
                 if (response.data?.success) {

@@ -18,3 +18,9 @@ export function authServiceSignIn(data) {
         withCredentials: true,
     });
 }
+
+export function authServiceCheckAuth() {
+    return authService.post('/check-auth', {}, {
+        withCredentials: true,
+    });
+}

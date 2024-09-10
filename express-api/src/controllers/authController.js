@@ -93,4 +93,12 @@ const authSignIn = async (req, res) => {
     }
 };
 
-export { authRegister, authSignIn }
+const authCheckAuth = (req, res) => {
+    return res.status(200).json({
+        ctx_content: 'Usuario autenticado exitosamente.',
+        success: true,
+        _src: null,
+    });
+};
+
+export { authRegister, authSignIn, authCheckAuth }
