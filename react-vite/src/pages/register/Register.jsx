@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { authServiceRegister } from "../../services/authService";
-import { useToast } from "../../hooks/useToast.js";
+import { useToast } from "../../hooks/useToast";
 
 export function Register() {
     const showToast = useToast();

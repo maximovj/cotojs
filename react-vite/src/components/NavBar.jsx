@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 export default function NavBar() {
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, logout } = useAuth();
 
     return (
         <nav className="bg-blue-500 p-4">
@@ -11,6 +11,7 @@ export default function NavBar() {
                 <div className="space-x-4">
                     {/* Mostrar "Novedades" solo si el usuario está autenticado */}
                     {isAuthenticated && <Link to="/news" className="text-white hover:text-gray-300">Novedades</Link>}
+                    {isAuthenticated && <button onClick={logout}>Salir</button>}
 
                     {/* Mostrar "Registrarme" y "Acceder" solo si el usuario no está autenticado */}
                     {!isAuthenticated && <Link to="/register" className="text-white hover:text-gray-300">Registrarme</Link>}

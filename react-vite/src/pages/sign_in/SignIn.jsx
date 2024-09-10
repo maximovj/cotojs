@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useToast } from '../../hooks/useToast.js';
-import { authServiceSignIn } from '../../services/authService.js';
-import { useNavigate, Link } from 'react-router-dom';
+import { useToast } from '../../hooks/useToast';
+import { useAuth } from '../../hooks/useAuth.jsx';
+import { Link } from 'react-router-dom';
 
 export function SignIn() {
     const showToast = useToast();
-    const navigate = useNavigate();
+    const { login } = useAuth();
     const [signIn, setSignIn] = useState({
         email: '',
         password: ''
@@ -25,23 +25,7 @@ export function SignIn() {
             showToast('Todos los campos son requeridos', 'error');
         }
 
-        authServiceSignIn(signIn)
-            .then(res => {
-                if (res.data?.success) {
-                    showToast(res.data.ctx_content, 'success');
-                    setSignIn({
-                        email: '',
-                        password: ''
-                    });
-                    navigate('/news');
-                }
-            })
-            .catch(err => {
-                if (err.response?.data.ctx_content) {
-                    const { ctx_content } = err.response.data;
-                    showToast(ctx_content, 'error');
-                }
-            });
+        login(signIn);
     }
 
     return (
