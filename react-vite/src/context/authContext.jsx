@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { createContext, useState, useEffect } from 'react';
@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
                 const response = await authServiceCheckAuth();
                 if (response.status === 200 && response.data.success) {
                     setIsAuthenticated(true);
-                    showToast(response.data.ctx_content, 'success');
+                    //showToast(response.data.ctx_content, 'success');
                 } else {
                     setIsAuthenticated(false);
                 }
