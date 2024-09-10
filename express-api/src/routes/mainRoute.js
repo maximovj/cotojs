@@ -19,7 +19,7 @@ mainRoute.get('/privado', configJwt, (req, res) => {
     res.status(200).json({
         ctx_content: 'EndPoint funciona correctamente.',
         base_url: '/main/privado',
-        success: false,
+        success: true,
         _src: null,
     });
 });
@@ -28,7 +28,7 @@ mainRoute.get('/publico', (req, res) => {
     res.status(200).json({
         ctx_content: 'EndPoint funciona correctamente.',
         base_url: '/main/publico',
-        success: false,
+        success: true,
         _src: null,
     });
 });

@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import { Error404 } from "./pages/error/Error404";
 import { Register } from "./pages/register/Register";
 import { SignIn } from "./pages/sign_in/SignIn";
+import { News } from "./pages/news/News";
 
 // Modulo de notificaciones 
 import { ToastContainer } from 'react-toastify';
@@ -25,6 +26,7 @@ function App() {
       <div className="container mx-auto my-8">
         <Routes>
           <Route path="/" element={<Home />} ></Route>
+          <Route path="/news" element={<News />} ></Route>
           <Route path="/register" element={<Register />} ></Route>
           <Route path="/sign-in" element={<SignIn />} ></Route>
           <Route path="*" element={<Error404 />} ></Route>
