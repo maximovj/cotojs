@@ -10,6 +10,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const showToast = useToast();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -17,12 +18,13 @@ export const AuthProvider = ({ children }) => {
                 const response = await authServiceCheckAuth();
                 if (response.status === 200 && response.data.success) {
                     setIsAuthenticated(true);
-                    //showToast(response.data.ctx_content, 'success');
                 } else {
                     setIsAuthenticated(false);
                 }
             } catch (error) {
                 setIsAuthenticated(false);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -32,7 +34,6 @@ export const AuthProvider = ({ children }) => {
     const logout = async () => {
         await authServiceLogOut();
         setIsAuthenticated(false);
-        window.location.href = '/sign-in';
     };
 
     const login = async (credentials) => {
@@ -41,7 +42,6 @@ export const AuthProvider = ({ children }) => {
             if (response.data?.success) {
                 setIsAuthenticated(true);
                 showToast(response.data.ctx_content, 'success');
-                window.location.href = '/news';
                 return true;
             }
         } catch (error) {
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, logout, login }}>
+        <AuthContext.Provider value={{ isAuthenticated, loading, logout, login }}>
             {children}
         </AuthContext.Provider>
     );
