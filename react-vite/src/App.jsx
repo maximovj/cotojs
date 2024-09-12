@@ -5,6 +5,7 @@ import { Register } from "./pages/register/Register";
 import { SignIn } from "./pages/sign_in/SignIn";
 import { News } from "./pages/news/News";
 import Home from "./pages/Home";
+import Chat from "./pages/Chart";
 import { AuthProvider } from "./context/authContext";
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
@@ -22,6 +23,7 @@ function App() {
         <div className="container mx-auto my-8">
           <Routes>
             <Route path="/" element={<Home />} ></Route>
+            <Route path="/chat" element={<PrivateRoute><Chat /></PrivateRoute>} ></Route>
             <Route path="/news" element={<PrivateRoute><News /></PrivateRoute>} ></Route>
             <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} ></Route>
             <Route path="/sign-in" element={<PublicRoute><SignIn /></PublicRoute>} ></Route>

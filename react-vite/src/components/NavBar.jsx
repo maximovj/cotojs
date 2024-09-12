@@ -11,6 +11,7 @@ export default function NavBar() {
                 <div className="space-x-4">
                     {/* Mostrar "Novedades" solo si el usuario está autenticado */}
                     {isAuthenticated && <Link to="/news" className="text-white hover:text-gray-300">Novedades</Link>}
+                    <Link to="/chat" className="text-white hover:text-gray-300">Chat</Link>
                     {isAuthenticated && <button onClick={logout} className='text-white bg-red-700 py-1 px-2 rounded-lg'>Salir</button>}
 
                     {/* Mostrar "Registrarme" y "Acceder" solo si el usuario no está autenticado */}
