@@ -7,6 +7,7 @@ import userRoute from './routes/userRoute.js';
 import authRoute from './routes/authRoute.js';
 import mainRoute from './routes/mainRoute.js';
 import cookieParser from 'cookie-parser';
+import roomRoute from './routes/roomRoute.js';
 dotenv.config();
 const app = express();
 
@@ -26,5 +27,6 @@ app.use(configCors);
 app.use('/api/v1/main', mainRoute);
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/user', configJwt, userRoute);
+app.use('/api/v1/room', configJwt, roomRoute);
 
 export default app;
