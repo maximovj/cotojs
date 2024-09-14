@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
+import http from 'http';
+import setupSocketIO from './socket/setupSocketIO.js';
 import configJwt from './config/configJWT.js';
 import configCors from './config/configCors.js';
 import userRoute from './routes/userRoute.js';
@@ -31,4 +33,18 @@ app.use('/api/v1/user', configJwt, userRoute);
 app.use('/api/v1/room', configJwt, roomRoute);
 app.use('/api/v1/message', configJwt, messageRoute);
 
-export default app;
+const server = http.createServer(app);
+
+const io = setupSocketIO(server);
+
+// Verificar conexión de Socket.IO
+io.on('connection', (socket) => {
+    console.log('Cliente conectado:', socket.id);
+
+    socket.on('disconnect', () => {
+        console.log('Cliente desconectado:', socket.id);
+    });
+});
+
+
+export { server, io, app };
