@@ -6,6 +6,10 @@ const setupSocketIO = (server) => {
 
     io.on('connection', (socket) => {
 
+        socket.on('new_room', (room) => {
+            io.emit('on_rooms', room);
+        });
+
         socket.on('join_room', (room) => {
             socket.join(room.id);
         });
@@ -15,12 +19,11 @@ const setupSocketIO = (server) => {
         });
 
         socket.on("presentacion_bienvenida", (arg) => {
-            socket.emit('presentacion_respuesta', 'Ok. Entendido. Estoy al pendiente.');
+            console.log(arg);
+            socket.emit('presentacion_respuesta', 'Ok.');
         });
 
-        socket.on('disconnect', () => {
-            console.log('Cliente desconectado:', socket.id);
-        });
+        socket.on('disconnect', () => { });
     });
 
     return io;
