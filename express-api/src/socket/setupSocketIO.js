@@ -6,8 +6,15 @@ const setupSocketIO = (server) => {
 
     io.on('connection', (socket) => {
 
+        socket.on('join_room', (room) => {
+            socket.join(room.id);
+        });
+
+        socket.on('message_sended', (arg) => {
+            io.to(arg.room).emit('on_messages', arg);
+        });
+
         socket.on("presentacion_bienvenida", (arg) => {
-            console.log(arg);
             socket.emit('presentacion_respuesta', 'Ok. Entendido. Estoy al pendiente.');
         });
 

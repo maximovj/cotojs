@@ -48,6 +48,7 @@ export const findRoom = async (req, res) => {
     try {
         const { id } = req.params;
         const find_room = await Room.findById(id);
+        const user_id = req.session_payload.id;
 
         if (!find_room) {
             return res.status(404).json({
@@ -60,6 +61,7 @@ export const findRoom = async (req, res) => {
         return res.status(200).json({
             ctx_content: 'Sala localizado exitosamente.',
             success: true,
+            user_id: user_id,
             _doc: find_room,
         });
     } catch (err) {
@@ -90,7 +92,7 @@ export const joinToRoom = async (req, res) => {
         }
 
         return res.status(200).json({
-            ctx_content: 'Sala localizado exitosamente.',
+            ctx_content: 'Se ha unido a la sala exitosamente.',
             success: true,
             _doc: join_room,
         });
