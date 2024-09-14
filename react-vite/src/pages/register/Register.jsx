@@ -13,7 +13,7 @@ export function Register() {
     const handleInputField = (e) => {
         setRegister({
             ...register,
-            [e.target.name]: e.target.value.trim(),
+            [e.target.name]: e.target.value,
         });
     }
 
