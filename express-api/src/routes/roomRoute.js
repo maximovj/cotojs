@@ -1,10 +1,10 @@
 import express from 'express';
-import { createRoom, findRoom, allRoom, joinToRoom } from '../controllers/roomController.js';
+import { createRoom, findRoom, joinToRoom, paginationRoom } from '../controllers/roomController.js';
 const roomRoute = express.Router();
 
 roomRoute.post('/', createRoom);
 
-roomRoute.get('/all', allRoom);
+roomRoute.get('/all', paginationRoom);
 
 roomRoute.get('/:id', findRoom);
 
