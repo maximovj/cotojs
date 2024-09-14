@@ -1,28 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../../hooks/useToast';
-import { roomServiceCreate, roomServiceList } from '../../services/roomService.js';
+import { roomServiceCreate } from '../../services/roomService.js';
+import socketService from '../../services/socketService.js';
 
 export function Create() {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [rooms, setRooms] = useState([]);
     const navigate = useNavigate();
     const showToast = useToast();
-
-    const loadRooms = () => {
-        roomServiceList()
-            .then(res => {
-                setRooms(res.data._doc);
-            })
-            .catch(err => {
-                console.error(err);
-            });
-    }
-
-    useEffect(() => {
-        loadRooms();
-    }, []);
 
     const handleOnSubmitForm = (e) => {
         e.preventDefault();
@@ -41,10 +27,7 @@ export function Create() {
                     showToast(res.data?.ctx_content, 'success');
                     setName('');
                     setDescription('');
-                    setRooms([
-                        ...rooms,
-                        res.data._doc,
-                    ]);
+                    socketService.emit('new_room', res.data._doc);
                     navigate('/');
                 }
             })

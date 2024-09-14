@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { roomServiceList } from '../../services/roomService.js';
+import socketService from '../../services/socketService.js';
 
 function Rooms() {
     const [rooms, setRooms] = useState([]);
@@ -9,16 +10,21 @@ function Rooms() {
         roomServiceList()
             .then(res => {
                 setRooms(res.data._doc);
-            })
-            .catch(err => {
-                console.error(err);
             });
     }
 
     useEffect(() => {
-        loadRooms();
+        socketService.on('on_rooms', (arg) => {
+            loadRooms();
+            setRooms((prevRooms) => [...prevRooms, arg]);
+        });
+
+        return () => {
+            socketService.off('on_rooms');
+        }
     }, []);
 
+    useEffect(() => { loadRooms(); }, []);
 
     return (<div>
         <div className="container mx-auto p-4">
