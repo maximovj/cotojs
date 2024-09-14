@@ -10,7 +10,7 @@ export default function NavBar() {
                 <Link to="/" className="text-white font-bold text-xl">CotoJS</Link>
                 <div className="space-x-4">
                     {/* Mostrar "Novedades" solo si el usuario está autenticado */}
-                    {isAuthenticated && <Link to="/news" className="text-white hover:text-gray-300">Novedades</Link>}
+                    {isAuthenticated && <Link to="/room/create" className="text-white hover:text-gray-300">Crear sala</Link>}
                     {isAuthenticated && <button onClick={logout} className='text-white bg-red-700 py-1 px-2 rounded-lg'>Salir</button>}
 
                     {/* Mostrar "Registrarme" y "Acceder" solo si el usuario no está autenticado */}

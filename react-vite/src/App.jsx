@@ -3,11 +3,12 @@ import NavBar from './components/NavBar';
 import { Error404 } from "./pages/error/Error404";
 import { Register } from "./pages/register/Register";
 import { SignIn } from "./pages/sign_in/SignIn";
-import { News } from "./pages/news/News";
 import Home from "./pages/Home";
 import { AuthProvider } from "./context/authContext";
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
+import Room from "./pages/room/Room";
+import { Create } from "./pages/room/Create";
 
 // Modulo de notificaciones 
 import { ToastContainer } from 'react-toastify';
@@ -22,7 +23,8 @@ function App() {
         <div className="container mx-auto my-8">
           <Routes>
             <Route path="/" element={<Home />} ></Route>
-            <Route path="/news" element={<PrivateRoute><News /></PrivateRoute>} ></Route>
+            <Route path="/room/create" element={<PrivateRoute><Create /></PrivateRoute>} ></Route>
+            <Route path="/room/:id" element={<PrivateRoute><Room /></PrivateRoute>} ></Route>
             <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} ></Route>
             <Route path="/sign-in" element={<PublicRoute><SignIn /></PublicRoute>} ></Route>
             <Route path="*" element={<Error404 />} ></Route>
