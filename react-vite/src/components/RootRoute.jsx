@@ -1,13 +1,14 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
-const PublicRoute = ({ children }) => {
+const RootRoute = ({ children }) => {
     const { isAuthenticated, loading } = useAuth();
 
     if (loading) return null;
 
-    return !isAuthenticated ? children : <Navigate to="/" />;
+    return isAuthenticated ? <Navigate to="/rooms" /> : <Navigate to="/home" />;
 };
 
-export default PublicRoute;
+export default RootRoute;
