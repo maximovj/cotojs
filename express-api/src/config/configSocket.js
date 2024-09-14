@@ -10,7 +10,7 @@ const configSocket = {
         allowedHeaders: ['origin', 'accept', 'authorization', 'cache-control', 'content-type', 'accept-encoding', 'referer', 'user-agent', 'host', 'connection', 'content-length'],
         credentials: true,
         optionsSuccessStatus: 200,
-        origin: process.env.CLIENT_URL_1 || process.env.CLIENT_URL_2 || 'http://localhost:3000',
+        origin: process.env.APP_CLIENT_SOCKET_IO || 'http://localhost:5173',
     }
 };
 

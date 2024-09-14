@@ -37,14 +37,4 @@ const server = http.createServer(app);
 
 const io = setupSocketIO(server);
 
-// Verificar conexión de Socket.IO
-io.on('connection', (socket) => {
-    console.log('Cliente conectado:', socket.id);
-
-    socket.on('disconnect', () => {
-        console.log('Cliente desconectado:', socket.id);
-    });
-});
-
-
-export { server, io, app };
+export { server, app };
