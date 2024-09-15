@@ -11,6 +11,7 @@ import { Create } from "./pages/room/Create";
 import Room from "./pages/room/Room";
 import Rooms from "./pages/room/Rooms";
 import Home from './pages/Home';
+import Profile from "./pages/profile/Profile";
 
 // Modulo de notificaciones 
 import { ToastContainer } from 'react-toastify';
@@ -28,6 +29,7 @@ function App() {
             <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} ></Route>
             <Route path="/sign-in" element={<PublicRoute><SignIn /></PublicRoute>} ></Route>
             <Route path="/home" element={<Home />} ></Route>
+            <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} ></Route>
             <Route path="/rooms" element={<PrivateRoute><Rooms /></PrivateRoute>} ></Route>
             <Route path="/room/create" element={<PrivateRoute><Create /></PrivateRoute>} ></Route>
             <Route path="/room/:id" element={<PrivateRoute><Room /></PrivateRoute>} ></Route>

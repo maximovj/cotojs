@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useState, useRef, useEffect } from 'react';
+import profilePicture from '../assets/150.png';
 
 export default function NavBar() {
     const { isAuthenticated, logout, user } = useAuth();
@@ -35,7 +36,7 @@ export default function NavBar() {
                         <div className="relative" ref={dropdownRef}>
                             <button onClick={toggleDropdown} className="focus:outline-none">
                                 <img
-                                    src={user?.profilePicture || 'https://via.placeholder.com/150'}
+                                    src={user?.profilePicture || profilePicture || 'https://via.placeholder.com/150'}
                                     alt="Foto de perfil"
                                     className="w-10 h-10 rounded-full border-2 border-white"
                                 />
