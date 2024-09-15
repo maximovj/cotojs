@@ -2,7 +2,7 @@
 import default_profile from '../../assets/account.png';
 
 // Componente para la barra lateral
-const Sidebar = ({ room, iAmMember, handleJoinMeRoom }) => (
+const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
     <div className="lg:w-1/4 p-4 bg-white shadow-lg rounded-lg border border-gray-300 lg:mb-0 mb-4 lg:sticky lg:top-0 flex flex-col items-start">
 
         {/* Imagen de portada */}
@@ -34,7 +34,7 @@ const Sidebar = ({ room, iAmMember, handleJoinMeRoom }) => (
                 )}
                 {iAmMember && (
                     <button
-                        onClick={handleJoinMeRoom}
+                        onClick={handleLeaveRoom}
                         className="bg-red-500 text-white rounded-lg px-4 py-2 text-xs hover:bg-red-600 transition duration-200 ease-in-out"
                     >
                         Abandonar sala

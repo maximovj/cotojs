@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useToast } from '../../hooks/useToast';
-import { roomServiceFind, roomServiceJoin } from '../../services/roomService.js';
+import { roomServiceFind, roomServiceJoin, roomServiceLeave } from '../../services/roomService.js';
 import { messageServiceCreate, messageServiceFind } from '../../services/messageService.js';
 import socketService from '../../services/socketService.js';
 import ChatWindow from '../../components/room/ChatWindow';
@@ -65,6 +65,17 @@ const Room = () => {
             });
     };
 
+    // Abandonar la sala 
+    const handleLeaveRoom = () => {
+        roomServiceLeave(id)
+            .then((res) => {
+                if (res.data?.success) {
+                    setIAmMember(false);
+                    showToast(res.data?.ctx_content, 'success');
+                }
+            });
+    }
+
     // Enviar mensaje
     const handleSendMessage = (e) => {
         e.preventDefault();
@@ -106,6 +117,7 @@ const Room = () => {
                 room={room}
                 iAmMember={iAmMember}
                 handleJoinMeRoom={handleJoinMeRoom}
+                handleLeaveRoom={handleLeaveRoom}
                 className="lg:order-1 order-2" // Sidebar primero en dispositivos pequeños
             />
             <ChatWindow

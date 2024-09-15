@@ -27,3 +27,7 @@ export function roomServiceFind(id) {
 export function roomServiceJoin(id) {
     return roomService.post(`/join/${id}`);
 }
+
+export function roomServiceLeave(id) {
+    return roomService.post(`/leave/${id}`);
+}
