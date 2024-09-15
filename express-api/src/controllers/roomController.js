@@ -91,7 +91,6 @@ export const joinToRoom = async (req, res) => {
 
 export const paginationRoom = async (req, res) => {
     try {
-
         const { page = 1, limit = 15 } = req.query;
         const rooms = await Room.find()
             .skip((page - 1) * limit)
@@ -118,8 +117,40 @@ export const paginationRoom = async (req, res) => {
             _doc: null,
         });
     }
-
 }
+
+export const mineRoom = async (req, res) => {
+    const { page = 1, limit = 15 } = req.query;
+    const user_id = req.session_payload.id;
+
+    try {
+        // Obtener el total de salas creadas por el usuario
+        const total_rooms = await Room.countDocuments({ created_by: user_id });
+
+        // Realizar la consulta con paginación, orden y población
+        const find_rooms = await Room.find({ created_by: user_id })
+            .populate('created_by', 'name email')
+            .skip((page - 1) * limit) // Saltar los documentos según la página actual
+            .limit(parseInt(limit)) // Limitar el número de documentos devueltos
+            .sort({ createdAt: -1 })
+            .exec();
+
+        return res.status(200).json({
+            ctx_content: 'Listando salas exitosamente.',
+            success: true,
+            _doc: find_rooms,
+            total_rooms, // Total de salas
+            current_page: parseInt(page),
+            total_pages: Math.ceil(total_rooms / limit), // Total de páginas
+        });
+    } catch (error) {
+        return res.status(500).json({
+            ctx_content: 'Error al listar las salas.',
+            success: false,
+            error: error.message,
+        });
+    }
+};
 
 export const leaveRoom = async (req, res) => {
     try {
