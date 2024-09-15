@@ -31,3 +31,9 @@ export function roomServiceJoin(id) {
 export function roomServiceLeave(id) {
     return roomService.post(`/leave/${id}`);
 }
+
+export function roomServiceMe(page = 1, limit = 5) {
+    return roomService.get('/mine', {
+        params: { page, limit }
+    });
+}
