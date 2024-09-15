@@ -79,10 +79,14 @@ const authSignIn = async (req, res) => {
             path: '/',
         });
 
+        delete find_user._doc.password;
+
         return res.status(200).json({
             ctx_content: 'Inicio sesión correctamente.',
             success: true,
-            _src: null,
+            _src: {
+                ...find_user._doc,
+            },
         });
     } else {
         return res.status(500).json({
@@ -93,12 +97,32 @@ const authSignIn = async (req, res) => {
     }
 };
 
-const authCheckAuth = (req, res) => {
-    return res.status(200).json({
-        ctx_content: 'Usuario autenticado exitosamente.',
-        success: true,
-        _src: null,
-    });
+const authCheckAuth = async (req, res) => {
+    try {
+        const user_id = req.session_payload.id;
+        const find_user = await User.findById(user_id)
+            .select('-password');
+
+        if (!find_user) {
+            return res.status(404).json({
+                ctx_content: 'Usuario no encontrado en el sistema.',
+                success: false,
+                _src: null,
+            });
+        }
+
+        return res.status(200).json({
+            ctx_content: 'Usuario autenticado exitosamente.',
+            success: true,
+            _src: find_user,
+        });
+    } catch (err) {
+        return res.status(500).json({
+            ctx_content: err.message,
+            success: false,
+            _src: null,
+        });
+    }
 };
 
 const authLogOut = (req, res) => {
