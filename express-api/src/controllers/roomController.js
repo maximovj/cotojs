@@ -120,3 +120,37 @@ export const paginationRoom = async (req, res) => {
     }
 
 }
+
+export const leaveRoom = async (req, res) => {
+    try {
+        const { id } = req.params; // ID de la sala
+        const session_id = req.session_payload.id; // ID del usuario (de la sesión)
+
+        // Eliminar al usuario de los miembros de la sala
+        const leave_room = await Room.findByIdAndUpdate(id,
+            { $pull: { members: session_id } },
+            { new: true }
+        );
+
+        if (!leave_room) {
+            return res.status(404).json({
+                ctx_content: 'Sala no encontrada en el sistema.',
+                success: false,
+                _doc: null,
+            });
+        }
+
+        return res.status(200).json({
+            ctx_content: 'Has dejado la sala exitosamente.',
+            success: true,
+            _doc: leave_room,
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            ctx_content: err.message,
+            success: false,
+            _doc: null,
+        });
+    }
+};
