@@ -54,9 +54,9 @@ export const findMessage = async (req, res) => {
         if (!find_messages) {
             return res.status(404).json({
                 ctx_content: 'Mensajes no encontrados en el sistema.',
-                success: true,
+                success: false,
                 user_id: user_id,
-                _doc: find_messages,
+                _doc: null,
             });
         } else {
             return res.status(201).json({
@@ -103,7 +103,36 @@ export const mineMessage = async (req, res) => {
         } else {
             return res.status(404).json({
                 ctx_content: 'Usuario no encontrado en el sistema.',
+                success: false,
+                _doc: null,
+            });
+        }
+    } catch (err) {
+        return res.status(500).json({
+            ctx_content: err.message,
+            success: false,
+            _doc: null,
+        });
+    }
+};
+
+export const deleteMessage = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const find_message = await Message.findById(id);
+
+        if (find_message) {
+            await find_message.deleteOne(find_message._doc);
+
+            return res.status(200).json({
+                ctx_content: 'Mensaje eliminado exitosamente.',
                 success: true,
+                _doc: find_message,
+            });
+        } else {
+            return res.status(404).json({
+                ctx_content: 'Mensaje no encontrado en el sistema.',
+                success: false,
                 _doc: null,
             });
         }
