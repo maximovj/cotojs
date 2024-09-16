@@ -74,3 +74,44 @@ export const findMessage = async (req, res) => {
         });
     }
 };
+
+export const mineMessage = async (req, res) => {
+    try {
+        const { page = 1, limit = 15 } = req.query;
+        const user_id = req.session_payload.id;
+        const find_user = await User.findById(user_id);
+
+        if (find_user) {
+            const find_messages = await Message.find({ send_by: find_user.id })
+                .populate('room', 'name')
+                .skip((page - 1) * limit) // Saltar páginas
+                .limit(parseInt(limit)) // Limite de mensajes por página
+                .sort({ createdAt: -1 }) // Ordenar ascendente
+                .exec();
+
+            const total_messages = await Message.countDocuments({ send_by: find_user.id });
+
+            return res.status(201).json({
+                ctx_content: 'Mensajes localizados exitosamente.',
+                success: true,
+                total_messages, // Total de mensajes
+                current_page: parseInt(page), // Página actual
+                total_pages: Math.ceil(total_messages / limit), // Total de páginas
+                _doc: find_messages,
+            });
+
+        } else {
+            return res.status(404).json({
+                ctx_content: 'Usuario no encontrado en el sistema.',
+                success: true,
+                _doc: null,
+            });
+        }
+    } catch (err) {
+        return res.status(500).json({
+            ctx_content: err.message,
+            success: false,
+            _doc: null,
+        });
+    }
+};
