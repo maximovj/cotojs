@@ -14,6 +14,7 @@ import Home from './pages/Home';
 import Profile from "./pages/profile/Profile";
 import Edit from "./pages/room/Edit";
 import EditProfile from './pages/profile/EditProfile';
+import ActivityFeed from "./pages/activity_feed/ActivityFeed";
 
 
 // Modulo de notificaciones 
@@ -33,6 +34,7 @@ function App() {
             <Route path="/sign-in" element={<PublicRoute><SignIn /></PublicRoute>} ></Route>
             <Route path="/home" element={<Home />} ></Route>
             <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} ></Route>
+            <Route path="/profile/activity_feed" element={<PrivateRoute><ActivityFeed /></PrivateRoute>} ></Route>
             <Route path="/profile/edit" element={<PrivateRoute><EditProfile /></PrivateRoute>} ></Route>
             <Route path="/rooms" element={<PrivateRoute><Rooms /></PrivateRoute>} ></Route>
             <Route path="/room/create" element={<PrivateRoute><Create /></PrivateRoute>} ></Route>

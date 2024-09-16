@@ -17,3 +17,9 @@ export function messageServiceCreate(id, data) {
 export function messageServiceFind(id) {
     return messageService.get(`/room/${id}`);
 }
+
+export function messageServiceMine(page = 1, limit = 15) {
+    return messageService.get('/mine', {
+        params: { page, limit }
+    });
+}
