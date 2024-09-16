@@ -185,3 +185,31 @@ export const leaveRoom = async (req, res) => {
         });
     }
 };
+
+export const deleteRoom = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const find_room = await Room.findById(id);
+
+        if (!find_room) {
+            return res.status(404).json({
+                ctx_content: 'Sala no encontrada en el sistema.',
+                success: false,
+                _doc: null,
+            });
+        } else {
+            await find_room.deleteOne(find_room._doc);
+            return res.status(200).json({
+                ctx_content: 'Sala eliminado exitosamente.',
+                success: true,
+                _doc: find_room,
+            });
+        }
+    } catch (err) {
+        return res.status(500).json({
+            ctx_content: err.message,
+            success: false,
+            _doc: null,
+        });
+    }
+};

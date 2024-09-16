@@ -8,8 +8,8 @@ const envKeysCors = envKeys.filter(_env => _env.startsWith('APP_CORS_'));
 const corsAllowed = envKeysCors.map(_env => process.env[_env]);
 
 const configCors = cors({
-    methods: ['get', 'post', 'put', 'delete'],
-    allowedHeaders: ['origin', 'accept', 'authorization', 'cache-control', 'content-type', 'accept-encoding', 'referer', 'user-agent', 'host', 'connection', 'content-length'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['origin', 'Origin', 'accept', 'Accept', 'authorization', 'Authorization', 'cache-control', 'Content-Type', 'content-type', 'accept-encoding', 'referer', 'user-agent', 'host', 'connection', 'content-length'],
     credentials: true,
     optionsSuccessStatus: 200,
     origin: function (origin, callback) {

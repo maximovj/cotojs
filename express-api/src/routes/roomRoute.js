@@ -1,5 +1,5 @@
 import express from 'express';
-import { createRoom, findRoom, joinToRoom, paginationRoom, leaveRoom, mineRoom } from '../controllers/roomController.js';
+import { createRoom, findRoom, joinToRoom, paginationRoom, leaveRoom, mineRoom, deleteRoom } from '../controllers/roomController.js';
 const roomRoute = express.Router();
 
 // EndPoint para crear una sala 
@@ -13,6 +13,9 @@ roomRoute.get('/mine', mineRoom);
 
 // EndPoint para ver una sala 
 roomRoute.get('/:id', findRoom);
+
+// EndPoint para eliminar una sala
+roomRoute.delete('/:id', deleteRoom);
 
 // EndPoint para unirme una sala 
 roomRoute.post('/join/:id', joinToRoom);
