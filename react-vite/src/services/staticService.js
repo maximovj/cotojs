@@ -21,4 +21,13 @@ export function staticServiceRoomCover(filename) {
             console.error('Error al cargar la imagen:', error);
             return defaultCover; // Retorna una imagen por defecto en caso de error
         });
-}
+};
+
+export function staticServiceChangeCover(id, data) {
+    return staticService.post(`/rooms/cover/${id}`, data, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Accept': 'multipart/form-data',
+        }
+    });
+};

@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { roomServiceFind } from "../../services/roomService";
 import { roomServiceDelete, roomServiceUpdate } from '../../services/roomService.js';
+import { staticServiceChangeCover } from '../../services/staticService.js';
 import { useSweetAlert } from '../../hooks/useSweetAlert';
 import { useDayjs } from '../../hooks/useDayjs';
 import { useToast } from '../../hooks/useToast';
@@ -18,6 +19,7 @@ const Edit = () => {
         description: '',
         members: [],
     });
+    const [cover, setCover] = useState('');
     const { id } = useParams();
     const dayjs = useDayjs();
     const navigate = useNavigate();
@@ -33,6 +35,10 @@ const Edit = () => {
             });
     };
 
+    const handleFileFieldCover = (e) => {
+        setCover(e.target.files[0]);
+    }
+
     const handleInputField = (e) => {
         setRoom({
             ...room,
@@ -47,6 +53,30 @@ const Edit = () => {
                     showToast(res.data.ctx_content, 'success');
                 }
             });
+    }
+
+    const handleBtnOkCover = () => {
+        if (cover) {
+            const data_media = new FormData();
+            data_media.append('cover', cover);
+            staticServiceChangeCover(id, data_media)
+                .then(res => {
+                    if (res.data?.success) {
+                        setRoom(res.data._doc);
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+        } else {
+            showSweetAlert({
+                icon: 'info',
+                title: 'Salas',
+                html: 'Selecciona una imagen de portada.',
+                showConfirmButton: true,
+            })
+        }
     }
 
     const handleBtnEliminar = () => {
@@ -100,16 +130,22 @@ const Edit = () => {
                 {/* Portada */}
                 <div className="relative mb-6">
                     <img
-                        src={room.cover ? `${baseURL}/public/rooms/cover/${room.cover}` : defaultCover}
+                        src={room.cover ? `${baseURL}/${room.cover}` : defaultCover}
                         alt="Cover"
                         className="w-full h-48 object-cover rounded-lg"
                     />
-                    <label className="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow-lg cursor-pointer hover:bg-gray-200">
+                    <label className="absolute bottom-4 left-20 bg-white p-2 rounded-full shadow-lg cursor-pointer hover:bg-gray-200">
                         <input
                             type="file"
+                            name="cover"
+                            id="cover"
+                            onChange={handleFileFieldCover}
                             className="sr-only"
                         />
-                        <span className="text-xs text-gray-600">Cambiar portada</span>
+                        <span className="text-xs text-gray-600">Seleccionar portada</span>
+                    </label>
+                    <label className="absolute bottom-4 left-5 bg-white p-2 rounded-full shadow-lg cursor-pointer hover:bg-gray-200">
+                        <button onClick={handleBtnOkCover} className="text-xs text-gray-600">Aceptar</button>
                     </label>
                 </div>
 
