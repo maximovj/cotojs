@@ -1,6 +1,10 @@
 import user from '../models/userModel.js';
+import message from '../models/messageModel.js';
+import room from '../models/roomModel.js';
 import bcryptjs from 'bcryptjs';
 const User = user;
+const Message = message;
+const Room = room;
 
 const createUser = async (req, res) => {
     try {
@@ -47,10 +51,27 @@ const createUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     try {
         const { id, email } = req.session_payload;
-        const find_user = await User.findOne({ _id: id, email: email });
+        const find_user = await User.findOne({ _id: id, email: email }).select('-password');
 
         if (find_user) {
-            await find_user.deleteOne({ ...find_user._doc });
+            // Eliminar los mensajes asociados al usuario
+            await Message.deleteMany({ send_by: id });
+
+            // Eliminar las salas asociadas al usuario
+            //await Room.deleteMany({ members: id });
+
+            // Quitar el usuario de la lista de miembros en cada sala
+            await Room.updateMany(
+                { members: id },
+                { $pull: { members: id } }
+            );
+
+            // Eliminar las salas creadas por el usuario
+            await Room.deleteMany({ created_by: id });
+
+            // Eliminar el usuario
+            await find_user.deleteOne();
+
             return res.status(200).json({
                 ctx_content: 'Usuario eliminado exitosamente.',
                 success: true,

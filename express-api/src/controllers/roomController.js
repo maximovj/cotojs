@@ -1,5 +1,7 @@
 import room from '../models/roomModel.js';
+import message from '../models/messageModel.js';
 const Room = room;
+const Message = message;
 
 export const createRoom = async (req, res) => {
     try {
@@ -191,18 +193,24 @@ export const deleteRoom = async (req, res) => {
         const { id } = req.params;
         const find_room = await Room.findById(id);
 
-        if (!find_room) {
-            return res.status(404).json({
-                ctx_content: 'Sala no encontrada en el sistema.',
-                success: false,
-                _doc: null,
-            });
-        } else {
+        if (find_room) {
+            // Eliminar los mensajes asociados a la sala
+            await Message.deleteMany({ room: id });
+
+            // Eliminar la sala
             await find_room.deleteOne(find_room._doc);
+
             return res.status(200).json({
                 ctx_content: 'Sala eliminado exitosamente.',
                 success: true,
                 _doc: find_room,
+            });
+
+        } else {
+            return res.status(404).json({
+                ctx_content: 'Sala no encontrada en el sistema.',
+                success: false,
+                _doc: null,
             });
         }
     } catch (err) {
