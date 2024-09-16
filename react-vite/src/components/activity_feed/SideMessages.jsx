@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import InfiniteScroll from "react-infinite-scroll-component";
-import { messageServiceMine } from '../../services/messageService.js';
+import { messageServiceMine, messageServiceDelete } from '../../services/messageService.js';
 import { useDayjs } from "../../hooks/useDayjs";
+import { useToast } from "../../hooks/useToast.jsx";
 import userProfile from '../../assets/150.png';
 
 function SideMessages({ user }) {
@@ -14,6 +15,17 @@ function SideMessages({ user }) {
     const [totalPages, setTotalPages] = useState(1);
     const [totalMessages, setTotalMessages] = useState(0);
     const dayjs = useDayjs();
+    const showToast = useToast();
+
+    const handleBtnDelete = (id) => {
+        messageServiceDelete(id)
+            .then(res => {
+                if (res.data?.success) {
+                    showToast(res.data.ctx_content, 'success');
+                    window.location.reload();
+                }
+            });
+    }
 
     const fetchData = async () => {
         if (page == totalPages + 1) {
@@ -84,6 +96,8 @@ function SideMessages({ user }) {
                                 </div>
                                 <p className="mt-3 text-gray-700 text-sm mb-4">{message.text}</p>
                                 <p className="flex justify-end gap-1">
+                                    <button className='bg-red-500 hover:bg-red-600 text-xs rounded py-1.5 px-1.5 text-white cursor-pointer transition ease-in-out'
+                                        onClick={() => { handleBtnDelete(message.id) }}>Eliminar</button>
                                     <Link className='bg-blue-500 hover:bg-blue-600 text-xs rounded py-1.5 px-1.5 text-white cursor-pointer transition ease-in-out' to={`/room/${message.room.id}`}>Ver sala</Link>
                                 </p>
                             </div>

@@ -23,3 +23,7 @@ export function messageServiceMine(page = 1, limit = 15) {
         params: { page, limit }
     });
 }
+
+export function messageServiceDelete(id) {
+    return messageService.delete(`/${id}`);
+}
