@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import default_profile from '../../assets/account.png';
+const baseURL = import.meta.env.VITE_API_URL;
 
 // Componente para la barra lateral
 const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
@@ -8,7 +9,7 @@ const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
         {/* Imagen de portada */}
         <div className="w-full mb-4 hidden sm:block">
             <img
-                src={'https://via.placeholder.com/600/dog'}
+                src={room.cover ? `${baseURL}/${room.cover}` : default_profile}
                 alt="Portada de la sala"
                 className="w-full h-48 object-cover rounded-lg border border-gray-300"
             />

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import { roomServiceAll } from '../../services/roomService.js';
 import socketService from '../../services/socketService.js';
+const baseURL = import.meta.env.VITE_API_URL;
 
 function Rooms() {
     const [rooms, setRooms] = useState([]);
@@ -103,7 +104,7 @@ function Rooms() {
                                 {/* Si tienes una imagen de perfil o ícono para la sala */}
                                 <div className="mr-4">
                                     <img
-                                        src={item.image || 'https://via.placeholder.com/50'}
+                                        src={item.cover ? `${baseURL}/${item.cover}` : 'https://via.placeholder.com/50'}
                                         alt="icono"
                                         className="rounded-full h-12 w-12 object-cover"
                                     />
