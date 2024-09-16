@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 
 // Definir EndPoints
-app.use('/api/v1/public', express.static('static'));
+app.use('/api/v1/storage', express.static('storage'));
 app.use('/api/v1/main', configCors, mainRoute);
 app.use('/api/v1/auth', configCors, authRoute);
 app.use('/api/v1/static', configCors, staticRoute);

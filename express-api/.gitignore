@@ -57,6 +57,7 @@ Thumbs.db
 tmp/
 temp/
 static/
+storage/
 
 # Handlebars precompiled templates
 *.hbs.js
