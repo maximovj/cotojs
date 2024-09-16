@@ -8,6 +8,7 @@ import { useDayjs } from '../../hooks/useDayjs';
 import { useToast } from '../../hooks/useToast';
 import Forbidden from '../../components/Forbidden';
 import defaultCover from '../../assets/150.png';
+const baseURL = import.meta.env.VITE_API_URL;
 
 // Página para editar o modificar información de la sala
 const Edit = () => {
@@ -99,7 +100,7 @@ const Edit = () => {
                 {/* Portada */}
                 <div className="relative mb-6">
                     <img
-                        src={room.cover || defaultCover}
+                        src={room.cover ? `${baseURL}/public/rooms/cover/${room.cover}` : defaultCover}
                         alt="Cover"
                         className="w-full h-48 object-cover rounded-lg"
                     />
