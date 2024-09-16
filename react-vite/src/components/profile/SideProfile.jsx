@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { Link } from "react-router-dom";
 import { useDayjs } from "../../hooks/useDayjs";
 import userProfile from '../../assets/150.png';
 
@@ -24,9 +25,11 @@ function SideProfile({ user }) {
             </div>
             {/* Botones de acción */}
             <div className="mt-4 flex justify-center space-x-3">
-                <button className="bg-blue-500 text-white text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-blue-600 transition ease-in-out">
+                <Link
+                    to={`/profile/edit`}
+                    className="bg-blue-500 text-white text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-blue-600 transition ease-in-out">
                     Editar Perfil
-                </button>
+                </Link>
                 <button className="bg-gray-200 text-gray-800 text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-gray-300 transition ease-in-out">
                     Ver Actividad
                 </button>
