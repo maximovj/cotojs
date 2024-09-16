@@ -213,3 +213,46 @@ export const deleteRoom = async (req, res) => {
         });
     }
 };
+
+export const updateRoom = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { cover, name, description } = req.body;
+
+        // Buscar la sala por ID
+        const find_room = await Room.findById(id);
+
+        if (!find_room) {
+            return res.status(404).json({
+                ctx_content: 'Sala no encontrada en el sistema.',
+                success: false,
+                _doc: null,
+            });
+        }
+
+        // Actualizar la sala con nuevos datos
+        const updatedRoom = await Room.findByIdAndUpdate(
+            id,
+            {
+                $set: {
+                    cover: cover || find_room.cover,
+                    name: name || find_room.name,
+                    description: description || find_room.description,
+                },
+            },
+            { new: true } // Retorna el documento actualizado
+        );
+
+        return res.status(200).json({
+            ctx_content: 'Sala actualizada exitosamente.',
+            success: true,
+            _doc: updatedRoom,
+        });
+    } catch (err) {
+        return res.status(500).json({
+            ctx_content: err.message,
+            success: false,
+            _doc: null,
+        });
+    }
+};
