@@ -36,8 +36,30 @@ const Edit = () => {
     };
 
     const handleFileFieldCover = (e) => {
-        setCover(e.target.files[0]);
-    }
+        const file = e.target.files[0];
+
+        if (file) {
+            const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+            if (!validTypes.includes(file.type)) {
+                showSweetAlert({
+                    icon: 'info',
+                    title: 'Formato no permitido',
+                    html: 'Solo se permiten archivos .png, .jpeg y .jpg.',
+                    showConfirmButton: true,
+                });
+                setCover('');
+                return;
+            }
+
+            // Si el archivo es válido, lo asignas
+            setCover(file);
+            const previewUrl = URL.createObjectURL(file);
+            setRoom((prevRoom) => ({
+                ...prevRoom,
+                cover: previewUrl
+            }));
+        }
+    };
 
     const handleInputField = (e) => {
         setRoom({
@@ -63,6 +85,9 @@ const Edit = () => {
                 .then(res => {
                     if (res.data?.success) {
                         setRoom(res.data._doc);
+                        setCover(null);
+                        showToast(res.data.ctx_content, 'success');
+                        window.location.reload();
                     }
                 })
                 .catch(err => {
@@ -130,7 +155,7 @@ const Edit = () => {
                 {/* Portada */}
                 <div className="relative mb-6">
                     <img
-                        src={room.cover ? `${baseURL}/${room.cover}` : defaultCover}
+                        src={room.cover ? cover ? room.cover : `${baseURL}/${room.cover}` : defaultCover}
                         alt="Cover"
                         className="w-full h-48 object-cover rounded-lg"
                     />
@@ -140,6 +165,7 @@ const Edit = () => {
                             name="cover"
                             id="cover"
                             onChange={handleFileFieldCover}
+                            accept=".png, .jpeg, .jpg"
                             className="sr-only"
                         />
                         <span className="text-xs text-gray-600">Seleccionar portada</span>
