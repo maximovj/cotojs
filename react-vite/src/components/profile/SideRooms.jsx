@@ -76,7 +76,7 @@ function SideRooms({ user }) {
             <div className="md:col-span-2">
                 {/* Cabecera de salas */}
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-lg font-bold text-gray-800">Salas recientes</h2>
+                    <h2 className="text-lg font-bold text-gray-800">Mis salas</h2>
                     <Link to='/room/create' className="bg-blue-500 text-white text-sm py-1.5 px-4 rounded-full hover:bg-blue-600 transition ease-in-out">
                         Nueva sala
                     </Link>

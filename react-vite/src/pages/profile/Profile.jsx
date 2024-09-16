@@ -13,6 +13,7 @@ function Profile() {
                 {/* Columna de perfil (izquierda) */}
                 <SideProfile
                     user={user}
+                    page={'profile'}
                 />
 
                 {/* Columna de salas (derecha) */}

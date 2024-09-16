@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDayjs } from "../../hooks/useDayjs";
 import userProfile from '../../assets/150.png';
 
-function SideProfile({ user }) {
+function SideProfile({ user, page }) {
     const dayjs = useDayjs();
 
     return (<>
@@ -30,9 +30,21 @@ function SideProfile({ user }) {
                     className="bg-blue-500 text-white text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-blue-600 transition ease-in-out">
                     Editar Perfil
                 </Link>
-                <button className="bg-gray-200 text-gray-800 text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-gray-300 transition ease-in-out">
-                    Ver Actividad
-                </button>
+                {page === 'profile' && (
+                    <Link
+                        to={`/profile/activity_feed`}
+                        className="bg-gray-200 text-gray-800 text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-gray-300 transition ease-in-out">
+                        Ver Actividad
+                    </Link>
+                )}
+
+                {page === 'activity_feed' && (
+                    <Link
+                        to={`/profile`}
+                        className="bg-gray-200 text-gray-800 text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-gray-300 transition ease-in-out">
+                        Ver salas
+                    </Link>
+                )}
             </div>
         </div>
     </>);
