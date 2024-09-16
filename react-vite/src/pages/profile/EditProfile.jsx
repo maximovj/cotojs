@@ -3,14 +3,14 @@ import { useAuth } from '../../hooks/useAuth';
 import { useDayjs } from '../../hooks/useDayjs';
 import { useToast } from '../../hooks/useToast';
 import { useSweetAlert } from '../../hooks/useSweetAlert';
-import { userServiceUpdate } from '../../services/userService.js';
+import { userServiceUpdate, userServiceDelete } from '../../services/userService.js';
 import defaultCover from '../../assets/150.png';
 import { useEffect, useState } from 'react';
 
 // Página para editar o modificar información del usuario
 const EditProfile = () => {
     const { showSweetAlert } = useSweetAlert();
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
     const dayjs = useDayjs();
     const showToast = useToast();
     const [name, setName] = useState('');
@@ -42,7 +42,12 @@ const EditProfile = () => {
         }).then(res => {
             if (res.isConfirmed) {
                 if (res.value === 'eliminar cuenta') {
-                    showToast('Enviar petición', 'success');
+                    userServiceDelete().then(res => {
+                        if (res.data?.success) {
+                            logout();
+                            showToast(res.data.ctx_content, 'success');
+                        }
+                    });
                 } else {
                     showSweetAlert({
                         title: 'Perfil',
@@ -112,8 +117,9 @@ const EditProfile = () => {
             <div className="bg-white p-4 rounded-lg shadow-md mb-6">
                 <div className="space-y-4">
                     {/* Información adicional */}
-                    <div className="text-sm text-gray-500">
-                        Miembro: {dayjs(user.createdAt).fromNow()}
+                    <div className="flex justify-between text-sm text-gray-500">
+                        <p className="text-sm text-gray-500 mt-1">Miembro desde: {dayjs(user.createdAt).format('L')}</p>
+                        <p className="text-sm text-blue-500 mt-1">{dayjs(user.createdAt).fromNow()}</p>
                     </div>
 
                     {/* Nombre de usuario */}

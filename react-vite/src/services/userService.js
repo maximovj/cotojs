@@ -13,3 +13,7 @@ const userService = axios.create({
 export function userServiceUpdate(data) {
     return userService.put('/', data);
 }
+
+export function userServiceDelete() {
+    return userService.delete('/');
+}
