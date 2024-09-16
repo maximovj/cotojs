@@ -3,16 +3,54 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import InfiniteScroll from "react-infinite-scroll-component";
-import { roomServiceMe } from '../../services/roomService.js';
+import { useToast } from '../../hooks/useToast';
+import { useSweetAlert } from '../../hooks/useSweetAlert';
+import { roomServiceMe, roomServiceDelete } from '../../services/roomService.js';
 import { useDayjs } from "../../hooks/useDayjs";
 import userProfile from '../../assets/150.png';
 
 function SideRooms({ user }) {
-    const dayjs = useDayjs();
     const [rooms, setRooms] = useState([]);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [totalPages, setTotalPages] = useState(1);
+    const dayjs = useDayjs();
+    const showToast = useToast();
+    const { showSweetAlert } = useSweetAlert();
+
+    const handleBtnDelete = async (id) => {
+        showSweetAlert({
+            title: `<small>Escribe <span class="highlight">eliminar</span> para confirmar</small>`,
+            customClass: {
+                title: 'sweetalert-title'
+            },
+            input: 'text',
+            inputValue: '',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Confirmar',
+        }).then(res => {
+            if (res.isConfirmed) {
+                if (res.value === 'eliminar') {
+                    roomServiceDelete(id)
+                        .then(res => {
+                            if (res.data?.success) {
+                                const new_rooms = rooms.filter((x) => x.id !== id);
+                                setRooms(new_rooms);
+                                showToast(res.data.ctx_content, 'success');
+                                if (rooms.length === 1 && page > 1) {
+                                    setPage(page - 1);
+                                }
+                                setHasMore(true);
+                                fetchData();
+                            }
+                        });
+                } else {
+                    showToast('Escribe `eliminar` para confirmar, por favor.', 'info');
+                }
+            }
+        });
+    }
 
     const fetchData = async () => {
         if (page == totalPages + 1) {
@@ -25,14 +63,12 @@ function SideRooms({ user }) {
         roomServiceMe(page)
             .then(res => {
                 if (res.data?.success) {
-                    console.log(res);
                     setRooms((prevRooms) => [...prevRooms, ...res.data._doc]);
                     setTotalPages(res.data.total_pages);
                     setPage((prevPage) => prevPage + 1);
+                    setHasMore(res.data.total_pages > res.data.current_page);
+                    //console.log('Load => ', rooms);
                 }
-            })
-            .catch(err => {
-                console.error(err);
             });
     }
 
@@ -85,7 +121,9 @@ function SideRooms({ user }) {
                                 </div>
                                 <p className="mt-3 text-gray-700 text-sm mb-4">{room.description}</p>
                                 <p className="flex justify-end gap-1">
-                                    <button className='bg-red-500 hover:bg-red-600 text-xs rounded py-1.5 px-1.5 text-white cursor-pointer transition ease-in-out'>Eliminar</button>
+                                    <button className='bg-red-500 hover:bg-red-600 text-xs rounded py-1.5 px-1.5 text-white cursor-pointer transition ease-in-out'
+                                        onClick={() => { handleBtnDelete(room.id) }}>Eliminar</button>
+                                    <Link className='bg-yellow-500 hover:bg-yellow-600 text-xs rounded py-1.5 px-1.5 text-white cursor-pointer transition ease-in-out' to={`/room/edit/${room.id}`}>Editar</Link>
                                     <Link className='bg-blue-500 hover:bg-blue-600 text-xs rounded py-1.5 px-1.5 text-white cursor-pointer transition ease-in-out' to={`/room/${room.id}`}>Ver</Link>
                                 </p>
                             </div>

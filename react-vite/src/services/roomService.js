@@ -37,3 +37,7 @@ export function roomServiceMe(page = 1, limit = 5) {
         params: { page, limit }
     });
 }
+
+export function roomServiceDelete(id) {
+    return roomService.delete(`/${id}`);
+}
