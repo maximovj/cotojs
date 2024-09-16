@@ -12,6 +12,8 @@ import Room from "./pages/room/Room";
 import Rooms from "./pages/room/Rooms";
 import Home from './pages/Home';
 import Profile from "./pages/profile/Profile";
+import Edit from "./pages/room/Edit";
+
 
 // Modulo de notificaciones 
 import { ToastContainer } from 'react-toastify';
@@ -33,6 +35,7 @@ function App() {
             <Route path="/rooms" element={<PrivateRoute><Rooms /></PrivateRoute>} ></Route>
             <Route path="/room/create" element={<PrivateRoute><Create /></PrivateRoute>} ></Route>
             <Route path="/room/:id" element={<PrivateRoute><Room /></PrivateRoute>} ></Route>
+            <Route path="/room/edit/:id" element={<PrivateRoute><Edit /></PrivateRoute>} ></Route>
             <Route path="*" element={<Error404 />} ></Route>
           </Routes>
         </div>
