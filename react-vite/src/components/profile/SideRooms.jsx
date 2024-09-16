@@ -35,14 +35,8 @@ function SideRooms({ user }) {
                     roomServiceDelete(id)
                         .then(res => {
                             if (res.data?.success) {
-                                const new_rooms = rooms.filter((x) => x.id !== id);
-                                setRooms(new_rooms);
+                                setTimeout(() => { window.location.reload(); }, 1000);
                                 showToast(res.data.ctx_content, 'success');
-                                if (rooms.length === 1 && page > 1) {
-                                    setPage(page - 1);
-                                }
-                                setHasMore(true);
-                                fetchData();
                             }
                         });
                 } else {
