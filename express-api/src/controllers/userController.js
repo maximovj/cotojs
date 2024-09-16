@@ -77,7 +77,7 @@ const updateUser = async (req, res) => {
     try {
         const { id, email } = req.session_payload;
         const { name } = req.body;
-        const find_user = await User.findOne({ _id: id, email: email });
+        const find_user = await User.findOne({ _id: id, email: email }).select('-password');
 
         if (find_user) {
             await find_user.updateOne({
