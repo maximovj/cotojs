@@ -24,6 +24,7 @@ const EditProfile = () => {
             .then(res => {
                 if (res.data?.success) {
                     showToast(res.data.ctx_content, 'success');
+                    window.location.reload();
                 }
             });
     }
