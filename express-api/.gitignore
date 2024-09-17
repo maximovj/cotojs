@@ -58,6 +58,9 @@ tmp/
 temp/
 static/
 storage/
+multer/
+tmp_multer/
+upload/
 
 # Handlebars precompiled templates
 *.hbs.js
