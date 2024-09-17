@@ -7,7 +7,7 @@ import { useToast } from '../../hooks/useToast';
 import { useSweetAlert } from '../../hooks/useSweetAlert';
 import { roomServiceMe, roomServiceDelete } from '../../services/roomService.js';
 import { useDayjs } from "../../hooks/useDayjs";
-import userProfile from '../../assets/150.png';
+import default_cover from '../../assets/image.png';
 const baseURL = import.meta.env.VITE_API_URL;
 
 function SideRooms({ user }) {
@@ -106,7 +106,7 @@ function SideRooms({ user }) {
                                 <div className="flex items-center">
                                     <img
                                         className="w-10 h-10 rounded-full object-cover"
-                                        src={room.cover ? `${baseURL}/${room.cover}` : userProfile}
+                                        src={room.cover ? `${baseURL}/${room.cover}` : default_cover}
                                         alt="User avatar"
                                     />
                                     <div className="ml-3">

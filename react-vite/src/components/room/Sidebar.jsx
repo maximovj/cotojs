@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import default_profile from '../../assets/account.png';
+import default_cover from '../../assets/image.png';
 const baseURL = import.meta.env.VITE_API_URL;
-
 const members_length = 20;
+
 // Componente para la barra lateral
 const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
     <div className="lg:w-1/4 p-4 bg-white shadow-lg rounded-lg border border-gray-300 lg:mb-0 mb-4 lg:sticky lg:top-0 flex flex-col items-start">
@@ -12,7 +12,7 @@ const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
         {/* Imagen de portada */}
         <div className="w-full mb-4 hidden sm:block">
             <img
-                src={room.cover ? `${baseURL}/${room.cover}` : default_profile}
+                src={room.cover ? `${baseURL}/${room.cover}` : default_cover}
                 alt="Portada de la sala"
                 className="w-full h-48 object-cover rounded-lg border border-gray-300"
             />
@@ -58,7 +58,7 @@ const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
                     {room.members.slice(0, members_length).map((member, index) => (
                         <div key={index} className="flex items-center mb-2">
                             <img
-                                src={member.picture ? `${baseURL}/${member.picture}` : default_profile}
+                                src={member.picture ? `${baseURL}/${member.picture}` : default_cover}
                                 alt="Perfil"
                                 className="w-8 h-8 rounded-full border border-gray-300 mr-2"
                             />

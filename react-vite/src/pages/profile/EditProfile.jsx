@@ -5,7 +5,7 @@ import { useToast } from '../../hooks/useToast';
 import { useSweetAlert } from '../../hooks/useSweetAlert';
 import { userServiceUpdate, userServiceDelete } from '../../services/userService.js';
 import { staticServiceChangePicture } from '../../services/staticService.js';
-import defaultCover from '../../assets/150.png';
+import default_picture from '../../assets/account.png';
 import { useEffect, useState } from 'react';
 const baseURL = import.meta.env.VITE_API_URL;
 
@@ -114,7 +114,7 @@ const EditProfile = () => {
             <div className="flex justify-center mb-6">
                 <div className="relative">
                     <img
-                        src={preview || `${baseURL}/${user.picture}` || defaultCover}
+                        src={preview || `${baseURL}/${user.picture}` || default_picture}
                         alt="Profile"
                         className="w-40 h-40 object-cover rounded-full border-4 border-white shadow-lg"
                     />

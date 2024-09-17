@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useState, useRef, useEffect } from 'react';
-import profilePicture from '../assets/150.png';
+import default_picture from '../assets/account.png';
+const baseURL = import.meta.env.VITE_API_URL;
 
 export default function NavBar() {
     const { isAuthenticated, logout, user } = useAuth();
@@ -36,7 +37,7 @@ export default function NavBar() {
                         <div className="relative" ref={dropdownRef}>
                             <button onClick={toggleDropdown} className="focus:outline-none">
                                 <img
-                                    src={user?.profilePicture || profilePicture || 'https://via.placeholder.com/150'}
+                                    src={user.picture ? `${baseURL}/${user.picture}` : default_picture}
                                     alt="Foto de perfil"
                                     className="w-10 h-10 rounded-full border-2 border-white"
                                 />

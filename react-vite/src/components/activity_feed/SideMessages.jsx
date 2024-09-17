@@ -6,7 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { messageServiceMine, messageServiceDelete } from '../../services/messageService.js';
 import { useDayjs } from "../../hooks/useDayjs";
 import { useToast } from "../../hooks/useToast.jsx";
-import userProfile from '../../assets/150.png';
+import imageCover from '../../assets/image.png';
 
 function SideMessages({ user }) {
     const [messages, setMessages] = useState([]);
@@ -38,6 +38,7 @@ function SideMessages({ user }) {
         messageServiceMine(page)
             .then(res => {
                 if (res.data?.success) {
+                    console.log(res.data);
                     setMessages((prevMessages) => [...prevMessages, ...res.data._doc]);
                     setTotalPages(res.data.total_pages);
                     setPage((prevPage) => prevPage + 1);
@@ -86,12 +87,12 @@ function SideMessages({ user }) {
                                 <div className="flex items-center">
                                     <img
                                         className="w-10 h-10 rounded-full object-cover"
-                                        src={message.cover || userProfile || 'https://via.placeholder.com/50'}
+                                        src={message.cover || imageCover || 'https://via.placeholder.com/50'}
                                         alt="User avatar"
                                     />
                                     <div className="ml-3">
                                         <p className="font-semibold text-gray-800 text-sm">{message.room.name}</p>
-                                        <p className="text-xs text-gray-500">Creado: {dayjs(message.createdAt).fromNow()}</p>
+                                        <p className="text-xs text-gray-500">Enviado: {dayjs(message.createdAt).fromNow()}</p>
                                     </div>
                                 </div>
                                 <p className="mt-3 text-gray-700 text-sm mb-4">{message.text}</p>

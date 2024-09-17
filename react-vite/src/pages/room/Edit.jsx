@@ -8,7 +8,8 @@ import { useSweetAlert } from '../../hooks/useSweetAlert';
 import { useDayjs } from '../../hooks/useDayjs';
 import { useToast } from '../../hooks/useToast';
 import Forbidden from '../../components/Forbidden';
-import defaultCover from '../../assets/150.png';
+import default_cover from '../../assets/image.png';
+import default_picture from '../../assets/account.png';
 const baseURL = import.meta.env.VITE_API_URL;
 
 // Página para editar o modificar información de la sala
@@ -155,7 +156,7 @@ const Edit = () => {
                 {/* Portada */}
                 <div className="relative mb-6">
                     <img
-                        src={room.cover ? cover ? room.cover : `${baseURL}/${room.cover}` : defaultCover}
+                        src={room.cover ? cover ? room.cover : `${baseURL}/${room.cover}` : default_cover}
                         alt="Cover"
                         className="w-full h-48 object-cover rounded-lg"
                     />
@@ -240,11 +241,10 @@ const Edit = () => {
                             room.members.map((member, index) => (
                                 <div key={index} className="flex flex-col items-center">
                                     <img
-                                        src={member.profilePicture || defaultCover}
+                                        src={member.picture ? `${baseURL}/${member.picture}` : default_picture}
                                         alt="Miembro"
                                         className="h-16 w-16 rounded-full object-cover border-2 border-gray-300 shadow-md"
                                     />
-                                    <p className="text-center mt-2 text-sm font-medium text-gray-800">{member.name}</p>
                                 </div>
                             ))
                         ) : (
