@@ -2,6 +2,7 @@
 import default_profile from '../../assets/account.png';
 const baseURL = import.meta.env.VITE_API_URL;
 
+const members_length = 20;
 // Componente para la barra lateral
 const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
     <div className="lg:w-1/4 p-4 bg-white shadow-lg rounded-lg border border-gray-300 lg:mb-0 mb-4 lg:sticky lg:top-0 flex flex-col items-start">
@@ -54,7 +55,7 @@ const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
             <h2 className="text-sm font-bold text-gray-800 mb-2">Miembros</h2>
             <div className="flex flex-wrap justify-start">
                 {room.members && room.members.length > 0 ? (<>
-                    {room.members.slice(0, 2).map((member, index) => (
+                    {room.members.slice(0, members_length).map((member, index) => (
                         <div key={index} className="flex items-center mb-2">
                             <img
                                 src={member.picture ? `${baseURL}/${member.picture}` : default_profile}
@@ -63,7 +64,7 @@ const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
                             />
                         </div>
                     ))}
-                    {room.members.length > 2 && (<div>+{room.members.length - 2}</div>)}
+                    {room.members.length > members_length && (<div>+{room.members.length - members_length}</div>)}
                 </>) : (
                     <span className="text-xs text-gray-500">No hay miembros en la sala.</span>
                 )}
