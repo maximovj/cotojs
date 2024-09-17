@@ -117,6 +117,7 @@ const EditProfile = () => {
                         src={preview || `${baseURL}/${user.picture}` || default_picture}
                         alt="Profile"
                         className="w-40 h-40 object-cover rounded-full border-4 border-white shadow-lg"
+                        loading='lazy'
                     />
                     <label className="absolute bottom-0 right-0 bg-white p-1 rounded-full shadow-lg cursor-pointer hover:bg-gray-200">
                         <input

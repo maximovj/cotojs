@@ -136,6 +136,7 @@ const Edit = () => {
                         src={preview || `${baseURL}/${room.cover}` || default_cover}
                         alt="Cover"
                         className="w-full h-48 object-cover rounded-lg"
+                        loading="lazy"
                     />
                     <label className="absolute bottom-4 left-4 bg-white p-2 rounded-full shadow-lg cursor-pointer hover:bg-gray-200">
                         <input

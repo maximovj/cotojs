@@ -15,6 +15,7 @@ function SideProfile({ user, page }) {
                     className="w-28 h-28 rounded-full border-4 border-gray-200 object-cover shadow-md"
                     src={user.picture ? `${baseURL}/${user.picture}` : userProfile}
                     alt="Profile"
+                    loading="lazy"
                 />
             </div>
             {/* Información del usuario */}

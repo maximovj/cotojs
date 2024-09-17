@@ -13,6 +13,7 @@ const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
                 src={room.cover ? `${baseURL}/${room.cover}` : default_cover}
                 alt="Portada de la sala"
                 className="w-full h-48 object-cover rounded-lg border border-gray-300"
+                loading='lazy'
             />
         </div>
 
@@ -59,6 +60,7 @@ const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
                                 src={member.picture ? `${baseURL}/${member.picture}` : default_picture}
                                 alt="Perfil"
                                 className="w-8 h-8 rounded-full border-2 border-white"
+                                loading='lazy'
                             />
                         </div>
                     ))}

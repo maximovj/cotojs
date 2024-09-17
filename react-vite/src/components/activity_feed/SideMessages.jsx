@@ -89,6 +89,7 @@ function SideMessages({ user }) {
                                         className="w-10 h-10 rounded-full object-cover"
                                         src={message.cover || imageCover || 'https://via.placeholder.com/50'}
                                         alt="User avatar"
+                                        loading='lazy'
                                     />
                                     <div className="ml-3">
                                         <p className="font-semibold text-gray-800 text-sm">{message.room.name}</p>

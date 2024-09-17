@@ -86,6 +86,7 @@ function Rooms() {
                                         src={item.cover ? `${baseURL}/${item.cover}` : default_cover}
                                         alt="Cover"
                                         className="absolute top-0 left-0 w-full h-full object-cover"
+                                        loading='lazy'
                                     />
                                     <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-gray-800 via-transparent to-transparent"></div>
                                 </div>
@@ -98,6 +99,7 @@ function Rooms() {
                                             src={item.created_by.picture ? `${baseURL}/${item.created_by.picture}` : default_profile}
                                             alt="Perfil del creador"
                                             className="w-8 h-8 rounded-full object-cover border-2 border-white"
+                                            loading='lazy'
                                         />
                                         <div className="ml-2">
                                             <h2 className="text-base font-bold text-gray-800">{item.name}</h2>
@@ -125,6 +127,7 @@ function Rooms() {
                                                     src={member.picture ? `${baseURL}/${member.picture}` : default_profile}
                                                     alt={`Miembro ${idx}`}
                                                     className="w-6 h-6 rounded-full border-2 border-white"
+                                                    loading='lazy'
                                                 />
                                             ))}
                                             {item.members.length > total_members && (

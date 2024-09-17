@@ -110,6 +110,7 @@ function SideRooms({ user }) {
                                         className="w-10 h-10 rounded-full object-cover"
                                         src={room.cover ? `${baseURL}/${room.cover}` : default_cover}
                                         alt="User avatar"
+                                        loading='lazy'
                                     />
                                     <div className="ml-3">
                                         <p className="font-semibold text-gray-800 text-sm">{room.name}</p>

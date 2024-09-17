@@ -40,6 +40,7 @@ export default function NavBar() {
                                     src={user.picture ? `${baseURL}/${user.picture}` : default_picture}
                                     alt="Foto de perfil"
                                     className="w-10 h-10 rounded-full border-2 border-white"
+                                    loading='lazy'
                                 />
                             </button>
 
