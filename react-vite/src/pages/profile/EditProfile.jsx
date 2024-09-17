@@ -52,9 +52,12 @@ const EditProfile = () => {
                     if (picture) {
                         const form_data = new FormData();
                         form_data.append('picture', picture);
-                        staticServiceChangePicture(user.id, form_data);
+                        staticServiceChangePicture(user.id, form_data).then(() => {
+                            setTimeout(() => { window.location.reload(); }, 1000);
+                        });
+                    } else {
+                        setTimeout(() => { window.location.reload(); }, 1000);
                     }
-                    setTimeout(() => { window.location.reload(); }, 1000);
                 }
             });
     }
