@@ -20,7 +20,8 @@ const Edit = () => {
         description: '',
         members: [],
     });
-    const [cover, setCover] = useState('');
+    const [cover, setCover] = useState(null);
+    const [preview, setPreview] = useState(null);
     const { id } = useParams();
     const dayjs = useDayjs();
     const navigate = useNavigate();
@@ -32,6 +33,7 @@ const Edit = () => {
             .then(res => {
                 if (res.data?.success) {
                     setRoom(res.data._doc);
+                    setPreview(null);
                 }
             });
     };
@@ -41,7 +43,11 @@ const Edit = () => {
 
         if (file) {
             const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-            if (!validTypes.includes(file.type)) {
+            if (validTypes.includes(file.type)) {
+                // Si el archivo es válido, lo asignas
+                setCover(file);
+                setPreview(URL.createObjectURL(file));
+            } else {
                 showSweetAlert({
                     icon: 'info',
                     title: 'Formato no permitido',
@@ -49,16 +55,7 @@ const Edit = () => {
                     showConfirmButton: true,
                 });
                 setCover('');
-                return;
             }
-
-            // Si el archivo es válido, lo asignas
-            setCover(file);
-            const previewUrl = URL.createObjectURL(file);
-            setRoom((prevRoom) => ({
-                ...prevRoom,
-                cover: previewUrl
-            }));
         }
     };
 
@@ -74,35 +71,14 @@ const Edit = () => {
             .then(res => {
                 if (res.data?.success) {
                     showToast(res.data.ctx_content, 'success');
+                    if (cover) {
+                        const data_media = new FormData();
+                        data_media.append('cover', cover);
+                        staticServiceChangeCover(id, data_media);
+                    }
+                    setTimeout(() => { window.location.reload(); }, 1000);
                 }
             });
-    }
-
-    const handleBtnOkCover = () => {
-        if (cover) {
-            const data_media = new FormData();
-            data_media.append('cover', cover);
-            staticServiceChangeCover(id, data_media)
-                .then(res => {
-                    if (res.data?.success) {
-                        setRoom(res.data._doc);
-                        setCover(null);
-                        showToast(res.data.ctx_content, 'success');
-                        window.location.reload();
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-
-        } else {
-            showSweetAlert({
-                icon: 'info',
-                title: 'Salas',
-                html: 'Selecciona una imagen de portada.',
-                showConfirmButton: true,
-            })
-        }
     }
 
     const handleBtnEliminar = () => {
@@ -156,11 +132,11 @@ const Edit = () => {
                 {/* Portada */}
                 <div className="relative mb-6">
                     <img
-                        src={room.cover ? cover ? room.cover : `${baseURL}/${room.cover}` : default_cover}
+                        src={preview || `${baseURL}/${room.cover}` || default_cover}
                         alt="Cover"
                         className="w-full h-48 object-cover rounded-lg"
                     />
-                    <label className="absolute bottom-4 left-20 bg-white p-2 rounded-full shadow-lg cursor-pointer hover:bg-gray-200">
+                    <label className="absolute bottom-4 left-4 bg-white p-2 rounded-full shadow-lg cursor-pointer hover:bg-gray-200">
                         <input
                             type="file"
                             name="cover"
@@ -170,9 +146,6 @@ const Edit = () => {
                             className="sr-only"
                         />
                         <span className="text-xs text-gray-600">Seleccionar portada</span>
-                    </label>
-                    <label className="absolute bottom-4 left-5 bg-white p-2 rounded-full shadow-lg cursor-pointer hover:bg-gray-200">
-                        <button onClick={handleBtnOkCover} className="text-xs text-gray-600">Aceptar</button>
                     </label>
                 </div>
 
