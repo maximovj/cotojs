@@ -15,7 +15,7 @@ function SideRooms({ user }) {
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [totalPages, setTotalPages] = useState(1);
-    const [totalRooms, setTotalRooms] = useState(1);
+    const [totalRooms, setTotalRooms] = useState(0);
     const dayjs = useDayjs();
     const showToast = useToast();
     const { showSweetAlert } = useSweetAlert();
