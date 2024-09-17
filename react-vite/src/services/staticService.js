@@ -31,3 +31,12 @@ export function staticServiceChangeCover(id, data) {
         }
     });
 };
+
+export function staticServiceChangePicture(id, form_data) {
+    return staticService.post(`/users/picture/${id}`, form_data, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Accept': 'multipart/form-data',
+        }
+    });
+};

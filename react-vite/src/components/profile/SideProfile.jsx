@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import { useDayjs } from "../../hooks/useDayjs";
 import userProfile from '../../assets/150.png';
+const baseURL = import.meta.env.VITE_API_URL;
 
 function SideProfile({ user, page }) {
     const dayjs = useDayjs();
@@ -12,7 +13,7 @@ function SideProfile({ user, page }) {
             <div className="flex justify-center mb-4">
                 <img
                     className="w-28 h-28 rounded-full border-4 border-gray-200 object-cover shadow-md"
-                    src={user.profilePicture || userProfile || 'https://via.placeholder.com/150'}
+                    src={user.picture ? `${baseURL}/${user.picture}` : userProfile}
                     alt="Profile"
                 />
             </div>

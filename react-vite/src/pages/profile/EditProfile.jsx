@@ -4,8 +4,10 @@ import { useDayjs } from '../../hooks/useDayjs';
 import { useToast } from '../../hooks/useToast';
 import { useSweetAlert } from '../../hooks/useSweetAlert';
 import { userServiceUpdate, userServiceDelete } from '../../services/userService.js';
+import { staticServiceChangePicture } from '../../services/staticService.js';
 import defaultCover from '../../assets/150.png';
 import { useEffect, useState } from 'react';
+const baseURL = import.meta.env.VITE_API_URL;
 
 // Página para editar o modificar información del usuario
 const EditProfile = () => {
@@ -14,9 +16,32 @@ const EditProfile = () => {
     const dayjs = useDayjs();
     const showToast = useToast();
     const [name, setName] = useState('');
+    const [picture, setPicture] = useState(null);
+    const [preview, setPreview] = useState(null);
 
     const handleInputName = (e) => {
         setName(e.target.value);
+    }
+
+    const handleInputFile = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const typesImg = ['image/png', 'image/jpeg', 'image/jpg'];
+            if (typesImg.includes(file.type)) {
+                setPicture(file);
+                setPreview(URL.createObjectURL(file));
+            } else {
+                showSweetAlert({
+                    icon: 'info',
+                    title: 'Perfil',
+                    html: 'Selecciona una imagen válido, por favor',
+                    showConfirmButton: true,
+                });
+                setPicture('');
+                return;
+            }
+
+        }
     }
 
     const handleBtnActualizar = () => {
@@ -24,7 +49,12 @@ const EditProfile = () => {
             .then(res => {
                 if (res.data?.success) {
                     showToast(res.data.ctx_content, 'success');
-                    window.location.reload();
+                    if (picture) {
+                        const form_data = new FormData();
+                        form_data.append('picture', picture);
+                        staticServiceChangePicture(user.id, form_data);
+                    }
+                    setTimeout(() => { window.location.reload(); }, 1000);
                 }
             });
     }
@@ -84,7 +114,7 @@ const EditProfile = () => {
             <div className="flex justify-center mb-6">
                 <div className="relative">
                     <img
-                        src={user.profilePicture || defaultCover}
+                        src={preview || `${baseURL}/${user.picture}` || defaultCover}
                         alt="Profile"
                         className="w-40 h-40 object-cover rounded-full border-4 border-white shadow-lg"
                     />
@@ -92,6 +122,10 @@ const EditProfile = () => {
                         <input
                             type="file"
                             className="sr-only"
+                            accept='.jpg, .jpeg, .png'
+                            name='picture'
+                            id='picture'
+                            onChange={handleInputFile}
                         />
                         <span className="text-xs text-gray-600">Cambiar foto</span>
                     </label>
