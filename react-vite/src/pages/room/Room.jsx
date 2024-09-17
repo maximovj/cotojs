@@ -35,7 +35,7 @@ const Room = () => {
         setUserId(currentUserId);
         setRoom(roomData);
 
-        const isMember = roomData.members.includes(currentUserId);
+        const isMember = roomData.members.filter(x => x.id === currentUserId);
         if (isMember) {
             setIAmMember(true);
         } else {
