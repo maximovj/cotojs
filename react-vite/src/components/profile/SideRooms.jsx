@@ -15,6 +15,7 @@ function SideRooms({ user }) {
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [totalPages, setTotalPages] = useState(1);
+    const [totalRooms, setTotalRooms] = useState(1);
     const dayjs = useDayjs();
     const showToast = useToast();
     const { showSweetAlert } = useSweetAlert();
@@ -58,11 +59,12 @@ function SideRooms({ user }) {
         roomServiceMe(page)
             .then(res => {
                 if (res.data?.success) {
-                    setRooms((prevRooms) => [...prevRooms, ...res.data._doc]);
-                    setTotalPages(res.data.total_pages);
+                    const { _doc, current_page, total_pages, total_rooms } = res.data;
+                    setRooms((prevRooms) => [...prevRooms, ..._doc]);
+                    setTotalPages(total_pages);
                     setPage((prevPage) => prevPage + 1);
-                    setHasMore(res.data.total_pages > res.data.current_page);
-                    //console.log('Load => ', rooms);
+                    setHasMore(total_pages > current_page);
+                    setTotalRooms(total_rooms);
                 }
             });
     }
@@ -77,7 +79,7 @@ function SideRooms({ user }) {
             <div className="md:col-span-2">
                 {/* Cabecera de salas */}
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-lg font-bold text-gray-800">Mis salas</h2>
+                    <h2 className="text-lg font-bold text-gray-800">Mis salas ({totalRooms})</h2>
                     <Link to='/room/create' className="bg-blue-500 text-white text-sm py-1.5 px-4 rounded-full hover:bg-blue-600 transition ease-in-out">
                         Nueva sala
                     </Link>

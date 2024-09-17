@@ -38,12 +38,12 @@ function SideMessages({ user }) {
         messageServiceMine(page)
             .then(res => {
                 if (res.data?.success) {
-                    console.log(res.data);
-                    setMessages((prevMessages) => [...prevMessages, ...res.data._doc]);
-                    setTotalPages(res.data.total_pages);
+                    const { _doc, current_page, total_pages, total_messages } = res.data;
+                    setMessages((prevMessages) => [...prevMessages, ..._doc]);
+                    setTotalPages(total_pages);
                     setPage((prevPage) => prevPage + 1);
-                    setHasMore(res.data.total_pages > res.data.current_page);
-                    setTotalMessages(res.data.total_messages);
+                    setHasMore(total_pages > current_page);
+                    setTotalMessages(total_messages);
                 }
             });
     }
