@@ -8,11 +8,7 @@ yarn.lock
 pnpm-lock.yaml
 
 # Custom images and icons
-storage/*
-!storage/rooms/cover/default.png
-!storage/rooms/thumbnail/default.png
-!storage/users/picture/account.png
-!storage/users/thumbnail/account.png
+
 
 # Environment variables
 .env
@@ -66,7 +62,7 @@ temp/
 static/
 multer/
 tmp_multer/
-upload/
+
 
 # Handlebars precompiled templates
 *.hbs.js
