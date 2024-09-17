@@ -15,7 +15,7 @@ const room = conn.model('room', new Schema(
         cover: {
             type: smTypes.String,
             required: false,
-            default: null,
+            default: 'storage/rooms/cover/default.png',
         },
         created_by: {
             type: smTypes.ObjectId,
