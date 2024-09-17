@@ -34,7 +34,7 @@ export const findRoom = async (req, res) => {
         const { id } = req.params;
         const user_id = req.session_payload.id;
         const find_room = await Room.findById(id)
-            .populate('members', 'name email picture id')
+            .populate('members', 'name email picture thumbnail id')
             .sort({ members: -1 })
             .exec();
 
@@ -98,8 +98,8 @@ export const paginationRoom = async (req, res) => {
     try {
         const { page = 1, limit = 15 } = req.query;
         const rooms = await Room.find()
-            .populate('members', 'name email id picture')
-            .populate('created_by', 'name email id picture')
+            .populate('members', 'name email id picture thumbnail')
+            .populate('created_by', 'name email id picture thumbnail')
             .skip((page - 1) * limit)
             .limit(parseInt(limit));
 

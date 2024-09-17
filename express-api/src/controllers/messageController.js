@@ -48,7 +48,7 @@ export const findMessage = async (req, res) => {
         const user_id = req.session_payload.id;
 
         const find_messages = await Message.find({ room: room_id })
-            .populate('send_by', 'name email picture')
+            .populate('send_by', 'name email picture thumbnail')
             .exec();
 
         if (!find_messages) {
@@ -83,7 +83,7 @@ export const mineMessage = async (req, res) => {
 
         if (find_user) {
             const find_messages = await Message.find({ send_by: find_user.id })
-                .populate('room', 'name cover')
+                .populate('room', 'name cover thumbnail')
                 .skip((page - 1) * limit) // Saltar páginas
                 .limit(parseInt(limit)) // Limite de mensajes por página
                 .sort({ createdAt: -1 }) // Ordenar ascendente

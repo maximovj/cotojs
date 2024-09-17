@@ -21,6 +21,11 @@ const user = conn.model('user', new Schema(
             type: smTypes.String,
             require: false,
             default: 'storage/users/picture/account.png'
+        },
+        thumbnail: {
+            type: smTypes.String,
+            require: false,
+            default: 'storage/users/thumbnail/account.png'
         }
     },
     {

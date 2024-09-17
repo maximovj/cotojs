@@ -41,6 +41,7 @@ staticRoute.post('/rooms/cover/:id', upload_rooms_cover.single('cover'), async (
 
             // Generar una nueva ruta para el thumbnail (nombre diferente)
             const thumbnail = path.join(`storage`, `rooms`, `thumbnail`, `thumbnail_${find_room.id}.jpg`);
+            const cover = path.join(`storage`, `rooms`, `cover`, `cover_${find_room.id}.jpg`);
 
             // Usar Sharp para reducir el tamaño de la imagen, crear y guardar el thumbnail 
             await sharp(originalPath)
@@ -52,8 +53,18 @@ staticRoute.post('/rooms/cover/:id', upload_rooms_cover.single('cover'), async (
                 .jpeg({ quality: 80 })
                 .toFile(thumbnail);
 
-            // Actualizar el campo `cover` del usuario con la ruta del thumbnail
-            find_room.cover = thumbnail || find_room.cover;
+            await sharp(originalPath)
+                .resize({
+                    width: 900, // Ancho deseado 900
+                    height: 600, // Altura deseada 600
+                    fit: 'fill', // Ajustar el contenido sin recortar
+                })
+                .jpeg({ quality: 80 })
+                .toFile(cover);
+
+            // Actualizar el campo `thumbnail` y el campo `cover` de la sala
+            find_room.thumbnail = thumbnail || find_room.thumbnail;
+            find_room.cover = cover || find_room.cover;
 
             await find_room.updateOne(find_room._doc);
             return res.status(200).json({
@@ -100,19 +111,30 @@ staticRoute.post('/users/picture/:id', upload_users_picture.single('picture'), a
         if (find_user) {
             // Generar una nueva ruta para el thumbnail (nombre diferente)
             const thumbnail = path.join(`storage`, `users`, `thumbnail`, `thumbnail_${find_user.id}.jpg`);
+            const picture = path.join(`storage`, `users`, `picture`, `picture_${find_user.id}.jpg`);
 
             // Usar Sharp para reducir el tamaño de la imagen, crear y guardar el thumbnail 
             await sharp(originalPath)
                 .resize({
-                    width: 160, // Ancho deseado 300
-                    height: 160, // Altura deseada 300
+                    width: 160, // Ancho deseado 160
+                    height: 160, // Altura deseada 160
                     fit: 'fill', // Ajustar el contenido sin recortar
                 })
                 .jpeg({ quality: 80 })
                 .toFile(thumbnail);
 
-            // Actualizar el campo `picture` del usuario con la ruta del thumbnail
-            find_user.picture = thumbnail || find_user.picture;
+            await sharp(originalPath)
+                .resize({
+                    width: 300, // Ancho deseado 300
+                    height: 300, // Altura deseada 300
+                    fit: 'fill', // Ajustar el contenido sin recortar
+                })
+                .jpeg({ quality: 80 })
+                .toFile(picture);
+
+            // Actualizar el campo `thumbnail` y el campo `picture` del usuario
+            find_user.thumbnail = thumbnail || find_user.thumbnail;
+            find_user.picture = picture || find_user.picture;
 
             // Guardar los cambios en la base de datos
             await find_user.updateOne(find_user._doc);
