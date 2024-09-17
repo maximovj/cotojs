@@ -32,8 +32,11 @@ export const createRoom = async (req, res) => {
 export const findRoom = async (req, res) => {
     try {
         const { id } = req.params;
-        const find_room = await Room.findById(id);
         const user_id = req.session_payload.id;
+        const find_room = await Room.findById(id)
+            .populate('members', 'name email picture id')
+            .sort({ members: -1 })
+            .exec();
 
         if (!find_room) {
             return res.status(404).json({

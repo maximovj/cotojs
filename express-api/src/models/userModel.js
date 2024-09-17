@@ -17,6 +17,11 @@ const user = conn.model('user', new Schema(
             type: smTypes.String,
             required: true,
         },
+        picture: {
+            type: smTypes.String,
+            require: false,
+            default: 'storage/users/picture/account.png'
+        }
     },
     {
         timestamps: true,

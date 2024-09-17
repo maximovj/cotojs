@@ -48,7 +48,7 @@ export const findMessage = async (req, res) => {
         const user_id = req.session_payload.id;
 
         const find_messages = await Message.find({ room: room_id })
-            .populate('send_by', 'name email')
+            .populate('send_by', 'name email picture')
             .exec();
 
         if (!find_messages) {
