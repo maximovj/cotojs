@@ -4,7 +4,7 @@ import { useDayjs } from "../../hooks/useDayjs";
 import userProfile from '../../assets/150.png';
 const baseURL = import.meta.env.VITE_API_URL;
 
-function SideProfile({ user, page }) {
+function SideProfile({ user }) {
     const dayjs = useDayjs();
 
     return (<>
@@ -26,27 +26,22 @@ function SideProfile({ user, page }) {
                 <p className="text-sm text-blue-500 mt-1">{dayjs(user.createdAt).fromNow()}</p>
             </div>
             {/* Botones de acción */}
-            <div className="mt-4 flex justify-center space-x-3">
+            <div className="mt-4 flex lg:flex-col justify-center gap-2">
                 <Link
                     to={`/profile/edit`}
-                    className="bg-blue-500 text-white text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-blue-600 transition ease-in-out">
-                    Editar Perfil
+                    className="bg-gray-200 text-gray-800 text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-gray-300 transition ease-in-out">
+                    Editar perfil
                 </Link>
-                {page === 'profile' && (
-                    <Link
-                        to={`/profile/activity_feed`}
-                        className="bg-gray-200 text-gray-800 text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-gray-300 transition ease-in-out">
-                        Ver Actividad
-                    </Link>
-                )}
-
-                {page === 'activity_feed' && (
-                    <Link
-                        to={`/profile`}
-                        className="bg-gray-200 text-gray-800 text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-gray-300 transition ease-in-out">
-                        Ver salas
-                    </Link>
-                )}
+                <Link
+                    to={`/profile`}
+                    className="bg-gray-200 text-gray-800 text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-gray-300 transition ease-in-out">
+                    Mis salas
+                </Link>
+                <Link
+                    to={`/profile/activity_feed`}
+                    className="bg-gray-200 text-gray-800 text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-gray-300 transition ease-in-out">
+                    Mi mensajes
+                </Link>
             </div>
         </div>
     </>);
