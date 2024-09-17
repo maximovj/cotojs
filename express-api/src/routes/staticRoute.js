@@ -18,43 +18,43 @@ const __dirname = dirname(__filename);
 // Define el directorio donde están los archivos estáticos
 const staticDir = path.join(__dirname, '../../storage');
 
-async function retryDelete(filePath, retries = 3, delay = 500) {
-    while (retries > 0) {
-        try {
-            await fs.unlink(filePath);
-            console.log(`Archivo eliminado: ${filePath}`);
-            return;
-        } catch (err) {
-            if (err.code === 'EPERM' || err.code === 'EBUSY') {
-                console.warn(`Error al eliminar el archivo, reintentando... (${retries})`);
-                retries -= 1;
-                await new Promise(resolve => setTimeout(resolve, delay)); // Espera antes de reintentar
-            } else {
-                throw err;
-            }
+// Configurar multer para almacenar las imágenes
+const upload_rooms_cover = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, 'upload/rooms/cover');
+        },
+        filename: (req, file, cb) => {
+            cb(null, Date.now() + path.extname(file.originalname));
         }
-    }
-    console.error(`No se pudo eliminar el archivo después de varios intentos: ${filePath}`);
-}
-
-const storage_room_cover = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'storage/rooms/cover');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
+    })
 });
 
-const upload_room_cover = multer({ storage: storage_room_cover });
-staticRoute.post('/rooms/cover/:id', upload_room_cover.single('cover'), async (req, res) => {
+// Ruta para subir la imagen de portada para salas
+staticRoute.post('/rooms/cover/:id', upload_rooms_cover.single('cover'), async (req, res) => {
     try {
         const room_id = req.params.id;
-        const coverPath = req.file.path;
+        const originalPath = req.file.path;
 
         const find_room = await Room.findById(room_id);
-        if (find_room && coverPath) {
-            find_room.cover = coverPath || find_room.cover;
+        if (find_room && originalPath) {
+
+            // Generar una nueva ruta para el thumbnail (nombre diferente)
+            const thumbnail = path.join(`storage`, `rooms`, `thumbnail`, `thumbnail_${find_room.id}.jpg`);
+
+            // Usar Sharp para reducir el tamaño de la imagen, crear y guardar el thumbnail 
+            await sharp(originalPath)
+                .resize({
+                    width: 240, // Ancho deseado 900
+                    height: 240, // Altura deseada 600
+                    fit: 'fill', // Ajustar el contenido sin recortar
+                })
+                .jpeg({ quality: 80 })
+                .toFile(thumbnail);
+
+            // Actualizar el campo `cover` del usuario con la ruta del thumbnail
+            find_room.cover = thumbnail || find_room.cover;
+
             await find_room.updateOne(find_room._doc);
             return res.status(200).json({
                 ctx_content: 'Imagen de portada actualizada con éxito',
@@ -89,7 +89,7 @@ const upload_users_picture = multer({
     }),
 });
 
-// Ruta para subir la imagen de perfil
+// Ruta para subir la imagen de perfil para usuarios
 staticRoute.post('/users/picture/:id', upload_users_picture.single('picture'), async (req, res) => {
     try {
         const user_id = req.params.id;
@@ -103,12 +103,13 @@ staticRoute.post('/users/picture/:id', upload_users_picture.single('picture'), a
 
             // Usar Sharp para reducir el tamaño de la imagen, crear y guardar el thumbnail 
             await sharp(originalPath)
-                .resize(300, 300)
+                .resize({
+                    width: 160, // Ancho deseado 300
+                    height: 160, // Altura deseada 300
+                    fit: 'fill', // Ajustar el contenido sin recortar
+                })
                 .jpeg({ quality: 80 })
                 .toFile(thumbnail);
-
-            // Eliminar la imagen original si ya no es necesaria
-            //fs.rmSync(originalPath);
 
             // Actualizar el campo `picture` del usuario con la ruta del thumbnail
             find_user.picture = thumbnail || find_user.picture;
