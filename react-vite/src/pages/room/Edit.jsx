@@ -10,6 +10,7 @@ import { useToast } from '../../hooks/useToast';
 import Forbidden from '../../components/Forbidden';
 import default_cover from '../../assets/image.png';
 import default_picture from '../../assets/account.png';
+const members_length = 50;
 const baseURL = import.meta.env.VITE_API_URL;
 
 // Página para editar o modificar información de la sala
@@ -206,22 +207,28 @@ const Edit = () => {
                     </div>
                 </div>
 
-                {/* Miembros */}
-                <div className="bg-white p-4 rounded-lg shadow-md">
-                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Miembros de la sala</h2>
-                    <div className="flex flex-row gap-4">
-                        {room.members.length > 0 ? (
-                            room.members.map((member, index) => (
-                                <div key={index} className="flex flex-col items-center">
+                {/* Lista de miembros */}
+                <div className="w-full p-4 bg-white rounded-lg">
+                    <h2 className="text-sm font-bold text-gray-800 mb-2">Miembros ({room.members?.length || 0})</h2>
+                    <div className="flex flex-wrap justify-start">
+                        {room.members && room.members.length > 0 ? (<>
+                            {room.members.slice(0, members_length).map((member, index) => (
+                                <div key={index} className="flex items-center mb-2">
                                     <img
                                         src={member.picture ? `${baseURL}/${member.picture}` : default_picture}
-                                        alt="Miembro"
-                                        className="h-16 w-16 rounded-full object-cover border-2 border-gray-300 shadow-md"
+                                        alt="Perfil"
+                                        className="w-8 h-8 rounded-full border-2 border-white"
+                                        loading="lazy"
                                     />
                                 </div>
-                            ))
-                        ) : (
-                            <p className="text-center text-gray-600 col-span-full">No hay miembros en esta sala.</p>
+                            ))}
+                            {room.members.length > members_length && (
+                                <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-xs text-gray-700">
+                                    +{room.members.length - members_length}
+                                </div>
+                            )}
+                        </>) : (
+                            <span className="text-xs text-gray-500">No hay miembros en la sala.</span>
                         )}
                     </div>
                 </div>

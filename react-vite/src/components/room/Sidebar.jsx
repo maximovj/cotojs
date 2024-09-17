@@ -1,14 +1,12 @@
 /* eslint-disable react/prop-types */
 import default_cover from '../../assets/image.png';
+import default_picture from '../../assets/account.png';
 const baseURL = import.meta.env.VITE_API_URL;
-const members_length = 20;
+const members_length = 50;
 
 // Componente para la barra lateral
 const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
     <div className="lg:w-1/4 p-4 bg-white shadow-lg rounded-lg border border-gray-300 lg:mb-0 mb-4 lg:sticky lg:top-0 flex flex-col items-start">
-
-        {console.log(room)}
-
         {/* Imagen de portada */}
         <div className="w-full mb-4 hidden sm:block">
             <img
@@ -52,19 +50,23 @@ const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
 
         {/* Lista de miembros */}
         <div className="w-full p-4 bg-white rounded-lg">
-            <h2 className="text-sm font-bold text-gray-800 mb-2">Miembros</h2>
+            <h2 className="text-sm font-bold text-gray-800 mb-2">Miembros ({room.members?.length || 0})</h2>
             <div className="flex flex-wrap justify-start">
                 {room.members && room.members.length > 0 ? (<>
                     {room.members.slice(0, members_length).map((member, index) => (
                         <div key={index} className="flex items-center mb-2">
                             <img
-                                src={member.picture ? `${baseURL}/${member.picture}` : default_cover}
+                                src={member.picture ? `${baseURL}/${member.picture}` : default_picture}
                                 alt="Perfil"
-                                className="w-8 h-8 rounded-full border border-gray-300 mr-2"
+                                className="w-8 h-8 rounded-full border-2 border-white"
                             />
                         </div>
                     ))}
-                    {room.members.length > members_length && (<div>+{room.members.length - members_length}</div>)}
+                    {room.members.length > members_length && (
+                        <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-xs text-gray-700">
+                            +{room.members.length - members_length}
+                        </div>
+                    )}
                 </>) : (
                     <span className="text-xs text-gray-500">No hay miembros en la sala.</span>
                 )}

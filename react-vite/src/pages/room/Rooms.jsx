@@ -1,63 +1,39 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ClipLoader } from 'react-spinners';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { useDayjs } from '../../hooks/useDayjs.jsx';
 import { roomServiceAll } from '../../services/roomService.js';
 import socketService from '../../services/socketService.js';
 import default_cover from '../../assets/image.png';
+import default_profile from '../../assets/account.png'; // Añade una imagen por defecto para los perfiles
 const baseURL = import.meta.env.VITE_API_URL;
+const total_members = 15;
 
 function Rooms() {
     const [rooms, setRooms] = useState([]);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
-    const loaderRef = useRef(null);
-    const [itemsPerPage, setItemsPerPage] = useState(0); // Para calcular cuántas salas cargar en función del tamaño de pantalla
+    const dayjs = useDayjs();
 
     // Función para cargar las salas
-    const loadRooms = (page, limit) => {
-        roomServiceAll(page, limit)
+    const loadRooms = (page) => {
+        roomServiceAll(page, 10)
             .then(res => {
                 if (res.data?.success) {
-                    // Añadir las nuevas salas al estado existente
                     setRooms((prevRooms) => [...prevRooms, ...res.data._doc]);
-
-                    // Verificamos si quedan más salas por cargar
-                    if (res.data._doc.length < limit) {
+                    console.log(res.data);
+                    if (res.data._doc.length < 10) {
                         setHasMore(false);
-                    } else {
-                        setHasMore(res.data.current_page < res.data.total_pages);
                     }
                 }
             });
     };
 
-    // Cargar salas cuando la página cambie
     useEffect(() => {
-        loadRooms(page, itemsPerPage || 10); // Ajustar el límite basado en el número de elementos por página
-    }, [page, itemsPerPage]);
+        loadRooms(page);
+    }, [page]);
 
-    // Cargar las salas iniciales y ajustar el número de elementos según el tamaño de pantalla
-    useEffect(() => {
-        const calculateItemsPerPage = () => {
-            const gridElement = document.querySelector('.grid');
-            if (gridElement) {
-                const gridItemWidth = 300; // Asumiendo que cada sala tiene un ancho fijo de 300px
-                const containerWidth = gridElement.clientWidth;
-                const itemsPerRow = Math.floor(containerWidth / gridItemWidth);
-                const rowsPerPage = Math.ceil(window.innerHeight / 350); // Ajustar la altura de los elementos
-                setItemsPerPage(itemsPerRow * rowsPerPage);
-            }
-        };
-
-        window.addEventListener('resize', calculateItemsPerPage);
-        calculateItemsPerPage(); // Llamar inmediatamente
-
-        return () => {
-            window.removeEventListener('resize', calculateItemsPerPage);
-        };
-    }, []);
-
-    // Socket para recibir nuevas salas en tiempo real
+    // Configurar Socket.IO para recibir nuevas salas
     useEffect(() => {
         socketService.on('on_rooms', (newRoom) => {
             setRooms((prevRooms) => [...prevRooms, newRoom]);
@@ -68,63 +44,114 @@ function Rooms() {
         };
     }, []);
 
-    // Función de observador para scroll infinito
-    const handleObserver = useCallback((entries) => {
-        const target = entries[0];
-        if (target.isIntersecting && hasMore) {
-            setPage((prevPage) => prevPage + 1);
+    // Función para cargar más salas cuando se llega al final de la lista
+    const fetchMoreRooms = () => {
+        setPage((prevPage) => prevPage + 1);
+    };
+
+    const truncateDescription = (text, maxLength = 360) => {
+        if (text.length > maxLength) {
+            return text.slice(0, maxLength) + '...';
         }
-    }, [hasMore]);
-
-    // Configurar el observador de intersección
-    useEffect(() => {
-        const observer = new IntersectionObserver(handleObserver, {
-            root: null,
-            rootMargin: '20px',
-            threshold: 0.1, // Activar el observador más cerca del final de la página
-        });
-
-        if (loaderRef.current) {
-            observer.observe(loaderRef.current);
-        }
-
-        return () => {
-            if (loaderRef.current) {
-                observer.unobserve(loaderRef.current);
-            }
-        };
-    }, [handleObserver]);
+        return text;
+    };
 
     return (
         <div className="container mx-auto p-4">
             {rooms.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {rooms.map((item, index) => (
-                        <div key={`${item._id.slice(0, 7)}-${index}`} className="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                            <div className="flex items-center mb-4">
-                                {/* Si tienes una imagen de perfil o ícono para la sala */}
-                                <div className="mr-4">
+                <InfiniteScroll
+                    dataLength={rooms.length}
+                    next={fetchMoreRooms}
+                    hasMore={hasMore}
+                    loader={
+                        <div className="flex justify-center items-center my-4">
+                            <p className="text-gray-500">Cargando más salas...</p>
+                        </div>
+                    }
+                    endMessage={
+                        <p className="text-center text-gray-500 my-4">
+                            ¡No hay más salas para cargar!
+                        </p>
+                    }
+                >
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 m-6">
+                        {rooms.map((item, index) => (
+                            <div
+                                key={`${item._id.slice(0, 7)}-${index}`}
+                                className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col relative min-h-[510px] transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:border hover:border-gray-200"
+                            >
+                                {/* Imagen de portada con borde asimétrico */}
+                                <div className="relative w-full h-52 overflow-hidden">
                                     <img
                                         src={item.cover ? `${baseURL}/${item.cover}` : default_cover}
-                                        alt="icono"
-                                        className="rounded-full h-12 w-12 object-cover"
+                                        alt="Cover"
+                                        className="absolute top-0 left-0 w-full h-full object-cover"
                                     />
+                                    <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-gray-800 via-transparent to-transparent"></div>
                                 </div>
 
-                                <div>
-                                    <h2 className="text-lg font-semibold text-gray-800">{item.name}</h2>
-                                    <p className="text-sm text-gray-500">{item.creatorName || 'Creador desconocido'}</p>
+                                {/* Contenido de la tarjeta */}
+                                <div className="p-4 flex flex-col flex-grow">
+                                    {/* Fila de encabezado con la foto del creador */}
+                                    <div className="flex items-center mb-2">
+                                        <img
+                                            src={item.created_by.picture ? `${baseURL}/${item.created_by.picture}` : default_profile}
+                                            alt="Perfil del creador"
+                                            className="w-8 h-8 rounded-full object-cover border-2 border-white"
+                                        />
+                                        <div className="ml-2">
+                                            <h2 className="text-base font-bold text-gray-800">{item.name}</h2>
+                                            <p className="text-xs text-gray-500">{item.created_by.name || 'Creador desconocido'}</p>
+                                        </div>
+                                    </div>
+
+                                    {/* Fecha de creación */}
+                                    <div className='flex justify-between'>
+                                        <p className="text-xs text-gray-500 mb-2">{dayjs(item.createdAt).format('LL')}</p>
+                                        <p className="text-xs text-gray-500 mb-2">{dayjs(item.createdAt).fromNow()}</p>
+                                    </div>
+
+                                    {/* Descripción */}
+                                    <p className="text-sm text-gray-600 mb-4 flex-grow">
+                                        {truncateDescription(item.description, 360)}
+                                    </p>
+
+                                    {/* Miembros */}
+                                    <div className="flex items-center mt-4 space-x-2">
+                                        <div className="flex -space-x-2 overflow-hidden">
+                                            {item.members.slice(0, total_members).map((member, idx) => (
+                                                <img
+                                                    key={idx}
+                                                    src={member.picture ? `${baseURL}/${member.picture}` : default_profile}
+                                                    alt={`Miembro ${idx}`}
+                                                    className="w-6 h-6 rounded-full border-2 border-white"
+                                                />
+                                            ))}
+                                            {item.members.length > total_members && (
+                                                <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-gray-700">
+                                                    +{item.members.length - total_members}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <p className="text-xs text-gray-500 ml-2">
+                                            {item.members.length} miembro{item.members.length > 1 ? 's' : ''}
+                                        </p>
+                                    </div>
+
+                                    {/* Acción */}
+                                    <div className="absolute bottom-14 right-4">
+                                        <Link
+                                            to={`/room/${item._id}`}
+                                            className="bg-gray-500 text-white px-4 py-2 rounded-lg text-xs font-medium hover:bg-gray-600 transition-colors"
+                                        >
+                                            Ver sala
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
-                            <p className="text-gray-600 mb-6">{item.description}</p>
-                            <Link
-                                to={`/room/${item._id}`}
-                                className="inline-block bg-blue-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200">
-                                Ver Sala
-                            </Link>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                </InfiniteScroll>
             ) : (
                 <div className="flex flex-col justify-center items-center h-screen">
                     <h2 className="text-lg text-gray-700 font-semibold mb-2">¡No hay salas disponibles aún!</h2>
@@ -132,14 +159,6 @@ function Rooms() {
                     <Link to="/room/create" className="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-green-600 transition-colors">
                         Crear Nueva Sala
                     </Link>
-                </div>
-            )}
-
-            {/* Mostrar el Spinner mientras se cargan más salas */}
-            {hasMore && rooms.length > 0 && (
-                <div ref={loaderRef} className="flex flex-col justify-center items-center mt-4">
-                    <ClipLoader color="#3498db" loading={true} size={40} />
-                    <p className="text-gray-500 mt-2">Cargando más salas...</p>
                 </div>
             )}
         </div>
