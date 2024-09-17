@@ -5,7 +5,7 @@ import { useDayjs } from '../../hooks/useDayjs.jsx';
 import { roomServiceAll } from '../../services/roomService.js';
 import socketService from '../../services/socketService.js';
 import default_cover from '../../assets/image.png';
-import default_thumbnail from '../../assets/account.png';
+import default_user_thumbnail from '../../assets/account.png';
 const baseURL = import.meta.env.VITE_API_URL;
 const total_members = 15;
 
@@ -96,7 +96,7 @@ function Rooms() {
                                     {/* Fila de encabezado con la foto del creador */}
                                     <div className="flex items-center mb-2">
                                         <img
-                                            src={item.created_by.thumbnail ? `${baseURL}/${item.created_by.thumbnail}` : default_thumbnail}
+                                            src={item.created_by.thumbnail ? `${baseURL}/${item.created_by.thumbnail}` : default_user_thumbnail}
                                             alt="Perfil del creador"
                                             className="w-8 h-8 rounded-full object-cover border-2 border-white"
                                             loading='lazy'
@@ -124,7 +124,7 @@ function Rooms() {
                                             {item.members.slice(0, total_members).map((member, idx) => (
                                                 <img
                                                     key={idx}
-                                                    src={member.thumbnail ? `${baseURL}/${member.thumbnail}` : default_thumbnail}
+                                                    src={member.thumbnail ? `${baseURL}/${member.thumbnail}` : default_user_thumbnail}
                                                     alt={`Miembro ${idx}`}
                                                     className="w-6 h-6 rounded-full border-2 border-white"
                                                     loading='lazy'
