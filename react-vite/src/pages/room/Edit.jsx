@@ -75,9 +75,13 @@ const Edit = () => {
                     if (cover) {
                         const data_media = new FormData();
                         data_media.append('cover', cover);
-                        staticServiceChangeCover(id, data_media);
+                        staticServiceChangeCover(id, data_media).then(() => {
+                            setTimeout(() => { window.location.reload(); }, 1000);
+                        });
+                    } else {
+                        setTimeout(() => { window.location.reload(); }, 1000);
                     }
-                    setTimeout(() => { window.location.reload(); }, 1000);
+
                 }
             });
     }
