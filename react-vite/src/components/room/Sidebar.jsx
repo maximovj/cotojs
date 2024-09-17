@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import default_cover from '../../assets/image.png';
-import default_picture from '../../assets/account.png';
+import default_user_thumbnail from '../../assets/account.png';
 const baseURL = import.meta.env.VITE_API_URL;
 const members_length = 50;
 
@@ -57,7 +57,7 @@ const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
                     {room.members.slice(0, members_length).map((member, index) => (
                         <div key={index} className="flex items-center mb-2">
                             <img
-                                src={member.picture ? `${baseURL}/${member.picture}` : default_picture}
+                                src={member.thumbnail ? `${baseURL}/${member.thumbnail}` : default_user_thumbnail}
                                 alt="Perfil"
                                 className="w-8 h-8 rounded-full border-2 border-white"
                                 loading='lazy'

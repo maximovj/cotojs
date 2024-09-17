@@ -6,7 +6,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { messageServiceMine, messageServiceDelete } from '../../services/messageService.js';
 import { useDayjs } from "../../hooks/useDayjs";
 import { useToast } from "../../hooks/useToast.jsx";
-import imageCover from '../../assets/image.png';
+import default_room_thumbnail from '../../assets/image.png';
+const baseURL = import.meta.env.VITE_API_URL;
 
 function SideMessages({ user }) {
     const [messages, setMessages] = useState([]);
@@ -39,6 +40,7 @@ function SideMessages({ user }) {
             .then(res => {
                 if (res.data?.success) {
                     const { _doc, current_page, total_pages, total_messages } = res.data;
+                    console.log(res.data);
                     setMessages((prevMessages) => [...prevMessages, ..._doc]);
                     setTotalPages(total_pages);
                     setPage((prevPage) => prevPage + 1);
@@ -87,7 +89,7 @@ function SideMessages({ user }) {
                                 <div className="flex items-center">
                                     <img
                                         className="w-10 h-10 rounded-full object-cover"
-                                        src={message.cover || imageCover || 'https://via.placeholder.com/50'}
+                                        src={message.room.thumbnail ? `${baseURL}/${message.room.thumbnail}` : default_room_thumbnail}
                                         alt="User avatar"
                                         loading='lazy'
                                     />
