@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDayjs } from '../../hooks/useDayjs.jsx';
 import { roomServiceAll } from '../../services/roomService.js';
 import socketService from '../../services/socketService.js';
-import default_cover from '../../assets/image.png';
+import default_cover from '../../assets/default_cover.png';
 import default_user_thumbnail from '../../assets/account.png';
 const baseURL = import.meta.env.VITE_API_URL;
 const total_members = 15;

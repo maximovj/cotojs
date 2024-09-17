@@ -8,7 +8,7 @@ import { useSweetAlert } from '../../hooks/useSweetAlert';
 import { useDayjs } from '../../hooks/useDayjs';
 import { useToast } from '../../hooks/useToast';
 import Forbidden from '../../components/Forbidden';
-import default_cover from '../../assets/image.png';
+import default_cover from '../../assets/default_cover.png';
 import default_user_thumbnail from '../../assets/account.png';
 const members_length = 50;
 const baseURL = import.meta.env.VITE_API_URL;

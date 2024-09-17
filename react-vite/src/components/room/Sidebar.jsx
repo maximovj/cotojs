@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import default_cover from '../../assets/image.png';
+import default_cover from '../../assets/default_cover.png';
 import default_user_thumbnail from '../../assets/account.png';
 const baseURL = import.meta.env.VITE_API_URL;
 const members_length = 50;
