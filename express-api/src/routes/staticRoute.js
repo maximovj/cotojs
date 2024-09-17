@@ -99,7 +99,7 @@ staticRoute.post('/users/picture/:id', upload_users_picture.single('picture'), a
 
         if (find_user) {
             // Generar una nueva ruta para el thumbnail (nombre diferente)
-            const thumbnail = path.join(`storage`, `users`, `thumbnail`, `thumbnail_${Date.now()}.jpg`);
+            const thumbnail = path.join(`storage`, `users`, `thumbnail`, `thumbnail_${find_user.id}.jpg`);
 
             // Usar Sharp para reducir el tamaño de la imagen, crear y guardar el thumbnail 
             await sharp(originalPath)
