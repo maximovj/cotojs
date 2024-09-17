@@ -98,6 +98,8 @@ export const paginationRoom = async (req, res) => {
     try {
         const { page = 1, limit = 15 } = req.query;
         const rooms = await Room.find()
+            .populate('members', 'name email id picture')
+            .populate('created_by', 'name email id picture')
             .skip((page - 1) * limit)
             .limit(parseInt(limit));
 
