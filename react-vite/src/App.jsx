@@ -7,7 +7,7 @@ import NavBar from './components/NavBar';
 import RootRoute from './components/RootRoute';
 import { Register } from "./pages/register/Register";
 import { SignIn } from "./pages/sign_in/SignIn";
-import { Create } from "./pages/room/Create";
+import CreateRoom from "./pages/room/CreateRoom";
 import Room from "./pages/room/Room";
 import Rooms from "./pages/room/Rooms";
 import Home from './pages/Home';
@@ -37,7 +37,7 @@ function App() {
             <Route path="/profile/activity_feed" element={<PrivateRoute><ActivityFeed /></PrivateRoute>} ></Route>
             <Route path="/profile/edit" element={<PrivateRoute><EditProfile /></PrivateRoute>} ></Route>
             <Route path="/rooms" element={<PrivateRoute><Rooms /></PrivateRoute>} ></Route>
-            <Route path="/room/create" element={<PrivateRoute><Create /></PrivateRoute>} ></Route>
+            <Route path="/room/create" element={<PrivateRoute><CreateRoom /></PrivateRoute>} ></Route>
             <Route path="/room/:id" element={<PrivateRoute><Room /></PrivateRoute>} ></Route>
             <Route path="/room/edit/:id" element={<PrivateRoute><Edit /></PrivateRoute>} ></Route>
             <Route path="*" element={<Error404 />} ></Route>

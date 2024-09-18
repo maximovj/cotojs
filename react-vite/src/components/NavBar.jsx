@@ -31,7 +31,7 @@ export default function NavBar() {
             <div className="container mx-auto flex justify-between items-center">
                 <Link to="/" className="text-white font-bold text-xl">CotoJS</Link>
                 <div className="space-x-4 flex items-center">
-                    {isAuthenticated && <Link to="/room/create" className="text-white hover:text-gray-300">Crear sala</Link>}
+                    {isAuthenticated && <p className="text-white hover:text-gray-300">{user.name}</p>}
 
                     {isAuthenticated && (
                         <div className="relative" ref={dropdownRef}>
