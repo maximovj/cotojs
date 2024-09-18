@@ -40,7 +40,7 @@ function SideProfile({ user }) {
                 <Link
                     to={`/profile/activity_feed`}
                     className="bg-gray-200 text-gray-800 text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-gray-300 transition ease-in-out">
-                    Mi mensajes
+                    Mis mensajes
                 </Link>
             </div>
         </div>
