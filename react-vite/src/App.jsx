@@ -15,7 +15,7 @@ import Profile from "./pages/profile/Profile";
 import Edit from "./pages/room/Edit";
 import EditProfile from './pages/profile/EditProfile';
 import ActivityFeed from "./pages/activity_feed/ActivityFeed";
-
+import InactivityHandler from './components/InactivityHandler';
 
 // Modulo de notificaciones 
 import { ToastContainer } from 'react-toastify';
@@ -26,6 +26,7 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <InactivityHandler />
         <NavBar />
         <div className="container mx-auto my-8">
           <Routes>
