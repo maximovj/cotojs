@@ -18,7 +18,7 @@ const configCors = cors({
             callback('!!! CORS Denegado !!!', false);
         }
         callback(null, true);
-        console.log('CORS Aceptado:', origin);
+        //console.log('CORS Aceptado:', origin);
     }
 });
 

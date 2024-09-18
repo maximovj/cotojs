@@ -56,29 +56,22 @@ const authSignIn = async (req, res) => {
         });
     }
 
-    const session_id = find_user._id;
-    const session_email = find_user.email;
-    const session_password = find_user.password;
-
-    const compare_password = bcryptjs.compareSync(password, session_password);
-    const compare_email = email === session_email;
+    const compare_password = bcryptjs.compareSync(password, find_user.password);
+    const compare_email = email === find_user.email;
 
     if (compare_password && compare_email) {
+        // Generar token de 15 minutos de duración
         const token = jwt.sign({
-            id: session_id,
-            email: session_email
+            id: find_user._id,
+            email: find_user.email
         },
             secret_key,
-            { expiresIn: 900000 }); // 15 min. en milisegundos
+            { expiresIn: 15 * 60 * 100 });
 
-        res.cookie('auth_token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production', // Solo en producción
-            sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax', // Dependiendo del entorno
-            maxAge: 900000, // 15 min. en milisegundos
-            path: '/',
-        });
+        // Guardar token generado
+        req.session.token = token;
 
+        // Quitar el password
         delete find_user._doc.password;
 
         return res.status(200).json({
@@ -99,8 +92,7 @@ const authSignIn = async (req, res) => {
 
 const authCheckAuth = async (req, res) => {
     try {
-        const session_id = req.session_payload.id;
-        const session_email = req.session_payload.id;
+        const session_id = req.session.user.id;
         const find_user = await User.findById(session_id)
             .select('-password');
 
@@ -112,25 +104,22 @@ const authCheckAuth = async (req, res) => {
             });
         }
 
+        // Renovar token de 15 minutos de duración
         const token = jwt.sign({
-            id: session_id,
-            email: session_email
+            id: find_user.id,
+            email: find_user.email
         },
             secret_key,
-            { expiresIn: 900000 }); // 15 min. en milisegundos
+            { expiresIn: 15 * 60 * 100 });
 
-        res.cookie('auth_token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production', // Solo en producción
-            sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax', // Dependiendo del entorno
-            maxAge: 900000, // 15 min. en milisegundos
-            path: '/',
-        });
+        // Guardar token generado
+        req.session.token = token;
 
         return res.status(200).json({
             ctx_content: 'Usuario autenticado exitosamente.',
             success: true,
             _src: find_user,
+            token: token,
         });
     } catch (err) {
         return res.status(500).json({
@@ -142,11 +131,22 @@ const authCheckAuth = async (req, res) => {
 };
 
 const authLogOut = (req, res) => {
-    res.clearCookie('auth_token');
-    res.status(200).json({
-        ctx_content: 'Cerro sesión correctamente.',
-        success: true,
-        _src: null,
+    // Destruir la sesión actual
+    req.session.destroy(err => {
+        if (err) {
+            return res.status(500).json({
+                ctx_content: 'Error al cerrar sesión.',
+                success: false,
+                _src: null,
+            });
+        }
+        // Eliminar la cookie de sesión (si es necesario)
+        res.clearCookie('connect.sid');
+        return res.status(200).json({
+            ctx_content: 'Sesión cerrada exitosamente.',
+            success: true,
+            _src: null,
+        });
     });
 };
 

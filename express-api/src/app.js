@@ -3,6 +3,7 @@ import express from 'express';
 import morgan from 'morgan';
 import http from 'http';
 import setupSocketIO from './socket/setupSocketIO.js';
+import configSession from './config/configSession.js';
 import configJwt from './config/configJWT.js';
 import configCors from './config/configCors.js';
 import userRoute from './routes/userRoute.js';
@@ -21,10 +22,30 @@ app.set('url', process.env.APP_URL || 'http://localhost');
 app.set('env', process.env.APP_ENV || 'local');
 
 // Middlewares
+app.use(configSession);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('dev'));
+
+// Middleware para Manejar la Inactividad
+app.use((req, res, next) => {
+    if (req.session) {
+        if (req.session.lastActivity && Date.now() - req.session.lastActivity > 30 * 60 * 1000) {
+            req.session.destroy(err => {
+                if (err) {
+                    return res.status(500).json({ message: 'Error al destruir la sesión' });
+                }
+                return res.status(401).json({ message: 'Sesión expirada por inactividad' });
+            });
+        } else {
+            req.session.lastActivity = Date.now();
+            next();
+        }
+    } else {
+        next();
+    }
+});
 
 // Definir EndPoints
 app.use('/api/v1/storage', express.static('storage'));

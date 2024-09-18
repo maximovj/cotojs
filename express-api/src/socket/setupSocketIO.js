@@ -19,7 +19,7 @@ const setupSocketIO = (server) => {
         });
 
         socket.on("presentacion_bienvenida", (arg) => {
-            console.log(arg);
+            //console.log(arg);
             socket.emit('presentacion_respuesta', 'Ok.');
         });
 

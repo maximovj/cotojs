@@ -50,7 +50,7 @@ const createUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
-        const { id, email } = req.session_payload;
+        const { id, email } = req.session.user;
         const find_user = await User.findOne({ _id: id, email: email }).select('-password');
 
         if (find_user) {
@@ -96,7 +96,7 @@ const deleteUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        const { id, email } = req.session_payload;
+        const { id, email } = req.session.user;
         const { name } = req.body;
         const find_user = await User.findOne({ _id: id, email: email }).select('-password');
 
@@ -129,7 +129,7 @@ const updateUser = async (req, res) => {
 
 const findUser = async (req, res) => {
     try {
-        const { id, email } = req.session_payload;
+        const { id, email } = req.session.user;
         const find_user = await User.findOne({ _id: id, email: email });
 
         if (find_user) {

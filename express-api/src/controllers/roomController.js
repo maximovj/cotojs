@@ -5,7 +5,7 @@ const Message = message;
 
 export const createRoom = async (req, res) => {
     try {
-        const { id } = req.session_payload;
+        const { id } = req.session.user;
         const { name, description, cover } = req.body;
         const new_room = new Room({
             name,
@@ -32,7 +32,7 @@ export const createRoom = async (req, res) => {
 export const findRoom = async (req, res) => {
     try {
         const { id } = req.params;
-        const user_id = req.session_payload.id;
+        const user_id = req.session.user.id;
         const find_room = await Room.findById(id)
             .populate('members', 'name email picture thumbnail id')
             .sort({ members: -1 })
@@ -64,7 +64,7 @@ export const findRoom = async (req, res) => {
 export const joinToRoom = async (req, res) => {
     try {
         const { id } = req.params;
-        const session_id = req.session_payload.id;
+        const session_id = req.session.user.id;
 
         const join_room = await Room.findByIdAndUpdate(id,
             { $addToSet: { members: session_id } },
@@ -104,10 +104,6 @@ export const paginationRoom = async (req, res) => {
             .limit(parseInt(limit));
 
         const totalRooms = await Room.countDocuments();
-        console.log(page, rooms.length, totalRooms, {
-            total_pages: Math.ceil(totalRooms / limit),
-            current_page: parseInt(page),
-        });
 
         return res.status(200).json({
             ctx_content: 'Listando salas exitosamente.',
@@ -128,7 +124,7 @@ export const paginationRoom = async (req, res) => {
 
 export const mineRoom = async (req, res) => {
     const { page = 1, limit = 15 } = req.query;
-    const user_id = req.session_payload.id;
+    const user_id = req.session.user.id;
 
     try {
         // Obtener el total de salas creadas por el usuario
@@ -162,7 +158,7 @@ export const mineRoom = async (req, res) => {
 export const leaveRoom = async (req, res) => {
     try {
         const { id } = req.params; // ID de la sala
-        const session_id = req.session_payload.id; // ID del usuario (de la sesión)
+        const session_id = req.session.user.id; // ID del usuario (de la sesión)
 
         // Eliminar al usuario de los miembros de la sala
         const leave_room = await Room.findByIdAndUpdate(id,

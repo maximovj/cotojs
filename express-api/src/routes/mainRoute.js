@@ -14,7 +14,7 @@ mainRoute.get('/privado', configJwt, (req, res) => {
     //console.log('req.params: ', req.params);
     //console.log('req.body: ', req.body);
     //console.log('req.route: ', req.route);
-    //console.log('req.session_payload: ', req.session_payload);
+    //console.log('req.session.user: ', req.session.user);
 
     res.status(200).json({
         ctx_content: 'EndPoint funciona correctamente.',

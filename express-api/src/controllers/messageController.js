@@ -5,7 +5,7 @@ const User = user;
 
 export const createMessage = async (req, res) => {
     try {
-        const user_id = req.session_payload.id;
+        const user_id = req.session.user.id;
         const room_id = req.params.id;
         const { text } = req.body;
 
@@ -45,7 +45,7 @@ export const createMessage = async (req, res) => {
 export const findMessage = async (req, res) => {
     try {
         const room_id = req.params.id;
-        const user_id = req.session_payload.id;
+        const user_id = req.session.user.id;
 
         const find_messages = await Message.find({ room: room_id })
             .populate('send_by', 'name email picture thumbnail')
@@ -78,7 +78,7 @@ export const findMessage = async (req, res) => {
 export const mineMessage = async (req, res) => {
     try {
         const { page = 1, limit = 15 } = req.query;
-        const user_id = req.session_payload.id;
+        const user_id = req.session.user.id;
         const find_user = await User.findById(user_id);
 
         if (find_user) {
