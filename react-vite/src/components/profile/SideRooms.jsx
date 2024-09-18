@@ -3,9 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useToast } from '../../hooks/useToast';
-import { useSweetAlert } from '../../hooks/useSweetAlert';
-import { roomServiceMe, roomServiceDelete } from '../../services/roomService.js';
+import { roomServiceMe } from '../../services/roomService.js';
 import { useDayjs } from "../../hooks/useDayjs";
 import default_room_thumbnail from '../../assets/image.png';
 const baseURL = import.meta.env.VITE_API_URL;
@@ -17,36 +15,6 @@ function SideRooms({ user }) {
     const [totalPages, setTotalPages] = useState(1);
     const [totalRooms, setTotalRooms] = useState(0);
     const dayjs = useDayjs();
-    const showToast = useToast();
-    const { showSweetAlert } = useSweetAlert();
-
-    const handleBtnDelete = async (id) => {
-        showSweetAlert({
-            title: `<small>Escribe <span class="highlight">eliminar</span> para confirmar</small>`,
-            customClass: {
-                title: 'sweetalert-title'
-            },
-            input: 'text',
-            inputValue: '',
-            showCancelButton: true,
-            cancelButtonText: 'Cancelar',
-            confirmButtonText: 'Confirmar',
-        }).then(res => {
-            if (res.isConfirmed) {
-                if (res.value === 'eliminar') {
-                    roomServiceDelete(id)
-                        .then(res => {
-                            if (res.data?.success) {
-                                setTimeout(() => { window.location.reload(); }, 1000);
-                                showToast(res.data.ctx_content, 'success');
-                            }
-                        });
-                } else {
-                    showToast('Escribe `eliminar` para confirmar, por favor.', 'info');
-                }
-            }
-        });
-    }
 
     const fetchData = async () => {
         if (page == totalPages + 1) {
@@ -119,8 +87,6 @@ function SideRooms({ user }) {
                                 </div>
                                 <p className="mt-3 text-gray-700 text-sm mb-4">{room.description}</p>
                                 <p className="flex justify-end gap-1">
-                                    <button className='bg-red-500 hover:bg-red-600 text-xs rounded py-1.5 px-1.5 text-white cursor-pointer transition ease-in-out'
-                                        onClick={() => { handleBtnDelete(room.id) }}>Eliminar</button>
                                     <Link className='bg-yellow-500 hover:bg-yellow-600 text-xs rounded py-1.5 px-1.5 text-white cursor-pointer transition ease-in-out' to={`/room/edit/${room.id}`}>Editar</Link>
                                     <Link className='bg-blue-500 hover:bg-blue-600 text-xs rounded py-1.5 px-1.5 text-white cursor-pointer transition ease-in-out' to={`/room/${room.id}`}>Ver</Link>
                                 </p>
