@@ -68,6 +68,17 @@ const Edit = () => {
     };
 
     const handleBtnActualizar = () => {
+        // Verificar campos de `description` y `name`
+        if (!room.description || !room.name) {
+            showSweetAlert({
+                icon: 'info',
+                title: 'Sala',
+                html: 'Todos los campos son obligatorios.',
+                showConfirmButton: true,
+            });
+            return;
+        }
+
         roomServiceUpdate(id, room)
             .then(res => {
                 if (res.data?.success) {
@@ -87,7 +98,6 @@ const Edit = () => {
     }
 
     const handleBtnEliminar = () => {
-        showToast('Sala eliminado exitosamente.', 'success');
         showSweetAlert({
             title: `<small>Escribe <span class="highlight">eliminar</span> para confirmar</small>`,
             customClass: {
@@ -109,7 +119,12 @@ const Edit = () => {
                             }
                         });
                 } else {
-                    showToast('Escribe `eliminar` para confirmar, por favor.', 'info');
+                    showSweetAlert({
+                        icon: 'info',
+                        title: 'Sala',
+                        html: 'Escribe `eliminar` para confirmar, por favor.',
+                        showConfirmButton: true,
+                    });
                 }
             }
         });
@@ -131,7 +146,7 @@ const Edit = () => {
                         </svg>
                         Volver
                     </Link>
-                    <h1 className="text-2xl font-bold text-gray-900 text-center flex-1">Editar Sala</h1>
+                    <h1 className="text-2xl font-bold text-gray-900 text-center flex-1">Editar sala</h1>
                 </div>
 
                 {/* Portada */}

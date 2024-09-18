@@ -45,6 +45,17 @@ const EditProfile = () => {
     }
 
     const handleBtnActualizar = () => {
+        if (!name) {
+            showSweetAlert({
+                icon: 'info',
+                title: 'Perfil',
+                html: 'Todos los campos son obligatorios.',
+                showOkButton: true,
+                showConfirmButton: true,
+            });
+            return;
+        }
+
         userServiceUpdate({ name })
             .then(res => {
                 if (res.data?.success) {
