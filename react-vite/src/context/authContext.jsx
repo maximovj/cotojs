@@ -21,7 +21,9 @@ export const AuthProvider = ({ children }) => {
                     setUser(response.data._src);
                     setIsAuthenticated(true);
                 } else {
+                    showToast('Tu sesión ha expirado. Por favor, inicia sesión nuevamente.', 'error');
                     setIsAuthenticated(false);
+                    logout();
                 }
             } catch (error) {
                 setIsAuthenticated(false);
