@@ -69,13 +69,13 @@ const authSignIn = async (req, res) => {
             email: session_email
         },
             secret_key,
-            { expiresIn: '1h' });
+            { expiresIn: 900000 }); // 15 min. en milisegundos
 
         res.cookie('auth_token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // Solo en producción
             sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax', // Dependiendo del entorno
-            maxAge: 3600000, // 1 hora en milisegundos
+            maxAge: 900000, // 15 min. en milisegundos
             path: '/',
         });
 
@@ -99,8 +99,9 @@ const authSignIn = async (req, res) => {
 
 const authCheckAuth = async (req, res) => {
     try {
-        const user_id = req.session_payload.id;
-        const find_user = await User.findById(user_id)
+        const session_id = req.session_payload.id;
+        const session_email = req.session_payload.id;
+        const find_user = await User.findById(session_id)
             .select('-password');
 
         if (!find_user) {
@@ -110,6 +111,21 @@ const authCheckAuth = async (req, res) => {
                 _src: null,
             });
         }
+
+        const token = jwt.sign({
+            id: session_id,
+            email: session_email
+        },
+            secret_key,
+            { expiresIn: 900000 }); // 15 min. en milisegundos
+
+        res.cookie('auth_token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // Solo en producción
+            sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax', // Dependiendo del entorno
+            maxAge: 900000, // 15 min. en milisegundos
+            path: '/',
+        });
 
         return res.status(200).json({
             ctx_content: 'Usuario autenticado exitosamente.',
