@@ -62,7 +62,6 @@ const CreateRoom = () => {
             roomServiceCreate({ name, description })
                 .then((res) => {
                     if (res.data?.success) {
-                        console.log(res);
                         showToast('Enviando petición', 'success');
                         if (cover) {
                             const form_data = new FormData();

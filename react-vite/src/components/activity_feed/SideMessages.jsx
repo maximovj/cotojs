@@ -40,7 +40,6 @@ function SideMessages({ user }) {
             .then(res => {
                 if (res.data?.success) {
                     const { _doc, current_page, total_pages, total_messages } = res.data;
-                    console.log(res.data);
                     setMessages((prevMessages) => [...prevMessages, ..._doc]);
                     setTotalPages(total_pages);
                     setPage((prevPage) => prevPage + 1);

@@ -21,7 +21,6 @@ function Rooms() {
             .then(res => {
                 if (res.data?.success) {
                     setRooms((prevRooms) => [...prevRooms, ...res.data._doc]);
-                    console.log(res.data);
                     if (res.data._doc.length < 10) {
                         setHasMore(false);
                     }
