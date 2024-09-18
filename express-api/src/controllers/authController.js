@@ -66,7 +66,7 @@ const authSignIn = async (req, res) => {
             email: find_user.email
         },
             secret_key,
-            { expiresIn: 15 * 60 * 100 });
+            { expiresIn: '1h' });
 
         // Guardar token generado
         req.session.token = token;
@@ -110,7 +110,7 @@ const authCheckAuth = async (req, res) => {
             email: find_user.email
         },
             secret_key,
-            { expiresIn: 15 * 60 * 100 });
+            { expiresIn: '1h' });
 
         // Guardar token generado
         req.session.token = token;

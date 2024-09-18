@@ -13,7 +13,7 @@ const configSession = session({
         httpOnly: true,
         secure: NODE_ENV === 'production',
         sameSite: NODE_ENV === 'production' ? 'strict' : 'lax',
-        maxAge: 15 * 60 * 1000, // 1hora en milisegundos
+        maxAge: 60 * 60 * 1000, // 1hora en milisegundos
     }
 });
 
