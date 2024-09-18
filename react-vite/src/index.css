@@ -24,3 +24,8 @@
   font-weight: bold;
   font-size: 18px;
 }
+
+.tippy-tooltip {
+    font-size: 0.64rem;
+    padding: 0.3rem 0.6rem;
+}

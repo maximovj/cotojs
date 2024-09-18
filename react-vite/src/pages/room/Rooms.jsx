@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { Tooltip as ReactTippy } from 'react-tippy';
 import { useDayjs } from '../../hooks/useDayjs.jsx';
 import { roomServiceAll } from '../../services/roomService.js';
 import socketService from '../../services/socketService.js';
@@ -121,13 +122,27 @@ function Rooms() {
                                     <div className="flex items-center mt-4 space-x-2">
                                         <div className="flex -space-x-2 overflow-hidden">
                                             {item.members.slice(0, total_members).map((member, idx) => (
-                                                <img
-                                                    key={idx}
-                                                    src={member.thumbnail ? `${baseURL}/${member.thumbnail}` : default_user_thumbnail}
-                                                    alt={`Miembro ${idx}`}
-                                                    className="w-6 h-6 rounded-full border-2 border-white"
-                                                    loading='lazy'
-                                                />
+                                                <div key={idx}>
+                                                    {/* Crear un id único para cada tooltip */}
+                                                    <ReactTippy
+                                                        title={member.name}
+                                                        position="top-start"
+                                                        trigger="mouseenter"
+                                                        animation='fade'
+                                                        arrowSize='regular'
+                                                        arrow={true}
+                                                        style={{ fontSize: '4px' }}
+                                                    >
+                                                        <a data-tooltip-id={`${item._id}-${index}-${member.id}-${idx}`}>
+                                                            <img
+                                                                src={member.thumbnail ? `${baseURL}/${member.thumbnail}` : default_user_thumbnail}
+                                                                alt={`Miembro ${idx}`}
+                                                                className="w-6 h-6 rounded-full border-2 border-white"
+                                                                loading='lazy'
+                                                            />
+                                                        </a>
+                                                    </ReactTippy>
+                                                </div>
                                             ))}
                                             {item.members.length > total_members && (
                                                 <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-gray-700">
@@ -162,8 +177,9 @@ function Rooms() {
                         Crear Nueva Sala
                     </Link>
                 </div>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 }
 
