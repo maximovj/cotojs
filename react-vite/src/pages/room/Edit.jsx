@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Tooltip as ReactTippy } from 'react-tippy';
 import { roomServiceFind } from "../../services/roomService";
 import { roomServiceDelete, roomServiceUpdate } from '../../services/roomService.js';
 import { staticServiceChangeCover } from '../../services/staticService.js';
@@ -234,12 +235,22 @@ const Edit = () => {
                         {room.members && room.members.length > 0 ? (<>
                             {room.members.slice(0, members_length).map((member, index) => (
                                 <div key={index} className="flex items-center mb-2">
-                                    <img
-                                        src={member.thumbnail ? `${baseURL}/${member.thumbnail}` : default_user_thumbnail}
-                                        alt="Perfil"
-                                        className="w-8 h-8 rounded-full border-2 border-white"
-                                        loading="lazy"
-                                    />
+                                    <ReactTippy
+                                        title={member.name}
+                                        position="top-start"
+                                        trigger="mouseenter"
+                                        animation='fade'
+                                        arrowSize='regular'
+                                        arrow={true}
+                                        style={{ fontSize: '4px' }}
+                                    >
+                                        <img
+                                            src={member.thumbnail ? `${baseURL}/${member.thumbnail}` : default_user_thumbnail}
+                                            alt="Perfil"
+                                            className="w-8 h-8 rounded-full border-2 border-white"
+                                            loading="lazy"
+                                        />
+                                    </ReactTippy>
                                 </div>
                             ))}
                             {room.members.length > members_length && (
