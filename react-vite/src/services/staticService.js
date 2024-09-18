@@ -11,6 +11,20 @@ const staticService = axios.create({
     withCredentials: true,
 });
 
+// Interceptor de respuesta
+staticService.interceptors.response.use(
+    response => {
+        return response;
+    },
+    error => {
+        if (error.response && error.response.status === 401) {
+            // Redirige al usuario a la página de inicio de sesión
+            window.location.href = '/sign-in';
+        }
+        return Promise.reject(error);
+    }
+);
+
 export function staticServiceRoomCover(filename) {
     return staticService.get(`/rooms/cover/${filename}`, { responseType: 'blob' })
         .then(response => {

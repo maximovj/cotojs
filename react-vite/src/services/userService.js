@@ -10,6 +10,20 @@ const userService = axios.create({
     withCredentials: true,
 });
 
+// Interceptor de respuesta
+userService.interceptors.response.use(
+    response => {
+        return response;
+    },
+    error => {
+        if (error.response && error.response.status === 401) {
+            // Redirige al usuario a la página de inicio de sesión
+            window.location.href = '/sign-in';
+        }
+        return Promise.reject(error);
+    }
+);
+
 export function userServiceUpdate(data) {
     return userService.put('/', data);
 }

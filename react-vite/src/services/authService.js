@@ -7,6 +7,7 @@ const authService = axios.create({
         "Content-Type": 'application/json',
         "Accept": 'application/json',
     },
+    withCredentials: true,
 });
 
 export function authServiceRegister(data) {
