@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { authServiceRegister } from "../../services/authService";
 import { useToast } from "../../hooks/useToast";
+import { useSweetAlert } from '../../hooks/useSweetAlert';
 
 export function Register() {
     const showToast = useToast();
+    const { showSweetAlert } = useSweetAlert();
     const [register, setRegister] = useState({
         name: '',
         email: '',
@@ -21,7 +23,13 @@ export function Register() {
         e.preventDefault();
 
         if (!register.email.trim() || !register.name.trim() || !register.password.trim()) {
-            alert('Todos los campos son obligatorios');
+            showSweetAlert({
+                icon: 'info',
+                title: 'Registrarme',
+                html: 'Todos los campos son obligatorios.',
+                showConfirmButton: true,
+            });
+            return;
         }
 
         authServiceRegister(register)

@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useToast } from '../../hooks/useToast';
+import { useSweetAlert } from '../../hooks/useSweetAlert';
 import { useAuth } from '../../hooks/useAuth.jsx';
 import { Link } from 'react-router-dom';
 
 export function SignIn() {
-    const showToast = useToast();
+    const { showSweetAlert } = useSweetAlert();
     const { login } = useAuth();
     const [signIn, setSignIn] = useState({
         email: '',
@@ -22,7 +22,13 @@ export function SignIn() {
         e.preventDefault();
 
         if (!signIn.email.trim() || !signIn.password.trim()) {
-            showToast('Todos los campos son requeridos', 'error');
+            showSweetAlert({
+                icon: 'info',
+                title: 'Acceder',
+                html: 'Todos los campos son obligatorios.',
+                showConfirmButton: true,
+            });
+            return;
         }
 
         login(signIn);
