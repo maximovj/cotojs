@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useToast } from '../../hooks/useToast';
 import { roomServiceFind, roomServiceJoin, roomServiceLeave } from '../../services/roomService.js';
 import { messageServiceCreate, messageServiceFind } from '../../services/messageService.js';
@@ -17,6 +17,7 @@ const Room = () => {
     const { id } = useParams();
     const showToast = useToast();
     const messagesEndRef = useRef(null);
+    const navigate = useNavigate();
 
     // Función para cargar la información de la sala
     const loadRoom = () => {
@@ -26,7 +27,10 @@ const Room = () => {
                     handleJoinRoom(res.data._doc, res.data.user_id);
                 }
             })
-            .catch(err => showToast(err.message, 'error'));
+            .catch(err => {
+                showToast(err.message, 'error');
+                navigate('/');
+            });
     };
 
     const handleJoinRoom = (roomData, currentUserId) => {

@@ -6,6 +6,7 @@ import { roomServiceCreate } from '../../services/roomService.js';
 import { staticServiceChangeCover } from '../../services/staticService.js';
 import { useSweetAlert } from '../../hooks/useSweetAlert';
 import { useToast } from '../../hooks/useToast';
+import socketService from '../../services/socketService.js';
 import default_cover from '../../assets/default_cover.png';
 const baseURL = import.meta.env.VITE_API_URL;
 
@@ -63,6 +64,10 @@ const CreateRoom = () => {
                 .then((res) => {
                     if (res.data?.success) {
                         showToast(res.data.ctx_content, 'success');
+                        setName('');
+                        setDescription('');
+                        socketService.emit('new_room', res.data._doc);
+
                         if (cover) {
                             const form_data = new FormData();
                             form_data.append('cover', cover);
