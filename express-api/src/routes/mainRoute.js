@@ -1,5 +1,5 @@
 import express from 'express';
-import configJwt from '../config/configJWT.js';
+import configJwt from '../config/configJwt.js';
 const mainRoute = express.Router();
 
 mainRoute.get('/privado', configJwt, (req, res) => {

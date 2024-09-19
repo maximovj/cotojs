@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import http from 'http';
 import setupSocketIO from './socket/setupSocketIO.js';
 import configSession from './config/configSession.js';
-import configJwt from './config/configJWT.js';
+import configJwt from './config/configJwt.js';
 import configCors from './config/configCors.js';
 import userRoute from './routes/userRoute.js';
 import authRoute from './routes/authRoute.js';
