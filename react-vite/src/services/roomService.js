@@ -32,7 +32,7 @@ export function roomServiceUpdate(id, data) {
     return roomService.put(`/${id}`, data);
 }
 
-export function roomServiceAll(page = 1, limit = 10) {
+export function roomServiceAll(page = 1, limit = 6) {
     return roomService.get('/all', {
         params: { page, limit }
     });
