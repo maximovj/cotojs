@@ -36,11 +36,20 @@ const authRegister = async (req, res) => {
             });
         }
     } catch (err) {
-        return res.status(500).json({
-            ctx_content: err.message,
-            success: false,
-            _src: null,
-        });
+        console.log(err.code);
+        if(err.code === 11000){
+            return res.status(400).json({
+                ctx_content: 'Usuario ya registrado en el sistema.',
+                success: false,
+                _src: null,
+            });
+        }else {
+            return res.status(500).json({
+                ctx_content: err.message,
+                success: false,
+                _src: null,
+            });
+        }
     }
 };
 
