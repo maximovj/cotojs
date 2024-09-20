@@ -5,7 +5,6 @@ import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import NavBar from './components/NavBar';
 import RootRoute from './components/RootRoute';
-import { Register } from "./pages/register/Register";
 import Login from "./pages/login/Login";
 import CreateRoom from "./pages/room/CreateRoom";
 import Room from "./pages/room/Room";
@@ -31,7 +30,6 @@ function App() {
         <div className="container mx-auto my-8">
           <Routes>
             <Route path="/" element={<RootRoute />} ></Route>
-            <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} ></Route>
             <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} ></Route>
             <Route path="/home" element={<Home />} ></Route>
             <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} ></Route>
