@@ -58,8 +58,7 @@ export default function NavBar() {
                         </div>
                     )}
 
-                    {!isAuthenticated && <Link to="/register" className="text-white hover:text-gray-300">Registrarme</Link>}
-                    {!isAuthenticated && <Link to="/sign-in" className="text-white hover:text-gray-300">Acceder</Link>}
+                    {!isAuthenticated && <Link to="/login" className="text-white hover:text-gray-300">Iniciar sesión</Link>}
                 </div>
             </div>
         </nav>

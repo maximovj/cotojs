@@ -11,11 +11,11 @@ export const useSessionChecker = () => {
                     // La sesión es válida
                 } else {
                     // La sesión ha expirado
-                    window.location.href = '/sign-in';
+                    window.location.href = '/login';
                 }
             } catch (error) {
                 // Manejar el error
-                window.location.href = '/sign-in';
+                window.location.href = '/login';
             }
         };
 

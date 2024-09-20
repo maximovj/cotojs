@@ -15,7 +15,7 @@ export function authServiceRegister(data) {
 }
 
 export function authServiceSignIn(data) {
-    return authService.post('/sign-in', data, {
+    return authService.post('/login', data, {
         withCredentials: true,
     });
 }

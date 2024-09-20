@@ -22,7 +22,7 @@ const InactivityHandler = () => {
                     html: 'Sesión expirada por inactividad',
                     showConfirmButton: true,
                 });
-                navigate('/sign-in');
+                navigate('/login');
             }, 15 * 60 * 1000); // 15 minutos en milisegundos
         };
 

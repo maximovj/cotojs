@@ -6,7 +6,7 @@ import PublicRoute from './components/PublicRoute';
 import NavBar from './components/NavBar';
 import RootRoute from './components/RootRoute';
 import { Register } from "./pages/register/Register";
-import { SignIn } from "./pages/sign_in/SignIn";
+import Login from "./pages/login/Login";
 import CreateRoom from "./pages/room/CreateRoom";
 import Room from "./pages/room/Room";
 import Rooms from "./pages/room/Rooms";
@@ -32,7 +32,7 @@ function App() {
           <Routes>
             <Route path="/" element={<RootRoute />} ></Route>
             <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} ></Route>
-            <Route path="/sign-in" element={<PublicRoute><SignIn /></PublicRoute>} ></Route>
+            <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} ></Route>
             <Route path="/home" element={<Home />} ></Route>
             <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} ></Route>
             <Route path="/profile/activity_feed" element={<PrivateRoute><ActivityFeed /></PrivateRoute>} ></Route>

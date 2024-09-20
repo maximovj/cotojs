@@ -5,7 +5,7 @@ const authRoute = express.Router();
 
 authRoute.post('/register', authRegister);
 
-authRoute.post('/sign-in', authSignIn);
+authRoute.post('/login', authSignIn);
 
 authRoute.post('/logout', authLogOut);
 

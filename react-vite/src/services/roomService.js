@@ -18,7 +18,7 @@ roomService.interceptors.response.use(
     error => {
         if (error.response && error.response.status === 401) {
             // Redirige al usuario a la página de inicio de sesión
-            window.location.href = '/sign-in';
+            window.location.href = '/login';
         }
         return Promise.reject(error);
     }
