@@ -31,7 +31,7 @@ function App() {
           <Routes>
             <Route path="/" element={<RootRoute />} ></Route>
             <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} ></Route>
-            <Route path="/home" element={<Home />} ></Route>
+            <Route path="/home" element={<PublicRoute><Home /></PublicRoute>} ></Route>
             <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} ></Route>
             <Route path="/profile/activity_feed" element={<PrivateRoute><ActivityFeed /></PrivateRoute>} ></Route>
             <Route path="/profile/edit" element={<PrivateRoute><EditProfile /></PrivateRoute>} ></Route>
