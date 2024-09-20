@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/authContext";
-import { Error404 } from "./pages/error/Error404";
+import Error404 from "./pages/error/Error404";
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import NavBar from './components/NavBar';
