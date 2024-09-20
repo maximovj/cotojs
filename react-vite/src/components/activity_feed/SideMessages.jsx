@@ -9,7 +9,7 @@ import { useToast } from "../../hooks/useToast.jsx";
 import default_room_thumbnail from '../../assets/image.png';
 const baseURL = import.meta.env.VITE_API_URL;
 
-function SideMessages({ user }) {
+const SideMessages = ({ user }) => {
     const [messages, setMessages] = useState([]);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);

@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import default_user_thumbnail from '../assets/account.png';
 const baseURL = import.meta.env.VITE_API_URL;
 
-export default function NavBar() {
+const NavBar = () => {
     const { isAuthenticated, logout, user } = useAuth();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -64,3 +64,5 @@ export default function NavBar() {
         </nav>
     );
 }
+
+export default NavBar;

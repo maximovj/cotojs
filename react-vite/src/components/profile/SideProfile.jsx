@@ -4,7 +4,7 @@ import { useDayjs } from "../../hooks/useDayjs";
 import userProfile from '../../assets/150.png';
 const baseURL = import.meta.env.VITE_API_URL;
 
-function SideProfile({ user }) {
+const SideProfile = ({ user }) => {
     const dayjs = useDayjs();
 
     return (<>

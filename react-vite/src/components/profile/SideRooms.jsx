@@ -8,7 +8,7 @@ import { useDayjs } from "../../hooks/useDayjs";
 import default_room_thumbnail from '../../assets/image.png';
 const baseURL = import.meta.env.VITE_API_URL;
 
-function SideRooms({ user }) {
+const SideRooms = ({ user }) => {
     const [rooms, setRooms] = useState([]);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
