@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useToast } from '../../hooks/useToast';
+import { useToast } from '../../hooks/useToast.jsx';
 import { roomServiceFind, roomServiceJoin, roomServiceLeave } from '../../services/roomService.js';
 import { messageServiceCreate, messageServiceFind } from '../../services/messageService.js';
 import socketService from '../../services/socketService.js';
-import ChatWindow from '../../components/room/ChatWindow';
-import Sidebar from '../../components/room/Sidebar';
+import ChatWindow from '../../components/room/ChatWindow.jsx';
+import Sidebar from '../../components/room/Sidebar.jsx';
 
-const Room = () => {
+const ChatRoom = () => {
     const [message, setMessage] = useState('');
     const [room, setRoom] = useState({});
     const [messages, setMessages] = useState([]);
@@ -139,4 +139,4 @@ const Room = () => {
     );
 };
 
-export default Room;
+export default ChatRoom;

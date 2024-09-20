@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 import SideProfile from '../../components/profile/SideProfile';
 import SideMessages from '../../components/activity_feed/SideMessages';
 
-function ActivityFeed() {
+const ActivityFeed = () => {
     const { user } = useAuth();
 
     return (

@@ -5,7 +5,7 @@ import { useAuth } from '../hooks/useAuth';
 import { authServiceRegister } from '../services/authService.js';
 import '../bubbles.css';
 
-function Home() {
+const Home = () => {
     const [user, setUser] = useState({
         name: '',
         email: '',

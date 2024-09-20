@@ -11,7 +11,7 @@ import default_user_thumbnail from '../../assets/account.png';
 const baseURL = import.meta.env.VITE_API_URL;
 const total_members = 15;
 
-function Rooms() {
+const Rooms = () => {
     const [rooms, setRooms] = useState([]);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);

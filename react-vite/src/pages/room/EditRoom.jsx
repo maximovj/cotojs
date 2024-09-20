@@ -2,20 +2,20 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Tooltip as ReactTippy } from 'react-tippy';
-import { roomServiceFind } from "../../services/roomService";
+import { roomServiceFind } from "../../services/roomService.js";
 import { roomServiceDelete, roomServiceUpdate } from '../../services/roomService.js';
 import { staticServiceChangeCover } from '../../services/staticService.js';
-import { useSweetAlert } from '../../hooks/useSweetAlert';
-import { useDayjs } from '../../hooks/useDayjs';
-import { useToast } from '../../hooks/useToast';
-import Forbidden from '../../components/Forbidden';
+import { useSweetAlert } from '../../hooks/useSweetAlert.jsx';
+import { useDayjs } from '../../hooks/useDayjs.jsx';
+import { useToast } from '../../hooks/useToast.jsx';
+import Forbidden from '../../components/Forbidden.jsx';
 import default_cover from '../../assets/default_cover.png';
 import default_user_thumbnail from '../../assets/account.png';
 const members_length = 50;
 const baseURL = import.meta.env.VITE_API_URL;
 
 // Página para editar o modificar información de la sala
-const Edit = () => {
+const EditRoom = () => {
     const [room, setRoom] = useState({
         cover: '',
         name: '',
@@ -267,4 +267,4 @@ const Edit = () => {
         </Forbidden>);
 };
 
-export default Edit;
+export default EditRoom;

@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 import SideProfile from '../../components/profile/SideProfile';
 import SideRooms from '../../components/profile/SideRooms';
 
-function Profile() {
+const Profile = () => {
     const { user } = useAuth();
 
     return (

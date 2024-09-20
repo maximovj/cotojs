@@ -8,7 +8,6 @@ import { useSweetAlert } from '../../hooks/useSweetAlert';
 import { useToast } from '../../hooks/useToast';
 import socketService from '../../services/socketService.js';
 import default_cover from '../../assets/default_cover.png';
-const baseURL = import.meta.env.VITE_API_URL;
 
 const CreateRoom = () => {
     const [cover, setCover] = useState(null);
