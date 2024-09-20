@@ -1,0 +1,123 @@
+.bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Ocupa todo el alto visible */
+    overflow: hidden;
+    pointer-events: none; /* No interfiere con el contenido */
+    z-index: 1; /* Las burbujas quedan detrás del contenido */
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    animation: float 10s infinite; /* Animación de flotación */
+}
+
+/* Definir diferentes tamaños, posiciones y colores de las burbujas */
+.bubble1 {
+    width: 60px;
+    height: 60px;
+    top: 10%;
+    left: 10%;
+    background-color: rgba(255, 99, 132, 0.3); /* Color rosado */
+    animation-duration: 8s; 
+}
+
+.bubble2 {
+    width: 40px;
+    height: 40px;
+    top: 20%;
+    left: 20%;
+    background-color: rgba(54, 162, 235, 0.3); /* Color azul */
+    animation-duration: 5s; 
+}
+
+.bubble3 {
+    width: 40px;
+    height: 40px;
+    top: 10%;
+    left: 45%;
+    background-color: rgba(75, 192, 192, 0.3); /* Color verde agua */
+    animation-duration: 10s; 
+}
+
+.bubble4 {
+    width: 60px;
+    height: 60px;
+    top: 65%;
+    left: 20%;
+    background-color: rgba(255, 206, 86, 0.3); /* Color amarillo */
+    animation-duration: 7s; 
+}
+
+.bubble5 {
+    width: 50px;
+    height: 50px;
+    top: 60%;
+    left: 45%;
+    background-color: rgba(255, 99, 132, 0.3); /* Color rosado */
+    animation-duration: 5s; 
+}
+
+.bubble6 {
+    width: 60px;
+    height: 60px;
+    top: 50%;
+    left: 1%;
+    background-color: rgba(153, 102, 255, 0.3); /* Color morado */
+    animation-duration: 4s; 
+}
+
+.bubble7 {
+    width: 80px;
+    height: 80px;
+    top: 65%;
+    left: 3%;
+    background-color: rgba(54, 162, 235, 0.3); /* Color azul */
+    animation-duration: 8s; 
+}
+
+.bubble8 {
+    width: 40px;
+    height: 40px;
+    top: 87%;
+    left: 10%;
+    background-color: rgba(75, 192, 192, 0.3); /* Color verde agua */
+    animation-duration: 7s; 
+}
+
+.bubble9 {
+    width: 60px;
+    height: 60px;
+    top: 80%;
+    left: 45%;
+    background-color: rgba(255, 206, 86, 0.3); /* Color amarillo */
+    animation-duration: 10s; 
+}
+
+.bubble10 {
+    width: 50px;
+    height: 50px;
+    top: 82%;
+    left: 34%;
+    background-color: rgba(153, 102, 255, 0.3); /* Color morado */
+    animation-duration: 7s; 
+}
+
+/* Opcional: animación para las burbujas */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(-60px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 0;
+    }
+}
