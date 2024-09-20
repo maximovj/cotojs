@@ -61,80 +61,80 @@ const Rooms = () => {
     }, []);
 
     return (
-        <div className="container mx-auto p-4">
+        <div className='container mx-auto p-4'>
             <InfiniteScroll
                 dataLength={rooms.length}
                 next={fetchData}
                 hasMore={hasMore}
                 refreshFunction={fetchData}
                 loader={
-                    <div className="flex flex-col justify-center items-center mt-4">
-                        <ClipLoader color="#3498db" loading={true} size={40} />
-                        <p className="text-gray-500 mt-2">Cargando salas...</p>
+                    <div className='flex flex-col justify-center items-center mt-4'>
+                        <ClipLoader color='#3498db' loading={true} size={40} />
+                        <p className='text-gray-500 mt-2'>Cargando salas...</p>
                     </div>}
                 endMessage={
-                    <div className="flex flex-col justify-center items-center mt-10">
-                        <h2 className="text-lg text-gray-700 font-semibold mb-2">¡No hay más salas disponibles!</h2>
-                        <p className="text-gray-500 mb-6">Crea una nueva sala y comienza a conectar con otros.</p>
-                        <Link to="/room/create" className="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-green-600 transition-colors">
+                    <div className='flex flex-col justify-center items-center mt-10'>
+                        <h2 className='text-lg text-gray-700 font-semibold mb-2'>¡No hay más salas disponibles!</h2>
+                        <p className='text-gray-500 mb-6'>Crea una nueva sala y comienza a conectar con otros.</p>
+                        <Link to='/room/create' className='bg-green-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-green-600 transition-colors'>
                             Crear Nueva Sala
                         </Link>
                     </div>
                 }
             >
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 m-6">
+                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 m-6'>
                     {rooms.map((item, index) => (
                         <div
                             key={`${item._id.slice(0, 7)}-${index}`}
-                            className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col relative min-h-[510px] transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:border hover:border-gray-200"
+                            className='bg-white shadow-md rounded-lg overflow-hidden flex flex-col relative min-h-[510px] transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:border hover:border-gray-200'
                         >
                             {/* Imagen de portada con borde asimétrico */}
-                            <div className="relative w-full h-52 overflow-hidden">
+                            <div className='relative w-full h-52 overflow-hidden'>
                                 <img
                                     src={item.cover ? `${baseURL}/${item.cover}` : default_cover}
-                                    alt="Cover"
-                                    className="absolute top-0 left-0 w-full h-full object-cover"
+                                    alt='Cover'
+                                    className='absolute top-0 left-0 w-full h-full object-cover'
                                     loading='lazy'
                                 />
-                                <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-gray-800 via-transparent to-transparent"></div>
+                                <div className='absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-gray-800 via-transparent to-transparent'></div>
                             </div>
 
                             {/* Contenido de la tarjeta */}
-                            <div className="p-4 flex flex-col flex-grow">
+                            <div className='p-4 flex flex-col flex-grow'>
                                 {/* Fila de encabezado con la foto del creador */}
-                                <div className="flex items-center mb-2">
+                                <div className='flex items-center mb-2'>
                                     <img
                                         src={item.created_by.thumbnail ? `${baseURL}/${item.created_by.thumbnail}` : default_user_thumbnail}
-                                        alt="Perfil del creador"
-                                        className="w-8 h-8 rounded-full object-cover border-2 border-white"
+                                        alt='Perfil del creador'
+                                        className='w-8 h-8 rounded-full object-cover border-2 border-white'
                                         loading='lazy'
                                     />
-                                    <div className="ml-2">
-                                        <h2 className="text-base font-bold text-gray-800">{item.name}</h2>
-                                        <p className="text-xs text-gray-500">{item.created_by.name || 'Creador desconocido'}</p>
+                                    <div className='ml-2'>
+                                        <h2 className='text-base font-bold text-gray-800'>{item.name}</h2>
+                                        <p className='text-xs text-gray-500'>{item.created_by.name || 'Creador desconocido'}</p>
                                     </div>
                                 </div>
 
                                 {/* Fecha de creación */}
                                 <div className='flex justify-between'>
-                                    <p className="text-xs text-gray-500 mb-2">{dayjs(item.createdAt).format('LL')}</p>
-                                    <p className="text-xs text-gray-500 mb-2">{dayjs(item.createdAt).fromNow()}</p>
+                                    <p className='text-xs text-gray-500 mb-2'>{dayjs(item.createdAt).format('LL')}</p>
+                                    <p className='text-xs text-gray-500 mb-2'>{dayjs(item.createdAt).fromNow()}</p>
                                 </div>
 
                                 {/* Descripción */}
-                                <p className="text-sm text-gray-600 mb-4 flex-grow">
+                                <p className='text-sm text-gray-600 mb-4 flex-grow'>
                                     {truncateDescription(item.description, 360)}
                                 </p>
 
                                 {/* Miembros */}
-                                <div className="flex items-center mt-4 space-x-2">
-                                    <div className="flex -space-x-2 overflow-hidden">
+                                <div className='flex items-center mt-4 space-x-2'>
+                                    <div className='flex -space-x-2 overflow-hidden'>
                                         {item.members.slice(0, total_members).map((member, idx) => (
                                             <div key={idx}>
                                                 <ReactTippy
                                                     title={member.name}
-                                                    position="top-start"
-                                                    trigger="mouseenter"
+                                                    position='top-start'
+                                                    trigger='mouseenter'
                                                     animation='fade'
                                                     arrowSize='regular'
                                                     arrow={true}
@@ -144,7 +144,7 @@ const Rooms = () => {
                                                         <img
                                                             src={member.thumbnail ? `${baseURL}/${member.thumbnail}` : default_user_thumbnail}
                                                             alt={`Miembro ${idx}`}
-                                                            className="w-6 h-6 rounded-full border-2 border-white"
+                                                            className='w-6 h-6 rounded-full border-2 border-white'
                                                             loading='lazy'
                                                         />
                                                     </a>
@@ -152,21 +152,21 @@ const Rooms = () => {
                                             </div>
                                         ))}
                                         {item.members.length > total_members && (
-                                            <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-gray-700">
+                                            <div className='w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs text-gray-700'>
                                                 +{item.members.length - total_members}
                                             </div>
                                         )}
                                     </div>
-                                    <p className="text-xs text-gray-500 ml-2">
+                                    <p className='text-xs text-gray-500 ml-2'>
                                         {item.members.length} miembro{item.members.length > 1 ? 's' : ''}
                                     </p>
                                 </div>
 
                                 {/* Acción */}
-                                <div className="absolute bottom-14 right-4">
+                                <div className='absolute bottom-14 right-4'>
                                     <Link
                                         to={`/room/${item._id}`}
-                                        className="bg-gray-500 text-white px-4 py-2 rounded-lg text-xs font-medium hover:bg-gray-600 transition-colors"
+                                        className='bg-gray-500 text-white px-4 py-2 rounded-lg text-xs font-medium hover:bg-gray-600 transition-colors'
                                     >
                                         Ver sala
                                     </Link>

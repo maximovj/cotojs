@@ -8,7 +8,7 @@ const RootRoute = ({ children }) => {
 
     if (loading) return null;
 
-    return isAuthenticated ? <Navigate to="/rooms" /> : <Navigate to="/home" />;
+    return isAuthenticated ? <Navigate to='/rooms' /> : <Navigate to='/home' />;
 };
 
 export default RootRoute;

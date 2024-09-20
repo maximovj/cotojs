@@ -116,13 +116,13 @@ const ChatRoom = () => {
     }, [messages]);
 
     return (
-        <div className="flex flex-col lg:flex-row flex-grow p-4 gap-4">
+        <div className='flex flex-col lg:flex-row flex-grow p-4 gap-4'>
             <Sidebar
                 room={room}
                 iAmMember={iAmMember}
                 handleJoinMeRoom={handleJoinMeRoom}
                 handleLeaveRoom={handleLeaveRoom}
-                className="lg:order-1 order-2" // Sidebar primero en dispositivos pequeños
+                className='lg:order-1 order-2' // Sidebar primero en dispositivos pequeños
             />
             <ChatWindow
                 messages={messages}
@@ -133,7 +133,7 @@ const ChatRoom = () => {
                 handleKeyDown={(e) => e.key === 'Enter' && e.shiftKey === false && handleSendMessage(e)}
                 messagesEndRef={messagesEndRef}
                 iAmMember={iAmMember}
-                className="lg:order-2 order-1" // ChatWindow segundo en dispositivos pequeños
+                className='lg:order-2 order-1' // ChatWindow segundo en dispositivos pequeños
             />
         </div>
     );

@@ -79,10 +79,10 @@ export const AuthProvider = ({ children }) => {
     // Renderizar un mensaje de carga mientras se verifica el estado de autenticación
     if (loading) {
         return (
-            <div className="flex justify-center items-center h-screen">
-                <div className="flex flex-col justify-center items-center">
-                    <DotLoader color="#3498db" loading={true} size={40} />
-                    <p className="text-gray-500 mt-2">Cargando contenido, un momento...</p>
+            <div className='flex justify-center items-center h-screen'>
+                <div className='flex flex-col justify-center items-center'>
+                    <DotLoader color='#3498db' loading={true} size={40} />
+                    <p className='text-gray-500 mt-2'>Cargando contenido, un momento...</p>
                 </div>
             </div>
         );

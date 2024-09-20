@@ -27,29 +27,29 @@ const NavBar = () => {
     }, []);
 
     return (
-        <nav className="bg-blue-500 p-4">
-            <div className="container mx-auto flex justify-between items-center">
-                <Link to="/" className="text-white font-bold text-xl">CotoJS</Link>
-                <div className="space-x-4 flex items-center">
-                    {isAuthenticated && <p className="text-white hover:text-gray-300">{user.name}</p>}
+        <nav className='bg-blue-500 p-4'>
+            <div className='container mx-auto flex justify-between items-center'>
+                <Link to='/' className='text-white font-bold text-xl'>CotoJS</Link>
+                <div className='space-x-4 flex items-center'>
+                    {isAuthenticated && <p className='text-white hover:text-gray-300'>{user.name}</p>}
 
                     {isAuthenticated && (
-                        <div className="relative" ref={dropdownRef}>
-                            <button onClick={toggleDropdown} className="focus:outline-none">
+                        <div className='relative' ref={dropdownRef}>
+                            <button onClick={toggleDropdown} className='focus:outline-none'>
                                 <img
                                     src={user.thumbnail ? `${baseURL}/${user.thumbnail}` : default_user_thumbnail}
-                                    alt="Foto de perfil"
-                                    className="w-10 h-10 rounded-full border-2 border-white"
+                                    alt='Foto de perfil'
+                                    className='w-10 h-10 rounded-full border-2 border-white'
                                     loading='lazy'
                                 />
                             </button>
 
                             {isDropdownOpen && (
-                                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 border border-gray-300 z-50">
-                                    <Link to="/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-t-lg">Perfil</Link>
+                                <div className='absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 border border-gray-300 z-50'>
+                                    <Link to='/profile' className='block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-t-lg'>Perfil</Link>
                                     <button
                                         onClick={logout}
-                                        className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-b-lg"
+                                        className='block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-b-lg'
                                     >
                                         Cerrar sesión
                                     </button>
@@ -58,7 +58,7 @@ const NavBar = () => {
                         </div>
                     )}
 
-                    {!isAuthenticated && <Link to="/login" className="text-white hover:text-gray-300">Iniciar sesión</Link>}
+                    {!isAuthenticated && <Link to='/login' className='text-white hover:text-gray-300'>Iniciar sesión</Link>}
                 </div>
             </div>
         </nav>

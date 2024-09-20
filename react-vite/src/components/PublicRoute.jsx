@@ -7,7 +7,7 @@ const PublicRoute = ({ children }) => {
 
     if (loading) return null;
 
-    return !isAuthenticated ? children : <Navigate to="/" />;
+    return !isAuthenticated ? children : <Navigate to='/' />;
 };
 
 export default PublicRoute;
