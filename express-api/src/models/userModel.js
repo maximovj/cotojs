@@ -30,7 +30,7 @@ const user = conn.model('user', new Schema(
     },
     {
         timestamps: true,
-        capped: { size: 1048576, max: 1000 },
+        //capped: { size: 1048576, max: 1000 },
         minimize: false,
         collation: { locale: 'es', strength: 2 },
         toJSON: { virtuals: true, getters: true },

@@ -29,7 +29,7 @@ const message = conn.model('message', Schema(
     },
     {
         timestamps: true,
-        capped: { size: 5242880, max: 5000 },
+        //capped: { size: 5242880, max: 5000 },
         minimize: false,
         collation: { locale: 'es', strength: 2 },
         toJSON: { virtuals: true, getters: true },
