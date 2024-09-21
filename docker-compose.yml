@@ -1,0 +1,91 @@
+version: '3'
+
+services:
+  # Base de datos mongoDB
+  service_db:
+    image: mongo:4.4
+    container_name: cotojs-service-mongo
+    networks:
+      - my-network
+    ports:
+      - "27057:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_DATABASE: admin
+    volumes:
+      - /home/vagrant/data:/data/db
+      # create-user.js ; Se ejecutará solo si la carpeta /data/db
+      # no contenga contenido de MongoDB (es decir, si no se ha inicializado MongoDB) 
+      - /home/vagrant/workspace/data/create-user.js:/docker-entrypoint-initdb.d/create-user.js:ro
+    command: mongod --bind_ip_all --auth
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Proyecto de NodeJS + Express + MongoDB
+  service_api:
+    container_name: cotojs-service-api
+    networks:
+      - my-network
+    restart: always
+    build: 
+      context: ./express-api
+      dockerfile: express-api.Dockerfile
+    volumes:
+      - ./express-api:/app
+      - ./express-api/node_modules:/app/node_modules
+    ports:
+      - "5880:5880"
+    environment:
+      APP_PORT: 5880
+      APP_URL: "http://192.168.63.80"
+      APP_ENV: local
+      NODE_ENV: development
+      APP_MONGODB_URI: "mongodb://root:secret@service_db/db-cotojs?authSource=admin"
+      APP_SECRET_KEY: "ssh"
+      APP_CORS_1: "http://192.168.63.80:5880"
+      APP_CORS_2: "http://192.168.63.80:5173"
+      APP_CORS_3: "http://192.168.63.80:5173/api/v1"
+      APP_CLIENT_SOCKET_IO: "http://192.168.63.80:5173"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://192.168.63.80:5880"]
+      interval: 30s 
+      timeout: 10s
+      retries: 5
+    depends_on:
+      - service_db
+    command: pnpm start
+
+  # Proyecto de React + Vite
+  service_app:
+    container_name: cotojs-service-app
+    networks:
+      - my-network
+    restart: always
+    build: 
+      context: ./react-vite
+      dockerfile: react-vite.Dockerfile
+    volumes:
+      - ./react-vite:/app
+      - ./react-vite/node_modules:/app/node_modules
+    ports:
+      - "5173:3000"
+    environment:
+      VITE_API_URL: "http://192.168.63.80:5880/api/v1"
+      VITE_SOCKET_IO_DOMAIN: "http://192.168.63.80:5880"
+      VITE_SOCKET_IO_PATH: "http://192.168.63.80:5880"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://192.168.63.80:5173"]
+      interval: 30s 
+      timeout: 10s
+      retries: 5
+    depends_on:
+      - service_api
+    command: serve -s dist
+
+networks:
+  my-network:
+    driver: bridge
