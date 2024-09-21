@@ -67,7 +67,7 @@ const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
                                 style={{ fontSize: '4px' }}
                             >
                                 <img
-                                    src={member.thumbnail ? `${baseURL}/${member.thumbnail}` : default_user_thumbnail}
+                                    src={member.thumbnail ? `${routes.baseUrl}/${member.thumbnail}` : default_user_thumbnail}
                                     alt='Perfil'
                                     className='w-8 h-8 rounded-full border-2 border-white'
                                     loading='lazy'

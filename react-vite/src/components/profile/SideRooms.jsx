@@ -5,8 +5,8 @@ import { ClipLoader } from 'react-spinners';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { roomServiceMe } from '../../services/roomService.js';
 import { useDayjs } from '../../hooks/useDayjs';
+import routes from '../../routes/routes.js';
 import default_room_thumbnail from '../../assets/image.png';
-const baseURL = import.meta.env.VITE_API_URL;
 
 const SideRooms = ({ user }) => {
     const [rooms, setRooms] = useState([]);
@@ -76,7 +76,7 @@ const SideRooms = ({ user }) => {
                                 <div className='flex items-center'>
                                     <img
                                         className='w-10 h-10 rounded-full object-cover'
-                                        src={room.thumbnail ? `${baseURL}/${room.thumbnail}` : default_room_thumbnail}
+                                        src={room.thumbnail ? `${routes.baseUrl}/${room.thumbnail}` : default_room_thumbnail}
                                         alt={`${room.name}`}
                                         loading='lazy'
                                     />
@@ -87,8 +87,8 @@ const SideRooms = ({ user }) => {
                                 </div>
                                 <p className='mt-3 text-gray-700 text-sm mb-4'>{room.description}</p>
                                 <p className='flex justify-end gap-1'>
-                                    <Link className='bg-yellow-500 hover:bg-yellow-600 text-xs rounded py-1.5 px-1.5 text-white cursor-pointer transition ease-in-out' to={`/room/edit/${room.id}`}>Editar</Link>
-                                    <Link className='bg-blue-500 hover:bg-blue-600 text-xs rounded py-1.5 px-1.5 text-white cursor-pointer transition ease-in-out' to={`/room/${room.id}`}>Ver</Link>
+                                    <Link className='bg-yellow-500 hover:bg-yellow-600 text-xs rounded py-1.5 px-1.5 text-white cursor-pointer transition ease-in-out' to={`${routes.EditRoom}/${room.id}`}>Editar</Link>
+                                    <Link className='bg-blue-500 hover:bg-blue-600 text-xs rounded py-1.5 px-1.5 text-white cursor-pointer transition ease-in-out' to={`${routes.ChatRoom}/${room.id}`}>Ver</Link>
                                 </p>
                             </div>
                         </div>
