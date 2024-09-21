@@ -15,6 +15,7 @@ import EditRoom from './pages/room/EditRoom';
 import EditProfile from './pages/profile/EditProfile';
 import ActivityFeed from './pages/activity_feed/ActivityFeed';
 import InactivityHandler from './components/InactivityHandler';
+import routes from './routes/routes.js';
 
 // Modulo de notificaciones 
 import { ToastContainer } from 'react-toastify';
@@ -29,17 +30,17 @@ function App() {
         <NavBar />
         <div className='container mx-auto my-8'>
           <Routes>
-            <Route path='/' element={<RootRoute />} ></Route>
-            <Route path='/login' element={<PublicRoute><Login /></PublicRoute>} ></Route>
-            <Route path='/home' element={<PublicRoute><Home /></PublicRoute>} ></Route>
-            <Route path='/profile' element={<PrivateRoute><Profile /></PrivateRoute>} ></Route>
-            <Route path='/profile/activity_feed' element={<PrivateRoute><ActivityFeed /></PrivateRoute>} ></Route>
-            <Route path='/profile/edit' element={<PrivateRoute><EditProfile /></PrivateRoute>} ></Route>
-            <Route path='/rooms' element={<PrivateRoute><Rooms /></PrivateRoute>} ></Route>
-            <Route path='/room/create' element={<PrivateRoute><CreateRoom /></PrivateRoute>} ></Route>
-            <Route path='/room/:id' element={<PrivateRoute><ChatRoom /></PrivateRoute>} ></Route>
-            <Route path='/room/edit/:id' element={<PrivateRoute><EditRoom /></PrivateRoute>} ></Route>
-            <Route path='*' element={<Error404 />} ></Route>
+            <Route path={routes.Root} element={<RootRoute />} ></Route>
+            <Route path={routes.Login} element={<PublicRoute><Login /></PublicRoute>} ></Route>
+            <Route path={routes.Home} element={<PublicRoute><Home /></PublicRoute>} ></Route>
+            <Route path={routes.Profile} element={<PrivateRoute><Profile /></PrivateRoute>} ></Route>
+            <Route path={routes.ActivityFeed} element={<PrivateRoute><ActivityFeed /></PrivateRoute>} ></Route>
+            <Route path={routes.EditProfile} element={<PrivateRoute><EditProfile /></PrivateRoute>} ></Route>
+            <Route path={routes.Rooms} element={<PrivateRoute><Rooms /></PrivateRoute>} ></Route>
+            <Route path={routes.CreateRoom} element={<PrivateRoute><CreateRoom /></PrivateRoute>} ></Route>
+            <Route path={routes.ChatRoom + '/:id'} element={<PrivateRoute><ChatRoom /></PrivateRoute>} ></Route>
+            <Route path={routes.EditRoom + '/:id'} element={<PrivateRoute><EditRoom /></PrivateRoute>} ></Route>
+            <Route path={routes.Error404} element={<Error404 />} ></Route>
           </Routes>
         </div>
         <ToastContainer />
