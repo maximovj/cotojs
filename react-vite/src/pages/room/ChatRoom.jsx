@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useToast } from '../../hooks/useToast.jsx';
+import { useToast } from '../../hooks/useToast';
+import Sidebar from '../../components/room/Sidebar';
+import ChatWindow from '../../components/room/ChatWindow';
 import { roomServiceFind, roomServiceJoin, roomServiceLeave } from '../../services/roomService.js';
 import { messageServiceCreate, messageServiceFind } from '../../services/messageService.js';
 import socketService from '../../services/socketService.js';
-import ChatWindow from '../../components/room/ChatWindow.jsx';
-import Sidebar from '../../components/room/Sidebar.jsx';
+import routes from '../../routes/routes.js';
 
 const ChatRoom = () => {
     const [message, setMessage] = useState('');
@@ -29,7 +30,7 @@ const ChatRoom = () => {
             })
             .catch(err => {
                 showToast(err.message, 'error');
-                navigate('/');
+                navigate(routes.Root);
             });
     };
 

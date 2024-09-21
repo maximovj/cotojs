@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import errorImage from '../../assets/globo.png';
+import routes from '../../routes/routes.js';
 
 const Error404 = () => {
     return (
@@ -18,7 +19,7 @@ const Error404 = () => {
             </p>
 
             {/* Botón para volver a la página de inicio */}
-            <Link to='/' className='px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300'>
+            <Link to={routes.Root} className='px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300'>
                 Regresar al inicio
             </Link>
         </div>

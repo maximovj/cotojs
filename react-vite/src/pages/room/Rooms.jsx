@@ -6,9 +6,9 @@ import { Tooltip as ReactTippy } from 'react-tippy';
 import { useDayjs } from '../../hooks/useDayjs.jsx';
 import { roomServiceAll } from '../../services/roomService.js';
 import socketService from '../../services/socketService.js';
+import routes from '../../routes/routes.js';
 import default_cover from '../../assets/default_cover.png';
 import default_user_thumbnail from '../../assets/account.png';
-const baseURL = import.meta.env.VITE_API_URL;
 const total_members = 15;
 
 const Rooms = () => {
@@ -91,7 +91,7 @@ const Rooms = () => {
                             {/* Imagen de portada con borde asimétrico */}
                             <div className='relative w-full h-52 overflow-hidden'>
                                 <img
-                                    src={item.cover ? `${baseURL}/${item.cover}` : default_cover}
+                                    src={item.cover ? `${routes.baseUrl}/${item.cover}` : default_cover}
                                     alt='Cover'
                                     className='absolute top-0 left-0 w-full h-full object-cover'
                                     loading='lazy'
@@ -104,7 +104,7 @@ const Rooms = () => {
                                 {/* Fila de encabezado con la foto del creador */}
                                 <div className='flex items-center mb-2'>
                                     <img
-                                        src={item.created_by.thumbnail ? `${baseURL}/${item.created_by.thumbnail}` : default_user_thumbnail}
+                                        src={item.created_by.thumbnail ? `${routes.baseUrl}/${item.created_by.thumbnail}` : default_user_thumbnail}
                                         alt='Perfil del creador'
                                         className='w-8 h-8 rounded-full object-cover border-2 border-white'
                                         loading='lazy'
@@ -142,7 +142,7 @@ const Rooms = () => {
                                                 >
                                                     <a data-tooltip-id={`${item._id}-${index}-${member.id}-${idx}`}>
                                                         <img
-                                                            src={member.thumbnail ? `${baseURL}/${member.thumbnail}` : default_user_thumbnail}
+                                                            src={member.thumbnail ? `${routes.baseUrl}/${member.thumbnail}` : default_user_thumbnail}
                                                             alt={`Miembro ${idx}`}
                                                             className='w-6 h-6 rounded-full border-2 border-white'
                                                             loading='lazy'
@@ -165,7 +165,7 @@ const Rooms = () => {
                                 {/* Acción */}
                                 <div className='absolute bottom-14 right-4'>
                                     <Link
-                                        to={`/room/${item._id}`}
+                                        to={`${routes.ChatRoom}/${item._id}`}
                                         className='bg-gray-500 text-white px-4 py-2 rounded-lg text-xs font-medium hover:bg-gray-600 transition-colors'
                                     >
                                         Ver sala

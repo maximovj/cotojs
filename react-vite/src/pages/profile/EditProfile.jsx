@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useDayjs } from '../../hooks/useDayjs';
@@ -5,9 +6,8 @@ import { useToast } from '../../hooks/useToast';
 import { useSweetAlert } from '../../hooks/useSweetAlert';
 import { userServiceUpdate, userServiceDelete } from '../../services/userService.js';
 import { staticServiceChangePicture } from '../../services/staticService.js';
+import routes from '../../routes/routes.js';
 import default_picture from '../../assets/account.png';
-import { useEffect, useState } from 'react';
-const baseURL = import.meta.env.VITE_API_URL;
 
 // Página para editar o modificar información del usuario
 const EditProfile = () => {
@@ -115,7 +115,7 @@ const EditProfile = () => {
         <div className='max-w-3xl mx-auto p-4 bg-gray-100 rounded-lg shadow-md'>
             {/* Encabezado */}
             <div className='flex items-center justify-between border-b border-gray-300 pb-4 mb-6'>
-                <Link to={`/profile`} className='text-blue-600 hover:underline flex items-center text-sm'>
+                <Link to={`${routes.Profile}`} className='text-blue-600 hover:underline flex items-center text-sm'>
                     <svg className='w-4 h-4 mr-2' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
                         <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M15 19l-7-7 7-7' />
                     </svg>
@@ -128,7 +128,7 @@ const EditProfile = () => {
             <div className='flex justify-center mb-6'>
                 <div className='relative'>
                     <img
-                        src={preview || `${baseURL}/${user.picture}` || default_picture}
+                        src={preview || `${routes.baseUrl}/${user.picture}` || default_picture}
                         alt='Profile'
                         className='w-40 h-40 object-cover rounded-full border-4 border-white shadow-lg'
                         loading='lazy'
