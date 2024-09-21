@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useSweetAlert } from '../../hooks/useSweetAlert';
 import { useToast } from '../../hooks/useToast';
 import { useAuth } from '../../hooks/useAuth';
+import routes from '../../routes/routes.js';
 import '../../bubbles.css';
 import default_picture_user from '../../assets/usuario_256.png';
 
@@ -99,7 +101,7 @@ const Login = () => {
                     </form>
 
                     <p className='text-xs text-gray-400 mt-8'>
-                        ¿No tienes una cuenta? <a href='/' className='text-blue-600 underline'>Regístrate aquí</a>.
+                        ¿No tienes una cuenta? <Link to={routes.Home} className='text-blue-600 underline'>Regístrate aquí</Link>.
                     </p>
                 </div>
             </div>

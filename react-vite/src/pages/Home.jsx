@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useSweetAlert } from '../hooks/useSweetAlert';
 import { useToast } from '../hooks/useToast';
 import { useAuth } from '../hooks/useAuth';
 import { authServiceRegister } from '../services/authService.js';
+import routes from '../routes/routes.js';
 import '../bubbles.css';
 
 const Home = () => {
@@ -133,7 +135,7 @@ const Home = () => {
                         </button>
                     </form>
                     <p className='text-xs text-gray-400 mt-8'>
-                        ¿Ya tienes una cuenta? <a href='/login' className='text-blue-600 underline'>Inicia sesión aquí</a>.
+                        ¿Ya tienes una cuenta? <Link to={routes.Login} className='text-blue-600 underline'>Inicia sesión aquí</Link>.
                     </p>
                 </div>
             </div>
