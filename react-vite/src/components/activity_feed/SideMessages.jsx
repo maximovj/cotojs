@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { messageServiceMine, messageServiceDelete } from '../../services/messageService.js';
 import { useDayjs } from '../../hooks/useDayjs';
-import { useToast } from '../../hooks/useToast.jsx';
+import { useToast } from '../../hooks/useToast';
+import { messageServiceMine, messageServiceDelete } from '../../services/messageService.js';
+import routes from '../../routes/routes.js';
 import default_room_thumbnail from '../../assets/image.png';
-const baseURL = import.meta.env.VITE_API_URL;
 
 const SideMessages = ({ user }) => {
     const [messages, setMessages] = useState([]);
@@ -60,7 +60,7 @@ const SideMessages = ({ user }) => {
                 {/* Cabecera de mensajes */}
                 <div className='flex justify-between items-center mb-4'>
                     <h2 className='text-lg font-bold text-gray-800'>Mensajes recientes ({totalMessages})</h2>
-                    <Link to='/room/create' className='bg-blue-500 text-white text-sm py-1.5 px-4 rounded-full hover:bg-blue-600 transition ease-in-out'>
+                    <Link to={routes.CreateRoom} className='bg-blue-500 text-white text-sm py-1.5 px-4 rounded-full hover:bg-blue-600 transition ease-in-out'>
                         Nueva sala
                     </Link>
                 </div>
@@ -88,7 +88,7 @@ const SideMessages = ({ user }) => {
                                 <div className='flex items-center'>
                                     <img
                                         className='w-10 h-10 rounded-full object-cover'
-                                        src={message.room.thumbnail ? `${baseURL}/${message.room.thumbnail}` : default_room_thumbnail}
+                                        src={message.room.thumbnail ? `${routes.baseUrl}/${message.room.thumbnail}` : default_room_thumbnail}
                                         alt='User avatar'
                                         loading='lazy'
                                     />

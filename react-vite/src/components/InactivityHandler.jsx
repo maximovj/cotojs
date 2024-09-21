@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useSweetAlert } from '../hooks/useSweetAlert';
+import routes from '../routes/routes.js';
 
 const InactivityHandler = () => {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ const InactivityHandler = () => {
                     html: 'Sesión expirada por inactividad',
                     showConfirmButton: true,
                 });
-                navigate('/login');
+                navigate(routes.Login);
             }, 15 * 60 * 1000); // 15 minutos en milisegundos
         };
 

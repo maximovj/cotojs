@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Tooltip as ReactTippy } from 'react-tippy';
+import routes from '../../routes/routes.js';
 import default_cover from '../../assets/default_cover.png';
 import default_user_thumbnail from '../../assets/account.png';
-const baseURL = import.meta.env.VITE_API_URL;
 const members_length = 50;
 
 // Componente para la barra lateral
@@ -11,7 +11,7 @@ const Sidebar = ({ room, iAmMember, handleJoinMeRoom, handleLeaveRoom }) => (
         {/* Imagen de portada */}
         <div className='w-full mb-4 hidden sm:block'>
             <img
-                src={room.cover ? `${baseURL}/${room.cover}` : default_cover}
+                src={room.cover ? `${routes.baseUrl}/${room.cover}` : default_cover}
                 alt='Portada de la sala'
                 className='w-full h-48 object-cover rounded-lg border border-gray-300'
                 loading='lazy'

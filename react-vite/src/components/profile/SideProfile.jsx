@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom';
 import { useDayjs } from '../../hooks/useDayjs';
+import routes from '../../routes/routes.js';
 import userProfile from '../../assets/150.png';
-const baseURL = import.meta.env.VITE_API_URL;
 
 const SideProfile = ({ user }) => {
     const dayjs = useDayjs();
@@ -13,7 +13,7 @@ const SideProfile = ({ user }) => {
             <div className='flex justify-center mb-4'>
                 <img
                     className='w-28 h-28 rounded-full border-4 border-gray-200 object-cover shadow-md'
-                    src={user.picture ? `${baseURL}/${user.picture}` : userProfile}
+                    src={user.picture ? `${routes.baseUrl}/${user.picture}` : userProfile}
                     alt='Profile'
                     loading='lazy'
                 />
@@ -28,17 +28,17 @@ const SideProfile = ({ user }) => {
             {/* Botones de acción */}
             <div className='mt-4 flex lg:flex-col justify-center gap-2'>
                 <Link
-                    to={`/profile/edit`}
+                    to={`${routes.EditProfile}`}
                     className='bg-gray-200 text-gray-800 text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-gray-300 transition ease-in-out'>
                     Editar perfil
                 </Link>
                 <Link
-                    to={`/profile`}
+                    to={`${routes.Profile}`}
                     className='bg-gray-200 text-gray-800 text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-gray-300 transition ease-in-out'>
                     Mis salas
                 </Link>
                 <Link
-                    to={`/profile/activity_feed`}
+                    to={`${routes.ActivityFeed}`}
                     className='bg-gray-200 text-gray-800 text-sm font-medium py-1.5 px-4 rounded-lg hover:bg-gray-300 transition ease-in-out'>
                     Mis mensajes
                 </Link>

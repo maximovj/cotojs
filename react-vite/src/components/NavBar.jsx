@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useState, useRef, useEffect } from 'react';
 import default_user_thumbnail from '../assets/account.png';
-const baseURL = import.meta.env.VITE_API_URL;
+import routes from '../routes/routes.js';
 
 const NavBar = () => {
     const { isAuthenticated, logout, user } = useAuth();
@@ -29,7 +29,7 @@ const NavBar = () => {
     return (
         <nav className='bg-blue-500 p-4'>
             <div className='container mx-auto flex justify-between items-center'>
-                <Link to='/' className='text-white font-bold text-xl'>CotoJS</Link>
+                <Link to={routes.Root} className='text-white font-bold text-xl'>CotoJS</Link>
                 <div className='space-x-4 flex items-center'>
                     {isAuthenticated && <p className='text-white hover:text-gray-300'>{user.name}</p>}
 
@@ -37,7 +37,7 @@ const NavBar = () => {
                         <div className='relative' ref={dropdownRef}>
                             <button onClick={toggleDropdown} className='focus:outline-none'>
                                 <img
-                                    src={user.thumbnail ? `${baseURL}/${user.thumbnail}` : default_user_thumbnail}
+                                    src={user.thumbnail ? `${routes.baseUrl}/${user.thumbnail}` : default_user_thumbnail}
                                     alt='Foto de perfil'
                                     className='w-10 h-10 rounded-full border-2 border-white'
                                     loading='lazy'
@@ -46,7 +46,7 @@ const NavBar = () => {
 
                             {isDropdownOpen && (
                                 <div className='absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 border border-gray-300 z-50'>
-                                    <Link to='/profile' className='block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-t-lg'>Perfil</Link>
+                                    <Link to={routes.Profile} className='block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-t-lg'>Perfil</Link>
                                     <button
                                         onClick={logout}
                                         className='block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-b-lg'
@@ -58,7 +58,7 @@ const NavBar = () => {
                         </div>
                     )}
 
-                    {!isAuthenticated && <Link to='/login' className='text-white hover:text-gray-300'>Iniciar sesión</Link>}
+                    {!isAuthenticated && <Link to={routes.Login} className='text-white hover:text-gray-300'>Iniciar sesión</Link>}
                 </div>
             </div>
         </nav>
