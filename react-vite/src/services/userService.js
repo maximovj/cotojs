@@ -1,8 +1,8 @@
 import axios from 'axios';
-const baseURL = import.meta.env.VITE_API_URL;
+import routes from '../routes/routes.js';
 
 const userService = axios.create({
-    baseURL: `${baseURL}/user`,
+    baseURL: `${routes.baseUrl}/user`,
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

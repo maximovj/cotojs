@@ -1,9 +1,8 @@
 import { io } from "socket.io-client";
-const domain = import.meta.env.VITE_SOCKET_IO_DOMAIN;
-const path = import.meta.env.VITE_SOCKET_IO_PATH;
+import routes from '../routes/routes.js';
 
-const socketService = io(`${domain}`, {
-    path: `${path}`,
+const socketService = io(`${routes.socketIoDomain}`, {
+    path: `${routes.socketIoPath}`,
     transports: ['websocket'],
     withCredentials: true,
 });

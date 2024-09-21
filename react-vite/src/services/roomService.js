@@ -1,8 +1,8 @@
 import axios from "axios";
-const baseURL = import.meta.env.VITE_API_URL;
+import routes from '../routes/routes.js';
 
 const roomService = axios.create({
-    baseURL: `${baseURL}/room`,
+    baseURL: `${routes.baseUrl}/room`,
     headers: {
         "Content-Type": 'application/json',
         "Accept": 'application/json',
@@ -18,7 +18,7 @@ roomService.interceptors.response.use(
     error => {
         if (error.response && error.response.status === 401) {
             // Redirige al usuario a la página de inicio de sesión
-            window.location.href = '/login';
+            window.location.href = routes.Login;
         }
         return Promise.reject(error);
     }

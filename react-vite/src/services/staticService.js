@@ -1,9 +1,9 @@
 import axios from "axios";
-const baseURL = import.meta.env.VITE_API_URL;
+import routes from '../routes/routes.js';
 import defaultCover from '../assets/150.png';
 
 const staticService = axios.create({
-    baseURL: `${baseURL}/static`,
+    baseURL: `${routes.baseUrl}/static`,
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
