@@ -4,6 +4,23 @@ Este repositorio es un proyecto de red social de sala (grupo de conversaciones) 
 
 Desarrollado con una arquitectura "BackEnd y FrontEnd desacoplado", se usó para el lado FrontEnd: ReactJS + Axios + Tailwind CSS, y se usó para el lado BackEnd: Express + Mongoose + Socket.io + JWT + CORS + Multer + etc
 
+Conjunto de tecnologías y características para este aplicación web:
+
+- Proyecto con infraestructura virtualizada o proyecto Vagrantizado.
+- Proyecto dockerizado.
+- Proyecto de RectJS + Axios (FrontEnd).
+- Proyecto de NodeJS + Express + Moongose (BackEnd).
+- Base de datos usando MongoDB
+- Mapeador de Documentos a Objetos (ODM con Mongoose).
+- Notificaciones de sistema (con Toastify y SweetAlert2).
+- CRUD para user (crear, leer, eliminar, actualizar).
+- Sistema de Login (con express-session).
+- Encriptación de contraseña (con bicrytjs).
+- CORS solo origines permitidos (con cors).
+- Chat en tiempo real (con socket.io)
+- Sistema de token usando JSON Web Token (con jsonwebtoken)
+- Sistema de inactividad de 30 minutos (en FrontEnd y BackEnd).
+
 # Requisitos
 
 * Mongo v7.0.14 o mongo:4.4 (docker)
