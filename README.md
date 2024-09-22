@@ -69,7 +69,7 @@ VITE_SOCKET_IO_PATH=/api/v1/socket.io
 
 * __Paso 1)__
 
-Instalar las dependencias.
+Ejecuta el siguiente comando desde el directorio `/express-api` para  instalar las dependencias.
 
 ```shell
 $ pnpm install
@@ -77,7 +77,7 @@ $ pnpm install
 
 * __Paso 2)__
 
-Correr el servicio API RestFul
+Ejecuta el siguiente comando desde el directorio `/express-api` para correr el servicio API RestFul.
 
 ```shell
 $ pnpm run dev
@@ -85,7 +85,7 @@ $ pnpm run dev
 
 * __Paso 3)__
 
-Instalar las dependencias.
+Ejecuta el siguiente comando desde el directorio `/react-vite` para instalar las dependencias.
 
 ```shell
 $ pnpm install
@@ -93,7 +93,8 @@ $ pnpm install
 
 * __Paso 4)__
 
-Correr el servicio React + Vite
+
+Ejecuta el siguiente comando desde el directorio `/react-vite` para correr el servicio React + Vite.
 
 ```shell
 $ pnpm run dev
