@@ -174,3 +174,4 @@ $ docker-compose down
 ![preview04.jpg](/screenshots/preview04.jpg)
 ![preview05.jpg](/screenshots/preview05.jpg)
 ![preview06.jpg](/screenshots/preview06.jpg)
+![preview07.jpg](/screenshots/preview07.jpg)
