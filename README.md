@@ -165,3 +165,12 @@ Ejecuta el siguiente comando desde el directorio raíz `/`, para eliminar servic
 ```shell
 $ docker-compose down
 ```
+
+# Previews
+
+![preview01.jpg](/screenshots/preview01.jpg)
+![preview02.jpg](/screenshots/preview02.jpg)
+![preview03.jpg](/screenshots/preview03.jpg)
+![preview04.jpg](/screenshots/preview04.jpg)
+![preview05.jpg](/screenshots/preview05.jpg)
+![preview06.jpg](/screenshots/preview06.jpg)
