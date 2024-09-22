@@ -14,18 +14,18 @@
   "packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1",
   "dependencies": {
     "bcryptjs": "2.4.3",
-    "cookie-parser": "^1.4.6",
+    "cookie-parser": "1.4.6",
     "cors": "2.8.5",
     "dotenv": "16.4.5",
     "express": "4.19.2",
-    "express-session": "^1.18.0",
+    "express-session": "1.18.0",
     "http": "0.0.1-security",
     "jsonwebtoken": "9.0.2",
-    "mongoose": "^8.6.1",
+    "mongoose": "8.6.1",
     "morgan": "1.10.0",
     "multer": "1.4.5-lts.1",
-    "sharp": "^0.33.5",
-    "socket.io": "^4.7.5"
+    "sharp": "0.33.5",
+    "socket.io": "4.7.5"
   },
   "devDependencies": {
     "nodemon": "3.1.4"
