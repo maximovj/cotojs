@@ -32,7 +32,7 @@ Las variables de entorno en este caso sería lo siguiente:
 
 ### Archivo `.env` para BackEnd
 
-```toml
+```text
 # Ambiente de desarrollo
 APP_PORT=5880
 APP_URL=http://192.168.63.80
@@ -56,7 +56,7 @@ APP_CLIENT_SOCKET_IO=http://192.168.63.80:5173
 
 ### Archivo `.env` para FrontEnd
  
-```toml
+```text
 # API Express
 VITE_API_URL=http://192.168.63.80:5880/api/v1
 
