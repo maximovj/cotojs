@@ -30,7 +30,7 @@ const Home = () => {
         {
             showSweetAlert({
                 icon: 'info',
-                title: 'Registarse',
+                title: 'Registrarse',
                 html: 'Todos los campos son obligatorios.',
                 showConfirmButton: true, 
             });
@@ -52,14 +52,14 @@ const Home = () => {
             if(!err.response?.data?.success){
                 showSweetAlert({
                     icon: 'error',
-                    title: 'Registarse',
+                    title: 'Registrarse',
                     html: err.response?.data?.ctx_content,
                     showConfirmButton: true, 
                 });
             }else {
                 showSweetAlert({
                     icon: 'error',
-                    title: 'Registarse',
+                    title: 'Registrarse',
                     html: err.message,
                     showConfirmButton: true, 
                 });

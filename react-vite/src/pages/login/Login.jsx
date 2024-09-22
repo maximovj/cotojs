@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSweetAlert } from '../../hooks/useSweetAlert';
 import { useToast } from '../../hooks/useToast';
 import { useAuth } from '../../hooks/useAuth';
+import { authServiceSignIn } from '../../services/authService.js';
 import routes from '../../routes/routes.js';
 import '../../bubbles.css';
 import default_picture_user from '../../assets/usuario_256.png';
@@ -13,6 +14,7 @@ const Login = () => {
     const { login } = useAuth();
     const { showSweetAlert } = useSweetAlert();
     const showToast = useToast();
+    const navigate = useNavigate();
 
     const handleInput = (e) => {
         const name = e.target.name;
@@ -39,9 +41,32 @@ const Login = () => {
             return;
         }
 
-        setEmail('');
-        setPassword('');
-        login({ email, password });
+        
+        authServiceSignIn({email, password})
+        .then((res) => {
+            if(res.data?.success){
+                setEmail('');
+                setPassword('');
+                setTimeout(() => { login({email, password}); }, 1000);
+            }
+        }).catch((err) => {
+            if(!err.response?.data?.success){
+                showSweetAlert({
+                    icon: 'error',
+                    title: 'Iniciar sesión',
+                    html: err.response?.data?.ctx_content,
+                    showConfirmButton: true, 
+                });
+            }else {
+                showSweetAlert({
+                    icon: 'error',
+                    title: 'Iniciar sesión',
+                    html: err.message,
+                    showConfirmButton: true, 
+                });
+            }
+        });
+
     }
 
 
