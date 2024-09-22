@@ -13,7 +13,9 @@ Conjunto de tecnologías y características para este aplicación web:
 - Base de datos usando MongoDB
 - Mapeador de Documentos a Objetos (ODM con Mongoose).
 - Notificaciones de sistema (con Toastify y SweetAlert2).
-- CRUD para user (crear, leer, eliminar, actualizar).
+- CRUD para usuarios (crear, leer, eliminar, actualizar).
+- CRUD para salas (crear, leer, eliminar, actualizar).
+- CRUD para mensajes (crear, leer, eliminar, actualizar).
 - Sistema de Login (con express-session).
 - Encriptación de contraseña (con bicrytjs).
 - CORS solo origines permitidos (con cors).
